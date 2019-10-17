@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="囍">
+<meta property="og:url" content="http://twohappy.me/index.html">
+<meta property="og:site_name" content="囍">
+<meta property="og:locale" content="zh">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="囍">
+  <link rel="canonical" href="http://twohappy.me/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>囍</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">囍</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">兽人永不为奴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <div id="posts" class="posts-expand">
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/10/17/electron-updater-wont-trigger-download-events/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/10/17/electron-updater-wont-trigger-download-events/" class="post-title-link" itemprop="url">electron-updater 检测到新版本后，不会触发下载事件</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-17 09:32:50 / Modified: 09:43:26" itemprop="dateCreated datePublished" datetime="2019-10-17T09:32:50+08:00">2019-10-17</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>公司 Electron 项目因为 custom 了自动升级之后的动作，所以需要获取 autoUpdater 的下载进度事件，来确定下载完成。</p>
+<p>最近总是有个莫名其妙的问题，在测试环境下，偶尔会正常弹出应该弹出来的对话框，其他时候不管怎么样都不会触发下载事件。但手动重启应用，版本又确实升级了。。</p>
+<p>搞了一晚上的结果：</p>
+<ul>
+<li>electron-updater 的下载缓存位于 <code>~/Library/Application Support/Caches/你的应用-updater/</code> 下面</li>
+<li>当已从低版本向某个特定的高版本升级过，缓存中存在这个版本的升级包（macOS 默认为 <code>zip</code>），下一次再次向这个版本升级时候，就不会再次进行下载</li>
+<li><code>download-progress</code> 不会触发</li>
+<li>似乎 <code>update-downloaded</code> 会触发，待验证</li>
+</ul>
+<p>临时的 workaround 就是删一波缓存就行了</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/10/09/promise-related/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/10/09/promise-related/" class="post-title-link" itemprop="url">promise 相关复习</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-09 18:01:23 / Modified: 18:01:46" itemprop="dateCreated datePublished" datetime="2019-10-09T18:01:23+08:00">2019-10-09</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="https://promisesaplus.com/" target="_blank" rel="noopener">Promise/A+ 规范</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/09/30/notes-about-selling-2nd-hand-pc-parts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/30/notes-about-selling-2nd-hand-pc-parts/" class="post-title-link" itemprop="url">出二手配件注意事项</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-30 04:29:08 / Modified: 04:30:28" itemprop="dateCreated datePublished" datetime="2019-09-30T04:29:08+08:00">2019-09-30</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>过气顶配不如🐶。准备把机器拆散出了。</p>
+<p>一下搜索一波注意事项：</p>
+<h3 id="显卡"><a href="#显卡" class="headerlink" title="显卡"></a>显卡</h3><p>让他拍上机点亮视频 以及GPU-z的截图<br>收货的时候，拍一个开箱视频。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/09/27/react-native-target-sdk-version-28/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/27/react-native-target-sdk-version-28/" class="post-title-link" itemprop="url">google play 要求 targetSdkVersion >= 28</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-27 11:03:49" itemprop="dateCreated datePublished" datetime="2019-09-27T11:03:49+08:00">2019-09-27</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-09-28 01:08:19" itemprop="dateModified" datetime="2019-09-28T01:08:19+08:00">2019-09-28</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近给项目升级sdk版本：</p>
+<p>compileSdkVersion：26 -&gt; 28</p>
+<p>targetSdkVersion：23 -&gt; 28</p>
+<p>buildToolsVersion：”25.0.2” -&gt; “28.0.3”</p>
+<p>support包：”24.2.1” -&gt; “28.0.0”</p>
+<p>遇到一些问题，在此记录一下解决办法：</p>
+<p>一、编译报错：junit.framework.Assert不存在<br>项目中有个地方用到了Assert类（使用Assert.assertTrue()），原本的导包是：</p>
+<p>import junit.framework.Assert;<br>但编译时报错：junit.framework.Assert不存在。</p>
+<p>原因：Assert类在新版本中从junit.framework中移除，移到org.junit中。</p>
+<p>解决办法：</p>
+<p>(1)、找到Androidstudio目录，将.\gradle\gradle-4.4\lib\plugins目录下的junit-4.12jar，拷贝到工程app目录下的libs文件夹中，并引入，即在build.gradle中添加一行：compile files(“libs/junit-4.12.jar”)，如：</p>
+<p>dependencies {<br>    …<br>    compile files(‘libs/junit-4.12.jar’)<br>}<br>(2)、将导包 import junit.framework.Assert 替换为 org.junit.Assert;</p>
+<p>二、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">FAILURE: Build failed with an exception.</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">Execution failed for task &apos;:app:lintVitalRelease&apos;.</span><br><span class="line">&gt; Could not resolve all files for configuration &apos;:app:lintClassPath&apos;.</span><br><span class="line">   &gt; Could not resolve org.jvnet.staxex:stax-ex:1.7.7.</span><br><span class="line">     Required by:</span><br><span class="line">         project :app &gt; com.android.tools.lint:lint-gradle:26.2.1 &gt; com.android.tools:sdk-common:26.2.1 &gt; com.android.tools:sdklib:26.2.1 &gt; com.android.tools:repository:26.2.1 &gt; org.glassfish.jaxb:jaxb-runtime:2.2.11</span><br><span class="line">      &gt; Could not resolve org.jvnet.staxex:stax-ex:1.7.7.</span><br><span class="line">         &gt; Could not get resource &apos;https://jitpack.io/org/jvnet/staxex/stax-ex/1.7.7/stax-ex-1.7.7.jar&apos;.</span><br><span class="line">            &gt; Could not HEAD &apos;https://jitpack.io/org/jvnet/staxex/stax-ex/1.7.7/stax-ex-1.7.7.jar&apos;. Received status code 522 from server: Origin Connection Time-out</span><br><span class="line">   &gt; Could not resolve com.sun.xml.fastinfoset:FastInfoset:1.2.13.</span><br><span class="line">     Required by:</span><br><span class="line">         project :app &gt; com.android.tools.lint:lint-gradle:26.2.1 &gt; com.android.tools:sdk-common:26.2.1 &gt; com.android.tools:sdklib:26.2.1 &gt; com.android.tools:repository:26.2.1 &gt; org.glassfish.jaxb:jaxb-runtime:2.2.11</span><br><span class="line">      &gt; Could not resolve com.sun.xml.fastinfoset:FastInfoset:1.2.13.</span><br><span class="line">         &gt; Could not get resource &apos;https://jitpack.io/com/sun/xml/fastinfoset/FastInfoset/1.2.13/FastInfoset-1.2.13.jar&apos;.</span><br><span class="line">            &gt; Could not HEAD &apos;https://jitpack.io/com/sun/xml/fastinfoset/FastInfoset/1.2.13/FastInfoset-1.2.13.jar&apos;. Received status code 522 from server: Origin Connection Time-out</span><br></pre></td></tr></table></figure>
+
+<p>解决方式：<a href="https://github.com/jitpack/jitpack.io/issues/3973#issuecomment-531199645" target="_blank" rel="noopener">issue</a></p>
+<p>加上 <code>www</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maven &#123; url &quot;https://www.jitpack.io&quot; &#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>项目内签名（命令行打包需要）<br><a href="https://github.com/facebook/react-native/issues/16854" target="_blank" rel="noopener">https://github.com/facebook/react-native/issues/16854</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/09/24/unicorn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/24/unicorn/" class="post-title-link" itemprop="url">犀牛书</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-24 00:31:18 / Modified: 02:31:53" itemprop="dateCreated datePublished" datetime="2019-09-24T00:31:18+08:00">2019-09-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="词法"><a href="#词法" class="headerlink" title="词法"></a>词法</h1><p>不加分号的例外：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span></span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>和</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a</span><br><span class="line">++</span><br><span class="line">b</span><br></pre></td></tr></table></figure>
+
+<h1 id="类型、值、变量"><a href="#类型、值、变量" class="headerlink" title="类型、值、变量"></a>类型、值、变量</h1><blockquote>
+<p>函数都是真值，可以将它们当作普通对象来对待。</p>
+</blockquote>
+<p>构造函数，用来（使用 new 运算符）初始化一个新建的对象。</p>
+<p>类可以看做对象类型的子类型。</p>
+<p>Array、Function、Date、RegExp 和 Error 是 JS 核心定义的类。</p>
+<p>GC 自动垃圾回收：当不再有任何引用指向一个对象，就会回收它所占用的内存资源。</p>
+<h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>JS 中的数字全部是浮点数值表示<br>（0.1 + 0.2 !== 0.3）</p>
+<h3 id="整型直接量"><a href="#整型直接量" class="headerlink" title="整型直接量"></a>整型直接量</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0xff</span>      <span class="comment">// 16进制，255</span></span><br><span class="line"><span class="number">0XFABCD</span></span><br><span class="line"><span class="number">0377</span>      <span class="comment">// 8进制，255</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="浮点型直接量"><a href="#浮点型直接量" class="headerlink" title="浮点型直接量"></a>浮点型直接量</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.14</span></span><br><span class="line"><span class="number">6.1e23</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="算数运算"><a href="#算数运算" class="headerlink" title="算数运算"></a>算数运算</h3><p><code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>、<code>%</code></p>
+<p><code>Math</code> 对象</p>
+<p><code>NaN</code> </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>/<span class="number">0</span></span><br><span class="line"><span class="literal">Infinity</span> / <span class="literal">Infinity</span></span><br><span class="line"><span class="built_in">Math</span>.sqrt(<span class="number">-1</span>)</span><br><span class="line"><span class="number">1</span> * &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="日期和时间"><a href="#日期和时间" class="headerlink" title="日期和时间"></a>日期和时间</h3><p><code>Date()</code></p>
+<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><h3 id="字符串字面量"><a href="#字符串字面量" class="headerlink" title="字符串字面量"></a>字符串字面量</h3><p><code>\n</code> 字符串显示时候换行</p>
+<p> <code>\</code> ES5</p>
+<h3 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h3><p>常用的也就 <code>\n</code></p>
+<h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><h3 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h3><h2 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h2><h2 id="null-和-undefined"><a href="#null-和-undefined" class="headerlink" title="null 和 undefined"></a>null 和 undefined</h2><p>null 是关键字，表示特殊值。（程序级傻逼）</p>
+<p>undefined 是预定义的全局变量。（系统级傻逼）</p>
+<h2 id="全局对象"><a href="#全局对象" class="headerlink" title="全局对象"></a>全局对象</h2><h2 id="包装对象"><a href="#包装对象" class="headerlink" title="包装对象"></a>包装对象</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'111'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="不可变的原始值和可变的对象引用"><a href="#不可变的原始值和可变的对象引用" class="headerlink" title="不可变的原始值和可变的对象引用"></a>不可变的原始值和可变的对象引用</h2><h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p>这个面试前看吧</p>
+<h3 id="转换与相等性"><a href="#转换与相等性" class="headerlink" title="转换与相等性"></a>转换与相等性</h3><h3 id="显示类型转换"><a href="#显示类型转换" class="headerlink" title="显示类型转换"></a>显示类型转换</h3><h3 id="对象转换为原始值"><a href="#对象转换为原始值" class="headerlink" title="对象转换为原始值"></a>对象转换为原始值</h3><p>两个方法：</p>
+<p><code>toString()</code> 和 <code>valueOf()</code></p>
+<p>ES6: [symbol.toPrimitive] ???</p>
+<p>###</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/09/23/sense-of-ceremonial-and-self-control/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/23/sense-of-ceremonial-and-self-control/" class="post-title-link" itemprop="url">「转」仪式感可以增强你的自控力</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-23 16:49:12 / Modified: 16:51:09" itemprop="dateCreated datePublished" datetime="2019-09-23T16:49:12+08:00">2019-09-23</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>仪式感可以增强你的自控力</p>
+<p>转自<a href="https://weibo.com/2124970203/I8ha2uLm8?ref=home&rid=6_0_8_4726439744965665536_0_0_0" target="_blank" rel="noopener">炫酷脑科学</a>的微博</p>
+<p>缺少自我控制似乎导致了我们生活中许多常见的问题，比如放纵自己的食欲，把握不好自己的消费，无法坚持健身等等。为了拒绝眼前的快乐，追求更长远的价值，我们需要有自我控制的能力。</p>
+<p>关于自我控制的难题已经困惑了心理学家和行为科学家几十年了。大量的研究已经确定了自我控制在哪些情况下更容易失败，研究人员也发现了许多能够加强自我控制的方法。</p>
+<p>例如，一项研究发现人们在做有金钱补偿，或是对他人有益的任务（如帮助科学家寻找老年痴呆的治疗方法）的时候能更好地控制自己，从而在任务上坚持更长的时间。金钱和意义这些动机能在一定程度上提高我们的自我控制能力。</p>
+<p>自我控制的难题也创造了许多生意机会，不少饮食方案和运动 app 都应运而生。stickK.com 就是一个很好的例子。用户可以在这个网站上存入一定量的钱（比如说 200 美元），并制定一个想要达成的目标（如在一个月内减掉 10 磅）。同时，他们还需要事先确定如果自己最终没有实现目标，要怎么处置存入网站的钱（给朋友或者作为慈善捐款）。没有达成目标，他们自然就不能把钱拿回来了。</p>
+<p>像 stickK.com 这样的方法似乎是有效的，但这些方法执行起来却不容易：你需要有人来监督自己。</p>
+<p>我和同事们开展的一项新研究发现了一种更容易执行的方法：仪式。</p>
+<p>仪式指的是包含某种特殊意义的行为。许多运动员都有他们自己的仪式，他们可能会在一场比赛前，按照一种特定的顺序吃相同的食物，或是听几遍某个特定的歌单。</p>
+<p>仪式在生活的许多方面中都扮演着重要角色，有些人有煮咖啡的仪式，有些人有庆祝婚礼、毕业典礼等人生大事的仪式。虽然仪式看起来并没有什么实质性的作用，但研究表明它们确实是有效的。</p>
+<p>在我和同事之前开展的研究中，我们发现仪式可以帮助被试在开始有压力的任务前减少焦虑感，并提升他们在执行任务中的表现。</p>
+<p>仪式还能让我们更好地享受和家人在一起的时光，更好地应对生活中的失败，例如爱人的离去，或是买彩票没中等等。</p>
+<p>在发现了仪式这么多的效用以后，我们决定来看看仪式能不能帮助我们拒绝眼前的诱惑。</p>
+<p>我们在一项研究中检验了仪式是否能够帮助人更好地节食。我去到一所大学的健身馆，招募了一群以定下减肥目标的本科女生。我们让一半的被试关注自己在接下来五天中的饮食，并让另一半被试在吃东西前执行一个有着三个步骤的小仪式。我们随意制定的这个小仪式并没有要求被试节食，也不会直接影响到她们的摄入量。以下是这个仪式的内容：</p>
+<p>首先，把你的食物在吃之前切成小块；</p>
+<p>第二，把这些小块在盘中排成对称的形状；</p>
+<p>最后，用餐具按压三次盘中的食物。</p>
+<p>你必须在每次吃东西前都执行一遍以上的小仪式。</p>
+<p>我们让被试下载了某个应用程序来记录她们每日的食物摄入。通过这个应用，被试可以选择她们每日食物的种类和数量。到了饭点的时候，应用程序会提醒被试记录下自己的食物摄入，而研究者们可以在网上浏览这些记录。</p>
+<p>正如我们所预测的，被安排执行饭前仪式的被试摄入的卡路里（平均每天 1424 大卡）比仅被要求关注饮食的被试（平均每天 1648 大卡）要少。此外，在饭前执行仪式的被试吃的脂肪和糖也更少。总之，这个小仪式提高了被试们的自我控制能力，帮助她们达成了减肥的目标。</p>
+<p>有趣的是，在研究结束后被试告诉我们，她们在研究过程中以为仪式并没有什么作用，也不打算在研究结束后继续执行它。</p>
+<p>在另一研究中，我们检验了简单的仪式能否帮助人做出更健康的食物选择。</p>
+<p>我们让一群大学生被试完成一项胡萝卜和巧克力的品尝测试。研究者发给了他们四袋食物，其中前三袋是胡萝卜，第四袋是巧克力。</p>
+<p>我们把被试分成了三组。其中一组被要求执行一个小仪式，一组被要求随意比划一些手势，还有一组被要求直接开始吃胡萝卜（作为控制组）。仪式组被要求在吃每根萝卜前都执行如下的仪式：</p>
+<p>第 1 步：右手握拳，敲桌子两次。</p>
+<p>第 2 步：把第一/二/三个袋子放到面前</p>
+<p>第 3 步：再用右手敲两次桌子</p>
+<p>第 4 步：深呼吸，闭上眼睛两秒钟</p>
+<p>在仪式组的被试开始吃第三个胡萝卜之前，研究者会问他们两个关于吃不吃第三个胡萝卜的问题，然后他们才在问题的指引下明白过来他们可以选择吃最后一个萝卜，也可以选择吃巧克力。</p>
+<p>手势组和控制组的被试也会在吃第三个萝卜前被问到相同的两个问题，并选择最后是吃萝卜还是巧克力。</p>
+<p>约 58% 的仪式组被试最后选择了胡萝卜，比控制组（35%）和手势组（46%）都来得多。在吃萝卜前执行仪式的被试更可能在最后选择更健康的食物。</p>
+<p>这一结果表明，在吃东西前执行某种仪式也许是一种有效的减肥策略。</p>
+<p>需要注意的是，类似在我们研究中使用的仪式如果被过度使用可能也会有缺点。</p>
+<p>研究发现，当一系列能够减少食物摄入的行为被下意识的一次次重复时，它们可能会造成饮食障碍。不过，若是伴有清醒的意识和注意力，相似的行为是能带来益处的。</p>
+<p>心理学研究发现，我们对自己的看法会随着自己的行为而改变。例如，捐款会让我们觉得自己是善良的人；在地铁上让座会令我们觉得自己是个有礼貌的人；重复地执行某几个特定的步骤需要良好的自我控制能力。</p>
+<p>所以当我们执行仪式时，我们会认为自己的行为说明了自己是有自我控制力的人，因此我们会选择更健康的食物来减少自己的卡路里摄入。</p>
+<p>传统儒家哲学十分强调仪式。意料之中，来自儒家文化的东亚民族比起西方人有着刚好的自我调控能力。</p>
+<p>相似的，在所有文化中，军事化的管理都能提高人们的自我控制和行为调控能力，这也许是军中诸多的仪式促成的。这些仪式在军队中起着维持秩序和激发动力的作用。</p>
+<p>表面上看，这些仪式似乎没有什么作用。但正如上述研究所发现的，即使是临时安排的，不根基于传统的简单仪式也可以帮助我们建立起更好的自我控制。</p>
+<p>作者：Francesca Gino</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/09/22/fe-review-for-a-interview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/22/fe-review-for-a-interview/" class="post-title-link" itemprop="url">刷一波基础知识</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-22 17:45:54" itemprop="dateCreated datePublished" datetime="2019-09-22T17:45:54+08:00">2019-09-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-12 12:42:12" itemprop="dateModified" datetime="2019-10-12T12:42:12+08:00">2019-10-12</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>主要从以下几方面准备：</p>
+<ol>
+<li>基础知识<ol>
+<li>主要是跟着<a href="https://yuchengkai.cn/docs/frontend/" target="_blank" rel="noopener">前端进阶之道</a>走（因为掘金支付通道关闭了，买不了小册。。）</li>
+<li>过知识点的过程中参考犀牛书，js 高程等</li>
+</ol>
+</li>
+<li>算法<ol>
+<li>要过正经的书可能来不及，所以就走一走 leetcode 或者 codewars 吧</li>
+</ol>
+</li>
+<li>自己做过的项目梳理<ol>
+<li>这个有 Angular、React、RN 和 Electron 可以说。</li>
+</ol>
+</li>
+</ol>
+<p>以下是 前端进阶之道精读</p>
+<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><h3 id="内置数据类型"><a href="#内置数据类型" class="headerlink" title="内置数据类型"></a>内置数据类型</h3><blockquote>
+<blockquote>
+<blockquote>
+<p>In JavaScript, a primitive (primitive value, primitive data type) is data that is not an object and has no methods. There are 7 primitive data types: string, number, bigint, boolean, null, undefined, and symbol.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>ES6 新增 symbol</li>
+<li>bigint 据 MDN，现在还是草案阶段</li>
+<li>primitive 类型都是 immutable 的</li>
+<li>字面量 primitive 类型是没有方法的，诸如 <code>&#39;1&#39;.toLowerCase()</code> 这种都是发生了类型转换</li>
+<li>其中 JS 的数字类型是浮点类型的，没有整型。并且浮点类型基于 IEEE 754标准实现，在使用中会遇到某些 Bug。<code>NaN</code> 也属于 <code>number</code> 类型，并且 <code>NaN</code> 不等于自身。</li>
+<li>对象（Object）是引用类型，在使用过程中会遇到浅拷贝和深拷贝的问题。</li>
+</ul>
+<h3 id="Typeof"><a href="#Typeof" class="headerlink" title="Typeof"></a>Typeof</h3><p>typeof 对于基本类型，除了 null 都可以显示正确的类型<br>typeof 对于对象，除了函数都会显示 object<br>对于 null 来说，虽然它是基本类型，但是会显示 object，这是一个存在很久了的 Bug<br>如果我们想获得一个变量的正确类型，可以通过 Object.prototype.toString.call(xx)。这样我们就可以获得类似 [object Type] 的字符串。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><h4 id="转-Boolean"><a href="#转-Boolean" class="headerlink" title="转 Boolean"></a>转 Boolean</h4><p>在条件判断时，除了 undefined， null， false， NaN， ‘’， 0， -0，其他所有值都转为 true，包括所有对象。</p>
+<h4 id="对象转基本类型"><a href="#对象转基本类型" class="headerlink" title="对象转基本类型"></a>对象转基本类型</h4><p>对象在转换基本类型时，首先会调用 valueOf 然后调用 toString。并且这两个方法你是可以重写的。<br>当然你也可以重写 Symbol.toPrimitive ，该方法在转基本类型时调用优先级最高。<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive" target="_blank" rel="noopener">Symbol.toPrimitive</a></p>
+<h3 id="四则运算符"><a href="#四则运算符" class="headerlink" title="四则运算符"></a>四则运算符</h3><p>只有当加法运算时，其中一方是字符串类型，就会把另一个也转为字符串类型。其他运算只要其中一方是数字，那么另一方就转为数字。并且加法运算会触发三种类型转换：将值转换为原始值，转换为数字，转换为字符串。</p>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="== 操作符"></a><code>==</code> 操作符</h3><p>这个头大。</p>
+<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><p>如果是对象，就通过 toPrimitive 转换对象<br>如果是字符串，就通过 unicode 字符索引来比较</p>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>忘了，需要二刷。</p>
+<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><ol>
+<li>新生成了一个对象</li>
+<li>链接到原型</li>
+<li>绑定 this</li>
+<li>返回新对象<br>(JavaScriptCore has hard-coded argument limit of 65536)<br>这段不看的话我都忘了怎么用 vanilla js 写类了</li>
+</ol>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><ol>
+<li><p>三种状态的状态🐔</p>
+</li>
+<li><p>是一个 constructor，需传入一个 function，这个 function 会接受两个参数：<code>resolve</code> 和 <code>reject</code>。用来返回 promise 解决后的 value</p>
+</li>
+<li><p>Promise.prototype.then 用来注册 promise 解决后的回调函数：</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">promiseInstance.then(</span><br><span class="line">	data =&gt; <span class="built_in">console</span>.log(data),</span><br><span class="line">	err =&gt; <span class="built_in">console</span>.log(err)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>then 接受两个参数，分别可以取得 resolve 和 reject 状态下的 value/reason</li>
+<li>then 返回一个 promise，其状态和 value 取决于注册的回调函数及其返回值<ol>
+<li>返回了 Promise，那么整个执行链就等待这个新的 Promise resolve</li>
+<li>返回了一个值，那么就返回一个 resolve 状态的 Promise，其 value 为这个值</li>
+<li>如果回调函数不是 function，那么它要被忽略</li>
+<li>解释：也就是说，因为 then 是注册回调函数的（当然在 Promise resolve 或者 reject 状态下他们会异步’立即执行’），传入非法的回调函数会导致这个 then 无效。Promise Chain 会向下继续传递 value<br>不太规范，但大概就是这个意思吧。其它重要的知识点：</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Promise 原型链上的方法们：</p>
+<ol>
+<li>Promise.all(iterable) 接受 Promise 构成的数组，全部 resolve 后，返回结果的数组。有一个 reject，就会 reject。原因是第一个失败的原因。</li>
+<li>Promise.race(iterable) 也是接受数组，比赛谁快，有一个最先 resolve 或者 reject，这个 Promise 就会 resolve 或者 reject</li>
+<li>Promise.finally()</li>
+<li>Promise.then()</li>
+<li>Promise.resolve()</li>
+<li>Promise.reject()</li>
+<li>Promise.catch()</li>
+<li>Promise.allSettled()</li>
+</ol>
+</li>
+<li><p>事件循环..</p>
+<ol>
+<li>macro-task： 整体代码 script，setTimeout，setInterval，，setImmediate，I/O ，UI rendering</li>
+<li>micro-task： Promise，process.nextTick，，MutationObserver，</li>
+</ol>
+</li>
+</ol>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/08/20/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/08/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-08-20 15:49:25" itemprop="dateCreated datePublished" datetime="2019-08-20T15:49:25+08:00">2019-08-20</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/07/06/201709706-for-in-and-string-indexes-of-array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2017/07/06/201709706-for-in-and-string-indexes-of-array/" class="post-title-link" itemprop="url">数组的“字符串”索引 & for…in 和 for…of的区别</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2017-07-06 01:19:39" itemprop="dateCreated datePublished" datetime="2017-07-06T01:19:39+08:00">2017-07-06</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-09-28 01:21:18" itemprop="dateModified" datetime="2019-09-28T01:21:18+08:00">2019-09-28</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一句话结论：js中的数组是没有“字符串”索引的，形如array[‘b’] = someValue只是在array对象上添加了属性。</p>
+<p>Difference between for…of and for…in</p>
+<p>The for…in loop will iterate over all enumerable properties of an object.</p>
+<p>for in 循环会遍历一个对象上面的所有enumerable属性。</p>
+<p>The for…of syntax is specific to collections, rather than all objects. It will iterate in this manner over the elements of any collection that has a [Symbol.iterator] property.</p>
+<p>for of 语法是针对集合的，而不是所有的对象。它会遍历定义了[Symbol.iterator]属性的集合的所有元素。</p>
+<p>The following example shows the difference between a for…of loop and a for…in loop.</p>
+<p>MDN的例子如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.objCustom = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;; </span><br><span class="line"><span class="built_in">Array</span>.prototype.arrCustom = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> iterable = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>];</span><br><span class="line">iterable.foo = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> iterable) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i); <span class="comment">// logs 0, 1, 2, "foo", "arrCustom", "objCustom"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i); <span class="comment">// logs 3, 5, 7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/06/13/scoped-slot-in-vue-2-1-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="囍">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2017/06/13/scoped-slot-in-vue-2-1-0/" class="post-title-link" itemprop="url">理解一哈作用域插槽(Scoped slot)</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2017-06-13 01:24:05" itemprop="dateCreated datePublished" datetime="2017-06-13T01:24:05+08:00">2017-06-13</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-09-28 01:27:29" itemprop="dateModified" datetime="2019-09-28T01:27:29+08:00">2019-09-28</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这两天在看element-ui,卡在了table组件的作用域插槽.下面来理解一下:</p>
+<p>首先keep in mind, 官方文档提到作用域:<br>注意: 写在父组件里的内容在父组件内编译</p>
+<p>然后我们来理解一下slot插槽:</p>
+<p>是写在子组件里的<br>写父组件时,写在子组件标签里面的内容会插到这个子组件的插槽里,替换整个slot<br>综合以上两点这个大概过程就是:<br>父组件里面如果写了,首先编译会求出值来,然后再替换到子组件中.也就是这个是是父组件里面的数据.</p>
+<p>正常的父子组件是啥呢, child在props里面声明它希望从father接受某个property,然后father在使用child时候给它一个property,写在标签里面,当然名字要对上.</p>
+<p>这个就是vue的父子组件通信,从上到下props,从下到上是自定义event(不细说).</p>
+<p>可以发现,slot其实也是从父组件传个什么鬼到子组件里面去.但是我理解一般这里只能应用样式啊,数据还是father的数据,因为是渲染完了替换掉的.需要用子组件的本地data怎么搞,还得在child里面搞.</p>
+<p>那么scoped slot 提供了什么呢, father在子组件里面写一个template, 用scope=’随便一个什么名字’ 接收子组件暴露出来的数据,然后用在这个template里面.<br>下面上dummy代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--子组件--&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;child-com&quot;&gt;</span><br><span class="line">        &lt;slot :someProperty=&quot;data&quot;&gt;</span><br><span class="line">            我是一个插槽，只是为了将父组件中包括在我这个子组件中的内容渲染进来</span><br><span class="line">        &lt;/slot&gt;    </span><br><span class="line">        &lt;slot name=&quot;namedSlot&quot;&gt;父组件中slot=&quot;namedSlot&quot;的内容才会被替换到此处&lt;/slot&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    export default &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            return &#123;</span><br><span class="line">                data:&#123;message:&apos;我是child组件data里面的message&apos;&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--父组件--&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;parent-com&quot;&gt;</span><br><span class="line">        &lt;child-component&gt;</span><br><span class="line">            &lt;template scope=&quot;whateverItIs&quot;&gt;</span><br><span class="line">                &lt;p class=&quot;parent-message&quot;&gt;hello from parent : &#123;&#123;fatherMessage&#125;&#125;&lt;/p&gt;</span><br><span class="line">                &lt;p class=&quot;parent-message&quot;&gt;&#123;&#123;whateverItIs.someProperty.message&#125;&#125;&lt;/p&gt;</span><br><span class="line">            &lt;/template&gt;</span><br><span class="line">            &lt;p slot=&quot;namedSlot&quot; class=&quot;parent-message&quot;&gt;我是parent中的文字,我不插无名之辈&lt;/p&gt;</span><br><span class="line">        &lt;/child-component&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    import childComponent from &apos;./child.vue&apos;</span><br><span class="line">    export default &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            return &#123; fatherMessage:&apos;父组件的消息&apos; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        components:&#123; childComponent &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>p.s. 这是两年前的笔记。现在回头看，就是很常用也很常见的一个设计。。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+  </div>
+
+  
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">twohappy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">twohappy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
