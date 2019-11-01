@@ -55,14 +55,18 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="兽人永不为奴">
-<meta property="og:url" content="http://twohappy.me/archives/2019/09/index.html">
+  <meta name="description" content="在之前家里的五年旗舰不如狗上已经搞过一次，但是没有详细记录。导致了今天的杯具。  要一步一步严格按照文档来，installation 比如 vs 2019 在现在（2019年11月）是怎么都不行的 如果 vs 版本对了的话，只跟着文档安装 c++ workload，在编译时候会报错缺少一个 v140 工具集 我们去 vs 里面装好这个依赖 再次 install / install-app-deps">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 windows 环境下开发 Electron 应用">
+<meta property="og:url" content="http://twohappy.me/2019/11/01/running-electron-on-windows/index.html">
 <meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="在之前家里的五年旗舰不如狗上已经搞过一次，但是没有详细记录。导致了今天的杯具。  要一步一步严格按照文档来，installation 比如 vs 2019 在现在（2019年11月）是怎么都不行的 如果 vs 版本对了的话，只跟着文档安装 c++ workload，在编译时候会报错缺少一个 v140 工具集 我们去 vs 里面装好这个依赖 再次 install / install-app-deps">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-01T11:30:24.457Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="兽人永不为奴">
-  <link rel="canonical" href="http://twohappy.me/archives/2019/09/">
+<meta name="twitter:title" content="在 windows 环境下开发 Electron 应用">
+<meta name="twitter:description" content="在之前家里的五年旗舰不如狗上已经搞过一次，但是没有详细记录。导致了今天的杯具。  要一步一步严格按照文档来，installation 比如 vs 2019 在现在（2019年11月）是怎么都不行的 如果 vs 版本对了的话，只跟着文档安装 c++ workload，在编译时候会报错缺少一个 v140 工具集 我们去 vs 里面装好这个依赖 再次 install / install-app-deps">
+  <link rel="canonical" href="http://twohappy.me/2019/11/01/running-electron-on-windows/">
 
 
 <script id="page-configurations">
@@ -70,13 +74,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | 兽人永不为奴</title>
+  <title>在 windows 环境下开发 Electron 应用 | 兽人永不为奴</title>
   
 
 
@@ -173,15 +177,6 @@
 
     
 
-  
-    
-    
-  
-    
-    
-  
-  
-
 </nav>
 </div>
     </header>
@@ -199,95 +194,119 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        
-        
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/01/running-electron-on-windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
           
-        
-        <span class="collection-header">Um..! 8 posts in total. Keep on posting.</span>
-      </div>
-      
+            在 windows 环境下开发 Electron 应用
+            
 
-      
+          
+        </h1>
 
-  
-  
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
 
-  
+              
+                
+              
+
+              <time title="Created: 2019-11-01 13:25:41 / Modified: 19:30:24" itemprop="dateCreated datePublished" datetime="2019-11-01T13:25:41+08:00">2019-11-01</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
     
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
-  
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>在之前家里的五年旗舰<del>不如狗</del>上已经搞过一次，但是没有详细记录。导致了今天的杯具。</p>
+<ul>
+<li>要一步一步严格按照文档来，<a href="https://github.com/nodejs/node-gyp#installation" target="_blank" rel="noopener">installation</a></li>
+<li>比如 vs 2019 在现在（2019年11月）是怎么都不行的</li>
+<li>如果 vs 版本对了的话，只跟着文档安装 c++ workload，在编译时候会报错缺少一个 v140 工具集</li>
+<li>我们去 vs 里面装好这个依赖</li>
+<li>再次 install / install-app-deps</li>
+<li>它就会自己帮你把相应的二进制文件编译好</li>
+</ul>
+<p>一些<strong>重要的</strong>参考链接：</p>
+<p><a href="https://electronjs.org/docs/tutorial/using-native-node-modules" target="_blank" rel="noopener">https://electronjs.org/docs/tutorial/using-native-node-modules</a></p>
+<p><a href="https://github.com/nodejs/node-gyp#readme" target="_blank" rel="noopener">https://github.com/nodejs/node-gyp#readme</a></p>
+<p><a href="https://www.jianshu.com/p/513fc8e6f243" target="_blank" rel="noopener">https://www.jianshu.com/p/513fc8e6f243</a></p>
+<p><a href="https://newsn.net/say/electron-gyp-param.html" target="_blank" rel="noopener">https://newsn.net/say/electron-gyp-param.html</a></p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/electron-v7.0-win32-x64</span><br><span class="line">node-gyp rebuild --target=7.0.0 --arch=x64 --target_plathform=win32 --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/electron-v7.0-win-32-x64</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-09-27T11:03:49+08:00"
-              content="2019-09-27">
-          09-27
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/27/react-native-target-sdk-version-28/" itemprop="url">
-            <span itemprop="name">google play 要求 targetSdkVersion >= 28</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-09-23T16:49:12+08:00"
-              content="2019-09-23">
-          09-23
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/09/23/sense-of-ceremonial-and-self-control/" itemprop="url">
-            <span itemprop="name">「转」仪式感可以增强你的自控力</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
+<ul>
+<li><code>--target</code> Electron 的版本</li>
+<li><code>--arch</code> 系统架构 ia32 或者 x64</li>
+<li><code>--dist-url</code> 编译头文件的地址</li>
+</ul>
 
     </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/28/upgrade-react-native/" rel="next" title="升级 React Native 项目">
+                  <i class="fa fa-chevron-left"></i> 升级 React Native 项目
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -304,6 +323,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">

@@ -195,6 +195,260 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/01/running-electron-on-windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/01/running-electron-on-windows/" class="post-title-link" itemprop="url">在 windows 环境下开发 Electron 应用</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-01 13:25:41 / Modified: 19:30:24" itemprop="dateCreated datePublished" datetime="2019-11-01T13:25:41+08:00">2019-11-01</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在之前家里的五年旗舰<del>不如狗</del>上已经搞过一次，但是没有详细记录。导致了今天的杯具。</p>
+<ul>
+<li>要一步一步严格按照文档来，<a href="https://github.com/nodejs/node-gyp#installation" target="_blank" rel="noopener">installation</a></li>
+<li>比如 vs 2019 在现在（2019年11月）是怎么都不行的</li>
+<li>如果 vs 版本对了的话，只跟着文档安装 c++ workload，在编译时候会报错缺少一个 v140 工具集</li>
+<li>我们去 vs 里面装好这个依赖</li>
+<li>再次 install / install-app-deps</li>
+<li>它就会自己帮你把相应的二进制文件编译好</li>
+</ul>
+<p>一些<strong>重要的</strong>参考链接：</p>
+<p><a href="https://electronjs.org/docs/tutorial/using-native-node-modules" target="_blank" rel="noopener">https://electronjs.org/docs/tutorial/using-native-node-modules</a></p>
+<p><a href="https://github.com/nodejs/node-gyp#readme" target="_blank" rel="noopener">https://github.com/nodejs/node-gyp#readme</a></p>
+<p><a href="https://www.jianshu.com/p/513fc8e6f243" target="_blank" rel="noopener">https://www.jianshu.com/p/513fc8e6f243</a></p>
+<p><a href="https://newsn.net/say/electron-gyp-param.html" target="_blank" rel="noopener">https://newsn.net/say/electron-gyp-param.html</a></p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/electron-v7.0-win32-x64</span><br><span class="line">node-gyp rebuild --target=7.0.0 --arch=x64 --target_plathform=win32 --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/electron-v7.0-win-32-x64</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>--target</code> Electron 的版本</li>
+<li><code>--arch</code> 系统架构 ia32 或者 x64</li>
+<li><code>--dist-url</code> 编译头文件的地址</li>
+</ul>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/10/28/upgrade-react-native/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/10/28/upgrade-react-native/" class="post-title-link" itemprop="url">升级 React Native 项目</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-28 14:45:12 / Modified: 14:50:19" itemprop="dateCreated datePublished" datetime="2019-10-28T14:45:12+08:00">2019-10-28</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>升级 React Native 历来都非常痛苦，好在比起一年前，现在有了 rn-diff-purge 可以稍微减少一点 debug 的工作量。<br>我们的项目一直停留在 0.55，在今年年初的时候我开了一个分支，将它升级到了 0.58，但一直没有合并回开发分支。现在 google play 强行要求上传的 app 兼容 64 位，再次升级一波到 0.59.7。</p>
+<p>后续应该会遇到很多 lib 不兼容的情况需要升级。慢慢筛查吧。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/10/24/axios-or-fetch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/10/24/axios-or-fetch/" class="post-title-link" itemprop="url">axios 和 fetch</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-24 15:45:20" itemprop="dateCreated datePublished" datetime="2019-10-24T15:45:20+08:00">2019-10-24</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-27 02:02:44" itemprop="dateModified" datetime="2019-10-27T02:02:44+08:00">2019-10-27</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天被问到了 fetch 的问题，一时间有点懵逼，这里整理一下。</p>
+<p>首先好习惯，先上 MDN 文档：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch" target="_blank" rel="noopener">Using Fetch</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest" target="_blank" rel="noopener">Using XMLHttpRequest</a></li>
+</ul>
+<p>使用中的主要区别：</p>
+<blockquote>
+<p>请注意，fetch规范与jQuery.ajax()主要有两种方式的不同，牢记：  </p>
+<p>当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 即使该 HTTP 响应的状态码是 404 或 500。相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），仅当网络故障时或请求被阻止时，才会标记为 reject。  </p>
+<p>默认情况下，fetch 不会从服务端发送或接收任何 cookies, 如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）。自从2017年8月25日后，默认的credentials政策变更为same-originFirefox也在61.0b13中改变默认值</p>
+</blockquote>
+<p>其实还是 axios 大法好啊。</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/10/17/electron-updater-wont-trigger-download-events/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -703,7 +957,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
