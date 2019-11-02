@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="兽人永不为奴" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="一句话介绍 Fractal output complex, flexible, ajax/restful data structures    Fractal 为复杂的数据输出提供了样式和转化层。 最简单的例子正常情况下，下面的代码是分散在项目的各处的 1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「旧笔记搬运」关于 fractal">
+<meta property="og:url" content="http://twohappy.me/2017/11/13/about-fractal/index.html">
+<meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="一句话介绍 Fractal output complex, flexible, ajax/restful data structures    Fractal 为复杂的数据输出提供了样式和转化层。 最简单的例子正常情况下，下面的代码是分散在项目的各处的 1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-02T04:48:28.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「旧笔记搬运」关于 fractal">
+<meta name="twitter:description" content="一句话介绍 Fractal output complex, flexible, ajax/restful data structures    Fractal 为复杂的数据输出提供了样式和转化层。 最简单的例子正常情况下，下面的代码是分散在项目的各处的 1234567891011121314151617181920212223242526272829303132333435363738394041">
+
+<link rel="canonical" href="http://twohappy.me/2017/11/13/about-fractal/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>「旧笔记搬运」关于 fractal | 兽人永不为奴</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">兽人永不为奴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">除非包吃包住</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/11/13/about-fractal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          「旧笔记搬运」关于 fractal
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-11-13 12:47:36" itemprop="dateCreated datePublished" datetime="2017-11-13T12:47:36+08:00">2017-11-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 12:48:28" itemprop="dateModified" datetime="2019-11-02T12:48:28+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一句话介绍"><a href="#一句话介绍" class="headerlink" title="一句话介绍"></a>一句话介绍</h2><blockquote>
+<p><a href="https://fractal.thephpleague.com/" target="_blank" rel="noopener">Fractal</a> output complex, flexible, ajax/restful data structures  </p>
+</blockquote>
+<p>Fractal 为复杂的数据输出提供了样式和转化层。</p>
+<h2 id="最简单的例子"><a href="#最简单的例子" class="headerlink" title="最简单的例子"></a>最简单的例子</h2><p>正常情况下，下面的代码是分散在项目的各处的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">League</span>\<span class="title">Fractal</span>\<span class="title">Manager</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">League</span>\<span class="title">Fractal</span>\<span class="title">Resource</span>\<span class="title">Collection</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 Manager 实例</span></span><br><span class="line">$fractal = <span class="keyword">new</span> Manager();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从某个地方获取到需要的数据，比如说 User::all()</span></span><br><span class="line">$books = [</span><br><span class="line">	[</span><br><span class="line">		<span class="string">'id'</span> =&gt; <span class="string">'1'</span>,</span><br><span class="line">		<span class="string">'title'</span> =&gt; <span class="string">'Hogfather'</span>,</span><br><span class="line">		<span class="string">'yr'</span> =&gt; <span class="string">'1998'</span>,</span><br><span class="line">		<span class="string">'author_name'</span> =&gt; <span class="string">'Philip K Dick'</span>,</span><br><span class="line">		<span class="string">'author_email'</span> =&gt; <span class="string">'philip@example.org'</span>,</span><br><span class="line">	],</span><br><span class="line">	[</span><br><span class="line">		<span class="string">'id'</span> =&gt; <span class="string">'2'</span>,</span><br><span class="line">		<span class="string">'title'</span> =&gt; <span class="string">'Game Of Kill Everyone'</span>,</span><br><span class="line">		<span class="string">'yr'</span> =&gt; <span class="string">'2014'</span>,</span><br><span class="line">		<span class="string">'author_name'</span> =&gt; <span class="string">'George R. R. Satan'</span>,</span><br><span class="line">		<span class="string">'author_email'</span> =&gt; <span class="string">'george@example.org'</span>,</span><br><span class="line">	]</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把得到的数据，传给一个 Collection。一起传入的还有一个 Transformer，可以是一个回调函数或者一个 Transformer 对象。</span></span><br><span class="line">$resource = <span class="keyword">new</span> Collection($books, <span class="function"><span class="keyword">function</span><span class="params">(array $book)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        <span class="string">'id'</span>      =&gt; (int) $book[<span class="string">'id'</span>],</span><br><span class="line">        <span class="string">'title'</span>   =&gt; $book[<span class="string">'title'</span>],</span><br><span class="line">        <span class="string">'year'</span>    =&gt; (int) $book[<span class="string">'yr'</span>],</span><br><span class="line">        <span class="string">'author'</span>  =&gt; [</span><br><span class="line">        	<span class="string">'name'</span>  =&gt; $book[<span class="string">'author_name'</span>],</span><br><span class="line">        	<span class="string">'email'</span> =&gt; $book[<span class="string">'author_email'</span>],</span><br><span class="line">        ],</span><br><span class="line">        <span class="string">'links'</span>   =&gt; [</span><br><span class="line">            [</span><br><span class="line">                <span class="string">'rel'</span> =&gt; <span class="string">'self'</span>,</span><br><span class="line">                <span class="string">'uri'</span> =&gt; <span class="string">'/books/'</span>.$book[<span class="string">'id'</span>],</span><br><span class="line">            ]</span><br><span class="line">        ]</span><br><span class="line">    ];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 然后用 Manager 实例来转化数据</span></span><br><span class="line">$array = $fractal-&gt;createData($resource)-&gt;toArray();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Turn all of that into a JSON string</span></span><br><span class="line"><span class="keyword">echo</span> $fractal-&gt;createData($resource)-&gt;toJson();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出: &#123;"data":[&#123;"id":1,"title":"Hogfather","year":1998,"author":&#123;"name":"Philip K Dick","email":"philip@example.org"&#125;&#125;,&#123;"id":2,"title":"Game Of Kill Everyone","year":2014,"author":&#123;"name":"George R. R. Satan","email":"george@example.org"&#125;&#125;]&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h2><h3 id="Resources-资源"><a href="#Resources-资源" class="headerlink" title="Resources 资源"></a>Resources 资源</h3><p><strong>Resource</strong> 是一个对象，代表了数据，并且知道数据对应的“转化器”是什么。<br>有两种 <strong>Resources</strong>：</p>
+<ol>
+<li>League\Fractal\Resource\Item - 单个资源</li>
+<li>League\Fractal\Resource\Collection - 资源的集合<br>它们的构造函数接受实际操作的“数据”作为第一个参数，接受“转化器”作为第二个参数。</li>
+</ol>
+<h3 id="Serializers-序列化器"><a href="#Serializers-序列化器" class="headerlink" title="Serializers 序列化器"></a>Serializers 序列化器</h3><p>一个序列化器会以某种方式组织你的<strong>转化过的</strong>数据。Fractal 提供了 <strong>DataArraySerializer</strong>、<strong>ArraySerializer</strong> 和 <strong>JsonApiSerializer</strong>，也可以自己来写。<br>比较常用的是 <strong>DataArraySerializer</strong>，但是它会给数据增加一个 <strong>data</strong> 的命名空间，如果不喜欢，可以使用其他类型，或者自己实现一个。</p>
+<h3 id="Transformers-转化器"><a href="#Transformers-转化器" class="headerlink" title="Transformers 转化器"></a>Transformers 转化器</h3><p>这个是最常用的一个内容。</p>
+<h4 id="转化器类"><a href="#转化器类" class="headerlink" title="转化器类"></a>转化器类</h4><p>必须继承 <strong>League\Fractal\TransformerAbstract</strong>，并且包含一个 <strong>transform()</strong> 方法。这个方法相当于转化的格式，具体可以参考上面例子里面的回调函数。</p>
+<h4 id="Including-Data-包含数据"><a href="#Including-Data-包含数据" class="headerlink" title="Including Data 包含数据"></a>Including Data 包含数据</h4><p>比如我们的 Book 模型是有一些关系的，比如说 作者 Author，出版社 Press。<br>在模型里我们定义好相关的关系之后，在转化器类里面可以这样来包含相关的（转化好的）数据。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">Transformer</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Acme</span>\<span class="title">Model</span>\<span class="title">Book</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">League</span>\<span class="title">Fractal</span>\<span class="title">TransformerAbstract</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookTransformer</span> <span class="keyword">extends</span> <span class="title">TransformerAbstract</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $defaultIncludes = [</span><br><span class="line">        <span class="string">'author'</span></span><br><span class="line">    ];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">protected</span> $availableIncludes = [</span><br><span class="line">        <span class="string">'author'</span></span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">transform</span><span class="params">(Book $book)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> [</span><br><span class="line">            <span class="string">'id'</span>    =&gt; (int) $book-&gt;id,</span><br><span class="line">            <span class="string">'title'</span> =&gt; $book-&gt;title,</span><br><span class="line">            <span class="string">'year'</span>    =&gt; (int) $book-&gt;yr,</span><br><span class="line">            <span class="string">'links'</span>   =&gt; [</span><br><span class="line">                [</span><br><span class="line">                    <span class="string">'rel'</span> =&gt; <span class="string">'self'</span>,</span><br><span class="line">                    <span class="string">'uri'</span> =&gt; <span class="string">'/books/'</span>.$book-&gt;id,</span><br><span class="line">                ]</span><br><span class="line">            ],</span><br><span class="line">        ];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">includeAuthor</span><span class="params">(Book $book)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $author = $book-&gt;author;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;item($author, <span class="keyword">new</span> AuthorTransformer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>里面有两种包含，默认的总是会自动获取对应关系的数据，比如 user 的返回数据里面会给每一个 user 带上对应的 user_info。<br>可用的包含则必须要调用 <strong>parseIncludes</strong> 方法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">League</span>\<span class="title">Fractal</span>;</span><br><span class="line"></span><br><span class="line">$fractal = <span class="keyword">new</span> Fractal\Manager();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'include'</span>])) &#123;</span><br><span class="line">    $fractal-&gt;parseIncludes($_GET[<span class="string">'include'</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>否则不会生效。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2017/11/04/red-braised-pork/" rel="next" title="「旧笔记搬运」关于红烧肉">
+                  <i class="fa fa-chevron-left"></i> 「旧笔记搬运」关于红烧肉
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2017/12/03/console/" rel="prev" title="「旧笔记搬运」 关于 console">
+                  「旧笔记搬运」 关于 console <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一句话介绍"><span class="nav-number">1.</span> <span class="nav-text">一句话介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最简单的例子"><span class="nav-number">2.</span> <span class="nav-text">最简单的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几个概念"><span class="nav-number">3.</span> <span class="nav-text">几个概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Resources-资源"><span class="nav-number">3.1.</span> <span class="nav-text">Resources 资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializers-序列化器"><span class="nav-number">3.2.</span> <span class="nav-text">Serializers 序列化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transformers-转化器"><span class="nav-number">3.3.</span> <span class="nav-text">Transformers 转化器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#转化器类"><span class="nav-number">3.3.1.</span> <span class="nav-text">转化器类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Including-Data-包含数据"><span class="nav-number">3.3.2.</span> <span class="nav-text">Including Data 包含数据</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="twohappy"
+    src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">twohappy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">twohappy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

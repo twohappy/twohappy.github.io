@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="兽人永不为奴" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Events大部分Nodejs核心API建立在一个异步事件驱动的架构上，emitters周期性的触发事件，导致函数对象listeners调用执行。 比如，每次一个peer连接到net.Server对象时，它就触发一个事件，；当文件打开时，fs.ReadStream就触发一个事件；当数据可以被读取时，stream就触发一个事件。 所有会触发事件的对象都是EventEmitter类的实例。这些对象暴露">
+<meta property="og:type" content="article">
+<meta property="og:title" content="API学习：Stream">
+<meta property="og:url" content="http://twohappy.me/2017/04/18/node-api-events/index.html">
+<meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="Events大部分Nodejs核心API建立在一个异步事件驱动的架构上，emitters周期性的触发事件，导致函数对象listeners调用执行。 比如，每次一个peer连接到net.Server对象时，它就触发一个事件，；当文件打开时，fs.ReadStream就触发一个事件；当数据可以被读取时，stream就触发一个事件。 所有会触发事件的对象都是EventEmitter类的实例。这些对象暴露">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-02T05:04:29.634Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="API学习：Stream">
+<meta name="twitter:description" content="Events大部分Nodejs核心API建立在一个异步事件驱动的架构上，emitters周期性的触发事件，导致函数对象listeners调用执行。 比如，每次一个peer连接到net.Server对象时，它就触发一个事件，；当文件打开时，fs.ReadStream就触发一个事件；当数据可以被读取时，stream就触发一个事件。 所有会触发事件的对象都是EventEmitter类的实例。这些对象暴露">
+
+<link rel="canonical" href="http://twohappy.me/2017/04/18/node-api-events/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>API学习：Stream | 兽人永不为奴</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">兽人永不为奴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">除非包吃包住</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-events/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          API学习：Stream
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-18 13:02:55" itemprop="dateCreated datePublished" datetime="2017-04-18T13:02:55+08:00">2017-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 13:04:29" itemprop="dateModified" datetime="2019-11-02T13:04:29+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h1><p>大部分Nodejs核心API建立在一个异步事件驱动的架构上，emitters周期性的触发事件，导致函数对象listeners调用执行。</p>
+<p>比如，每次一个peer连接到net.Server对象时，它就触发一个事件，；当文件打开时，fs.ReadStream就触发一个事件；当数据可以被读取时，stream就触发一个事件。</p>
+<p>所有会触发事件的对象都是EventEmitter类的实例。这些对象暴露出eventEmitter.on()方法，允许一个或者多个函数监听该对象触发的事件。通常，事件名是驼峰字符串，但是任何符合JS规范的属性名都可以用。</p>
+<p>当EventEmitter对象触发一个事件，所有监听这个特定事件的函数会被<strong>同步调用</strong>。被调用方法返回的所有值都会被<strong>忽略并丢弃</strong>。<br>下面是个简单的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyEmitter</span> <span class="keyword">extends</span> <span class="title">EventEmitter</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line">myEmitter.on(<span class="string">'event'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'an event occurred!'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="向监听者传递参数和this"><a href="#向监听者传递参数和this" class="headerlink" title="向监听者传递参数和this"></a>向监听者传递参数和this</h2><p>eventEmitter.emit()方法允许把任意参数传给监听函数。划重点：普通函数被EventEmitter调用时候啊，this被置为listener attached的那个触发器。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line">myEmitter.on(<span class="string">'event'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a, b, <span class="keyword">this</span>);</span><br><span class="line">  <span class="comment">// Prints:</span></span><br><span class="line">  <span class="comment">//   a b MyEmitter &#123;</span></span><br><span class="line">  <span class="comment">//     domain: null,</span></span><br><span class="line">  <span class="comment">//     _events: &#123; event: [Function] &#125;,</span></span><br><span class="line">  <span class="comment">//     _eventsCount: 1,</span></span><br><span class="line">  <span class="comment">//     _maxListeners: undefined &#125;</span></span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然而回调函数用箭头函数时候，this就不再指向那个触发器实例了。。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line">myEmitter.on(<span class="string">'event'</span>, (a, b) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a, b, <span class="keyword">this</span>);</span><br><span class="line">  <span class="comment">// Prints: a b &#123;&#125;</span></span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>//todo:这里指向了个啥？</p>
+<h2 id="同步-vs-异步"><a href="#同步-vs-异步" class="headerlink" title="同步 vs 异步"></a>同步 vs 异步</h2><p>EventListener 按照注册顺序，同步调用所有的监听函数，这样可以保证正确的事件顺序，避免竞争执行和逻辑错误;需要时，监听函数可以使用setImmediate()和process.nextTick()切换成异步执行:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line">myEmitter.on(<span class="string">'event'</span>, (a, b) =&gt; &#123;</span><br><span class="line">  setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this happens asynchronously'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="只处理一次事件"><a href="#只处理一次事件" class="headerlink" title="只处理一次事件"></a>只处理一次事件</h2><p>当使用eventEmitter.on()注册了一个监听器后，每次它所监听的事件被触发，这个监听器就会被调用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line"><span class="keyword">let</span> m = <span class="number">0</span>;</span><br><span class="line">myEmitter.on(<span class="string">'event'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(++m);</span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>);</span><br><span class="line"><span class="comment">// Prints: 1</span></span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>);</span><br><span class="line"><span class="comment">// Prints: 2</span></span><br></pre></td></tr></table></figure>
+
+<p>而使用eventEmitter.once()方法，就可以注册一个只调用一次的监听器函数。当事件触发后，这个监听器先被注销然后再执行</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line"><span class="keyword">let</span> m = <span class="number">0</span>;</span><br><span class="line">myEmitter.once(<span class="string">'event'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(++m);</span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>);</span><br><span class="line"><span class="comment">// Prints: 1</span></span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>);</span><br><span class="line"><span class="comment">// Ignored</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="错误事件"><a href="#错误事件" class="headerlink" title="错误事件"></a>错误事件</h2><p>当一个EventEmitter实例中有错误发生，标准处理是触发一个‘error’事件。他们在node中当做特殊案例来处理。<br>如果一个EventEmitter连一个注册在error事件下的监听器都没有，而’error’事件触发了，这个错误会被抛出，栈追踪打印，Node.js进程退出。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line">myEmitter.emit(<span class="string">'error'</span>, <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'whoops!'</span>));</span><br><span class="line"><span class="comment">// Throws and crashes Node.js</span></span><br></pre></td></tr></table></figure>
+
+<p>为了让Node.js进程不至于崩溃，可以在process对象的uncaughtException事件下面注册一个监听器（或者可以使用domain模块，这个模块已经不建议使用）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line"></span><br><span class="line">process.on(<span class="string">'uncaughtException'</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.error(<span class="string">'whoops! there was an error'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">myEmitter.emit(<span class="string">'error'</span>, <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'whoops!'</span>));</span><br><span class="line"><span class="comment">// Prints: whoops! there was an error</span></span><br></pre></td></tr></table></figure>
+
+<p>坠吼还是总给’error’事件注册上监听器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line">myEmitter.on(<span class="string">'error'</span>, (err) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.error(<span class="string">'whoops! there was an error'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(<span class="string">'error'</span>, <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'whoops!'</span>));</span><br><span class="line"><span class="comment">// Prints: whoops! there was an error</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="EventEmitter-类"><a href="#EventEmitter-类" class="headerlink" title="EventEmitter 类"></a><code>EventEmitter</code> 类</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>所有的<code>EventEmitter</code>在新监听器添加和移除的时候都会相应的触发 <code>newListener</code> 和 <code>removeListener</code> 事件</p>
+<h3 id="newListener-事件"><a href="#newListener-事件" class="headerlink" title="newListener 事件"></a><code>newListener</code> 事件</h3><ul>
+<li>eventName 新添加的事件名</li>
+<li>listener 事件处理程序<br>EventEmitter实例在一个监听器添加到其内部监听器数组<strong>之前</strong>会触发一个它自己的 <code>newListener</code> 事件。<br>因为这个事件是在添加listener（我们假设这个回调函数叫A）之前触发的，所以有（划重点）：如果在newListener回调函数中，有额外的注册在同一个事件name下的listener（我们假设这个回调函数叫B）被注册，这个listener（B）会被插入在上面提到的那个listener（B）之前。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line"><span class="comment">// Only do this once so we don't loop forever</span></span><br><span class="line">myEmitter.once(<span class="string">'newListener'</span>, (event, listener) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (event === <span class="string">'event'</span>) &#123;</span><br><span class="line">    <span class="comment">// Insert a new listener in front</span></span><br><span class="line">    myEmitter.on(<span class="string">'event'</span>, () =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'B'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.on(<span class="string">'event'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'A'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>);</span><br><span class="line"><span class="comment">// Prints:</span></span><br><span class="line"><span class="comment">//   B</span></span><br><span class="line"><span class="comment">//   A</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="removeListener-事件"><a href="#removeListener-事件" class="headerlink" title="removeListener 事件"></a><code>removeListener</code> 事件</h3><ul>
+<li>eventName 新添加的事件名</li>
+<li>listener 事件处理程序<br>这个事件在<code>listener</code>移除之后触发。</li>
+</ul>
+<h3 id="EventEmitter-defaultMaxListeners-属性"><a href="#EventEmitter-defaultMaxListeners-属性" class="headerlink" title="EventEmitter.defaultMaxListeners 属性"></a>EventEmitter.defaultMaxListeners 属性</h3><p>默认来讲，单个事件可以注册最大10个监听器。用emitter.setMaxListeners(n) 可以为个别的EventEmitter实例改变这个上限。如果要改变所有实例的上限，可以用EventEmitter.defaultMaxListerners属性</p>
+<p>这个属性影响所有的（包括在改变操作之前创建的）EventEmiiter实例。但是，调用emitter.setMaxListeners(n)比EventEmitter.defaultMaxListeners优先生效。</p>
+<p>然后这个不是硬性龟腚。EventEmitter实例允许添加超出最大值的listener，只是会输出一个警告，检测到 “possible EventEmitter memory leak” 。对单个的EventEmitter，可以用emitter.getMaxListeners()和emitter.setMaxListeners() 方法来临时避免这个警告：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">emitter.setMaxListeners(emitter.getMaxListeners() + <span class="number">1</span>);</span><br><span class="line">emitter.once(<span class="string">'event'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// do stuff</span></span><br><span class="line">  emitter.setMaxListeners(<span class="built_in">Math</span>.max(emitter.getMaxListeners() - <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>多个的话就多加几个吧。。</p>
+<p>–trace-warnings 这个命令行参数可以用来显示这种warning</p>
+<p>触发的warning可以用process.on(‘warning’)来查看，还有额外的emitter,type和count属性，各自指向事件触发器实例，事件名称和添加的事件数量。这个warning的name属性是’MaxListenersExceededWarning’。</p>
+<h3 id="emitter-addListener-eventName-listener"><a href="#emitter-addListener-eventName-listener" class="headerlink" title="emitter.addListener(eventName,listener)"></a>emitter.addListener(eventName,listener)</h3><p>等于emitter.on(eventName,listener)</p>
+<h3 id="emitter-emit-eventName-…args"><a href="#emitter-emit-eventName-…args" class="headerlink" title="emitter.emit(eventName[, …args])"></a>emitter.emit(eventName[, …args])</h3><p>按照注册的先后顺序，依次同步调用监听函数，给他们传入这里提供的参数。<br>如果emit的事件有监听函数，返回一个true，否则false</p>
+<h3 id="emitter-eventNames"><a href="#emitter-eventNames" class="headerlink" title="emitter.eventNames()"></a>emitter.eventNames()</h3><p>返回一个这个触发器上面注册监听器的事件们构成的数组，值是String或者Symbol。<br>注意这是个方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>);</span><br><span class="line"><span class="keyword">const</span> myEE = <span class="keyword">new</span> EventEmitter();</span><br><span class="line">myEE.on(<span class="string">'foo'</span>, () =&gt; &#123;&#125;);</span><br><span class="line">myEE.on(<span class="string">'bar'</span>, () =&gt; &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sym = <span class="built_in">Symbol</span>(<span class="string">'symbol'</span>);</span><br><span class="line">myEE.on(sym, () =&gt; &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(myEE.eventNames());</span><br><span class="line"><span class="comment">// Prints: [ 'foo', 'bar', Symbol(symbol) ]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="emitter-getMaxListeners"><a href="#emitter-getMaxListeners" class="headerlink" title="emitter.getMaxListeners()"></a>emitter.getMaxListeners()</h3><p>返回当前最大监听数：<br>emitter.setMaxListeners(n)设置的，或者由EventEmitter.defaultMaxListeners默认的.</p>
+<h3 id="emitter-listenerCount-eventName"><a href="#emitter-listenerCount-eventName" class="headerlink" title="emitter.listenerCount(eventName)"></a>emitter.listenerCount(eventName)</h3><p>监听某个事件的监听器个数</p>
+<h3 id="emitter-listeners-eventName"><a href="#emitter-listeners-eventName" class="headerlink" title="emitter.listeners(eventName)"></a>emitter.listeners(eventName)</h3><p>返回一个监听eventName的监听器数组的副本，（里面应该是一堆listener函数）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.on(<span class="string">'connection'</span>, (stream) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'someone connected!'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(util.inspect(server.listeners(<span class="string">'connection'</span>)));</span><br><span class="line"><span class="comment">// Prints: [ [Function] ]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="emitter-on-eventName-listener"><a href="#emitter-on-eventName-listener" class="headerlink" title="emitter.on(eventName, listener)"></a>emitter.on(eventName, listener)</h3><p>把listen函数加到监听’eventName’的监听器数组尾部，这里不会检查这个函数是否已经被添加过了，多次传入同样事件名和监听器组合的emitter.on的调用，结果将是listener被添加和调用多次。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server.on(<span class="string">'connection'</span>, (stream) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'someone connected!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>它返回一个指向EventEmitter的reference，这就可以链式调用.测试的时候发现理解不了调用的执行顺序,如果有Symbol的话。。。<br>事件监听默认是顺序执行的，按照添加的先后顺序，emitter.prependListener()方法可以把监听器插入到监听器队列的开头</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEE = <span class="keyword">new</span> EventEmitter();</span><br><span class="line">myEE.on(<span class="string">'foo'</span>, () =&gt; <span class="built_in">console</span>.log(<span class="string">'a'</span>));</span><br><span class="line">myEE.prependListener(<span class="string">'foo'</span>, () =&gt; <span class="built_in">console</span>.log(<span class="string">'b'</span>));</span><br><span class="line">myEE.emit(<span class="string">'foo'</span>);</span><br><span class="line"><span class="comment">// Prints:</span></span><br><span class="line"><span class="comment">//   b</span></span><br><span class="line"><span class="comment">//   a</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="emitter-once-eventName-listener"><a href="#emitter-once-eventName-listener" class="headerlink" title="emitter.once(eventName, listener)"></a>emitter.once(eventName, listener)</h3><p>emitter.on的一次性版本，当事件触发的时候先移除再调用callback。同样返回一个EventEmitter实例方便链式调用。<br>同样有一个插入到数组队列首部的方法emitter.prependOnceListener() </p>
+<h3 id="emitter-prependListener-eventName-listener"><a href="#emitter-prependListener-eventName-listener" class="headerlink" title="emitter.prependListener(eventName, listener)"></a>emitter.prependListener(eventName, listener)</h3><h3 id="emitter-prependOnceListener-eventName-listener"><a href="#emitter-prependOnceListener-eventName-listener" class="headerlink" title="emitter.prependOnceListener(eventName, listener)"></a>emitter.prependOnceListener(eventName, listener)</h3><h3 id="emitter-removeAllListeners-eventName"><a href="#emitter-removeAllListeners-eventName" class="headerlink" title="emitter.removeAllListeners([eventName])"></a>emitter.removeAllListeners([eventName])</h3><p>不传参数就移除所有监听器，传就移除对应事件的监听器。<br>移除在代码的其他地方添加的监听器是一个bad practice，尤其是当EventEmitter实例是由其他组件或者模块创建的时候。<br>同样返回一个EventEmitter的指向，链式调用。</p>
+<h3 id="emitter-removeListener-eventName-listener"><a href="#emitter-removeListener-eventName-listener" class="headerlink" title="emitter.removeListener(eventName, listener)"></a>emitter.removeListener(eventName, listener)</h3><p>移除eventName事件下的特定监听函数listener，一次只能移除一个，如果同一个listener添加了多次，必须移除多次</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里应该有个引用</span></span><br><span class="line"><span class="keyword">const</span> callback = <span class="function">(<span class="params">stream</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'someone connected!'</span>);</span><br><span class="line">&#125;;</span><br><span class="line">server.on(<span class="string">'connection'</span>, callback);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">server.removeListener(<span class="string">'connection'</span>, callback);</span><br></pre></td></tr></table></figure>
+
+<p>注意，一旦一个事件被触发，所有在它之上的监听器会被依次调用（在emitting之时）。这意味着任何在emitting之后，最后一个监听器执行完之前执行的removeListener()或者removeAllListeners()调用，将不会把listeners从进行中的emit()移除，在顺序执行结束后，行为就跟预期一样了（移除了）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myEmitter = <span class="keyword">new</span> MyEmitter();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> callbackA = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'A'</span>);</span><br><span class="line">  myEmitter.removeListener(<span class="string">'event'</span>, callbackB);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> callbackB = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'B'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">myEmitter.on(<span class="string">'event'</span>, callbackA);</span><br><span class="line"></span><br><span class="line">myEmitter.on(<span class="string">'event'</span>, callbackB);</span><br><span class="line"></span><br><span class="line"><span class="comment">// callbackA removes listener callbackB but it will still be called.</span></span><br><span class="line"><span class="comment">// Internal listener array at time of emit [callbackA, callbackB]</span></span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>);</span><br><span class="line"><span class="comment">// Prints:</span></span><br><span class="line"><span class="comment">//   A</span></span><br><span class="line"><span class="comment">//   B</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// callbackB is now removed.</span></span><br><span class="line"><span class="comment">// Internal listener array [callbackA]</span></span><br><span class="line">myEmitter.emit(<span class="string">'event'</span>);</span><br><span class="line"><span class="comment">// Prints:</span></span><br><span class="line"><span class="comment">//   A</span></span><br></pre></td></tr></table></figure>
+
+<p>监听器们是有一个内部的数组来管理的，调用这个方法会改变被移除的listener之后的一堆listener的位置索引。这不会引起调用顺序的变化，但意味着内部监听方法队列的拷贝们，比如像emitter.listeners()方法返回的数组就都需要重建一次。（它们还是之前的拷贝）。<br>仍然返回一个EventEmitter的指向，方便链式调用</p>
+<h3 id="emitter-setMaxListeners-n"><a href="#emitter-setMaxListeners-n" class="headerlink" title="emitter.setMaxListeners(n)"></a>emitter.setMaxListeners(n)</h3><p>默认的EventEmitter会在某一个事件被添加了超过10个监听函数时，打印一个warning，这个对查找内存泄漏很有帮助。但是显然不是所有的事件都应该被限制到10个，这个方法可以对具体实例设置它的上限，Infinity（或者0？？）表示无上限</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2017/04/18/node-api-stream/" rel="next" title="API学习：Stream">
+                  <i class="fa fa-chevron-left"></i> API学习：Stream
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2017/06/13/scoped-slot-in-vue-2-1-0/" rel="prev" title="理解一哈作用域插槽(Scoped slot)">
+                  理解一哈作用域插槽(Scoped slot) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Events"><span class="nav-number">1.</span> <span class="nav-text">Events</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#向监听者传递参数和this"><span class="nav-number">1.1.</span> <span class="nav-text">向监听者传递参数和this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步-vs-异步"><span class="nav-number">1.2.</span> <span class="nav-text">同步 vs 异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只处理一次事件"><span class="nav-number">1.3.</span> <span class="nav-text">只处理一次事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误事件"><span class="nav-number">1.4.</span> <span class="nav-text">错误事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventEmitter-类"><span class="nav-number">1.5.</span> <span class="nav-text">EventEmitter 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#newListener-事件"><span class="nav-number">1.5.1.</span> <span class="nav-text">newListener 事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#removeListener-事件"><span class="nav-number">1.5.2.</span> <span class="nav-text">removeListener 事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventEmitter-defaultMaxListeners-属性"><span class="nav-number">1.5.3.</span> <span class="nav-text">EventEmitter.defaultMaxListeners 属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-addListener-eventName-listener"><span class="nav-number">1.5.4.</span> <span class="nav-text">emitter.addListener(eventName,listener)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-emit-eventName-…args"><span class="nav-number">1.5.5.</span> <span class="nav-text">emitter.emit(eventName[, …args])</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-eventNames"><span class="nav-number">1.5.6.</span> <span class="nav-text">emitter.eventNames()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-getMaxListeners"><span class="nav-number">1.5.7.</span> <span class="nav-text">emitter.getMaxListeners()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-listenerCount-eventName"><span class="nav-number">1.5.8.</span> <span class="nav-text">emitter.listenerCount(eventName)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-listeners-eventName"><span class="nav-number">1.5.9.</span> <span class="nav-text">emitter.listeners(eventName)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-on-eventName-listener"><span class="nav-number">1.5.10.</span> <span class="nav-text">emitter.on(eventName, listener)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-once-eventName-listener"><span class="nav-number">1.5.11.</span> <span class="nav-text">emitter.once(eventName, listener)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-prependListener-eventName-listener"><span class="nav-number">1.5.12.</span> <span class="nav-text">emitter.prependListener(eventName, listener)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-prependOnceListener-eventName-listener"><span class="nav-number">1.5.13.</span> <span class="nav-text">emitter.prependOnceListener(eventName, listener)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-removeAllListeners-eventName"><span class="nav-number">1.5.14.</span> <span class="nav-text">emitter.removeAllListeners([eventName])</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-removeListener-eventName-listener"><span class="nav-number">1.5.15.</span> <span class="nav-text">emitter.removeListener(eventName, listener)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emitter-setMaxListeners-n"><span class="nav-number">1.5.16.</span> <span class="nav-text">emitter.setMaxListeners(n)</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="twohappy"
+    src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">twohappy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">twohappy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

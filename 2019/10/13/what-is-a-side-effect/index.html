@@ -51,15 +51,20 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="兽人永不为奴">
-<meta property="og:url" content="http://twohappy.me/archives/2017/06/index.html">
+  <meta name="description" content="“Side Effect” is not a react-specific term. It is a general concept about behaviours of functions. A function is said to have side effect if it trys to modify anything outside its body. For example, i">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="what-is-a-side-effect">
+<meta property="og:url" content="http://twohappy.me/2019/10/13/what-is-a-side-effect/index.html">
 <meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="“Side Effect” is not a react-specific term. It is a general concept about behaviours of functions. A function is said to have side effect if it trys to modify anything outside its body. For example, i">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-02T04:59:53.807Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="兽人永不为奴">
+<meta name="twitter:title" content="what-is-a-side-effect">
+<meta name="twitter:description" content="“Side Effect” is not a react-specific term. It is a general concept about behaviours of functions. A function is said to have side effect if it trys to modify anything outside its body. For example, i">
 
-<link rel="canonical" href="http://twohappy.me/archives/2017/06/">
+<link rel="canonical" href="http://twohappy.me/2019/10/13/what-is-a-side-effect/">
 
 
 <script id="page-configurations">
@@ -67,13 +72,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | 兽人永不为奴</title>
+  <title>what-is-a-side-effect | 兽人永不为奴</title>
   
 
 
@@ -168,49 +173,96 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 16 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/10/13/what-is-a-side-effect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          what-is-a-side-effect
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-13 12:59:19" itemprop="dateCreated datePublished" datetime="2019-10-13T12:59:19+08:00">2019-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 12:59:53" itemprop="dateModified" datetime="2019-11-02T12:59:53+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2017</h1>
+        <p>“Side Effect” is not a react-specific term. It is a general concept about behaviours of functions. A function is said to have side effect if it trys to modify anything outside its body. For example, if it modidifies a global variable, then it is a side effect. If it makes a network call, it is a side effect as well.<br><a href="https://www.reddit.com/r/reactjs/comments/8avfej/what_does_side_effects_mean_in_react/" target="_blank" rel="noopener">source</a></p>
+<p>A “side effect” is anything that affects something outside the scope of the function being executed. These can be, say, a network request, which has your code communicating with a third party (and thus making the request, causing logs to be recorded, caches to be saved or updated, all sorts of effects that are outside the function.</p>
+<p>There are more subtle side effects, too. Changing the value of a closure-scoped variable is a side effect. Pushing a new item onto an array that was passed in as an argument is a side effect. Functions that execute without side effects are called “pure” functions: they take in arguments, and they return values. Nothing else happens upon executing the function. This makes the easy to test, simple to reason about, and functions that meet this description have all sorts of useful properties when it comes to optimization or refactoring.</p>
+<p>Pure functions are deterministic (meaning that, given an input, they always return the same output), but that doesn’t mean that all impure functions have side effects. Generating a random value within a function makes it impure, but isn’t a side effect, for example. React is all about pure functions, and asks that you keep several lifecycle methods pure, so these are good questions to be asking.</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2017-06-13T01:24:05+08:00"
-              content="2017-06-13">
-          06-13
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2017/06/13/scoped-slot-in-vue-2-1-0/" itemprop="url">
-            <span itemprop="name">理解一哈作用域插槽(Scoped slot)</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/09/27/react-native-target-sdk-version-28/" rel="next" title="google play 要求 targetSdkVersion >= 28">
+                  <i class="fa fa-chevron-left"></i> google play 要求 targetSdkVersion >= 28
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/10/17/electron-updater-wont-trigger-download-events/" rel="prev" title="electron-updater 检测到新版本后，不会触发下载事件">
+                  electron-updater 检测到新版本后，不会触发下载事件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
