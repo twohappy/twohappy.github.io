@@ -51,15 +51,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="兽人永不为奴">
-<meta property="og:url" content="http://twohappy.me/archives/2017/04/index.html">
+  <meta name="description" content="一句话结论：js中的数组是没有“字符串”索引的，形如array[‘b’] = someValue只是在array对象上添加了属性。 Difference between for…of and for…in The for…in loop will iterate over all enumerable properties of an object. for in 循环会遍历一个对象上面的所有en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组的“字符串”索引 &amp; for…in 和 for…of的区别">
+<meta property="og:url" content="http://twohappy.me/2017/07/06/for-in-and-string-indexes-of-array/index.html">
 <meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="一句话结论：js中的数组是没有“字符串”索引的，形如array[‘b’] = someValue只是在array对象上添加了属性。 Difference between for…of and for…in The for…in loop will iterate over all enumerable properties of an object. for in 循环会遍历一个对象上面的所有en">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-16T05:51:54.492Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="兽人永不为奴">
+<meta name="twitter:title" content="数组的“字符串”索引 &amp; for…in 和 for…of的区别">
+<meta name="twitter:description" content="一句话结论：js中的数组是没有“字符串”索引的，形如array[‘b’] = someValue只是在array对象上添加了属性。 Difference between for…of and for…in The for…in loop will iterate over all enumerable properties of an object. for in 循环会遍历一个对象上面的所有en">
 
-<link rel="canonical" href="http://twohappy.me/archives/2017/04/">
+<link rel="canonical" href="http://twohappy.me/2017/07/06/for-in-and-string-indexes-of-array/">
 
 
 <script id="page-configurations">
@@ -67,13 +71,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | 兽人永不为奴</title>
+  <title>数组的“字符串”索引 & for…in 和 for…of的区别 | 兽人永不为奴</title>
   
 
 
@@ -168,69 +172,99 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 19 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/07/06/for-in-and-string-indexes-of-array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数组的“字符串”索引 & for…in 和 for…of的区别
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-07-06 01:19:39" itemprop="dateCreated datePublished" datetime="2017-07-06T01:19:39+08:00">2017-07-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-16 13:51:54" itemprop="dateModified" datetime="2019-11-16T13:51:54+08:00">2019-11-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2017</h1>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2017-04-18T13:02:55+08:00"
-              content="2017-04-18">
-          04-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2017/04/18/node-api-stream/" itemprop="url">
-            <span itemprop="name">API学习：Stream</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2017-04-18T13:02:55+08:00"
-              content="2017-04-18">
-          04-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2017/04/18/node-api-events/" itemprop="url">
-            <span itemprop="name">API学习：Stream</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+        <p>一句话结论：js中的数组是没有“字符串”索引的，形如array[‘b’] = someValue只是在array对象上添加了属性。</p>
+<p>Difference between for…of and for…in</p>
+<p>The for…in loop will iterate over all enumerable properties of an object.</p>
+<p>for in 循环会遍历一个对象上面的所有enumerable属性。</p>
+<p>The for…of syntax is specific to collections, rather than all objects. It will iterate in this manner over the elements of any collection that has a [Symbol.iterator] property.</p>
+<p>for of 语法是针对集合的，而不是所有的对象。它会遍历定义了[Symbol.iterator]属性的集合的所有元素。</p>
+<p>The following example shows the difference between a for…of loop and a for…in loop.</p>
+<p>MDN的例子如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.objCustom = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;; </span><br><span class="line"><span class="built_in">Array</span>.prototype.arrCustom = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> iterable = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>];</span><br><span class="line">iterable.foo = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> iterable) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i); <span class="comment">// logs 0, 1, 2, "foo", "arrCustom", "objCustom"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i); <span class="comment">// logs 3, 5, 7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2017/06/13/scoped-slot-in-vue-2-1-0/" rel="next" title="理解一哈作用域插槽(Scoped slot)">
+                  <i class="fa fa-chevron-left"></i> 理解一哈作用域插槽(Scoped slot)
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2017/07/11/about-brackets/" rel="prev" title="about-brackets">
+                  about-brackets <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>

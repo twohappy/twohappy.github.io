@@ -51,15 +51,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="function click1() {   return new Promise(function (resolve, reject) {     const time = Math.floor(Math.random() * 3000);     setTimeout(function () {       resolve(`1&apos;s time is ${time}`);     }, time)">
+<meta property="og:type" content="article">
 <meta property="og:title" content="兽人永不为奴">
-<meta property="og:url" content="http://twohappy.me/archives/2017/04/index.html">
+<meta property="og:url" content="http://twohappy.me/2019/11/02/test/index.html">
 <meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="function click1() {   return new Promise(function (resolve, reject) {     const time = Math.floor(Math.random() * 3000);     setTimeout(function () {       resolve(`1&apos;s time is ${time}`);     }, time)">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-02T09:40:35.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="兽人永不为奴">
+<meta name="twitter:description" content="function click1() {   return new Promise(function (resolve, reject) {     const time = Math.floor(Math.random() * 3000);     setTimeout(function () {       resolve(`1&apos;s time is ${time}`);     }, time)">
 
-<link rel="canonical" href="http://twohappy.me/archives/2017/04/">
+<link rel="canonical" href="http://twohappy.me/2019/11/02/test/">
 
 
 <script id="page-configurations">
@@ -67,13 +71,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | 兽人永不为奴</title>
+  <title> | 兽人永不为奴</title>
   
 
 
@@ -168,69 +172,114 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 19 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/02/test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-02 17:40:35" itemprop="dateCreated datePublished" datetime="2019-11-02T17:40:35+08:00">2019-11-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2017</h1>
-    </div>
+        function click1() {
+  return new Promise(function (resolve, reject) {
+    const time = Math.floor(Math.random() * 3000);
+    setTimeout(function () {
+      resolve(`1's time is ${time}`);
+    }, time);
+  })
+}
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+function click2() {
+  return new Promise(function (resolve, reject) {
+    const time = Math.floor(Math.random() * 3000);
+    setTimeout(function () {
+      resolve(`2's time is ${time}`);
+    }, time);
+  })
+}
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2017-04-18T13:02:55+08:00"
-              content="2017-04-18">
-          04-18
-        </time>
-      </div>
+function userClick() {
+  const count = 10;
+  for (let i = 0; i < count; i++) {
+    if (Math.random() > 0.5) {
+      click1().then(num => console.log(num));
+      console.log('click--->  1');
+    } else {
+      click2().then(num => console.log(num));
+      console.log('click--->  2');
+    }
+  }
+}
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2017/04/18/node-api-stream/" itemprop="url">
-            <span itemprop="name">API学习：Stream</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2017-04-18T13:02:55+08:00"
-              content="2017-04-18">
-          04-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2017/04/18/node-api-events/" itemprop="url">
-            <span itemprop="name">API学习：Stream</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+userClick();
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/01/running-electron-on-windows/" rel="next" title="在 windows 环境下开发 Electron 应用">
+                  <i class="fa fa-chevron-left"></i> 在 windows 环境下开发 Electron 应用
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/11/05/inheritance-in-javascript/" rel="prev" title="inheritance-in-javascript">
+                  inheritance-in-javascript <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>

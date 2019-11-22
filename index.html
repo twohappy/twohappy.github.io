@@ -173,6 +173,383 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/22/arrays-symbols-realms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/22/arrays-symbols-realms/" class="post-title-link" itemprop="url">\[译\] isArray 背后做了什么？</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-22 14:21:24 / Modified: 16:26:09" itemprop="dateCreated datePublished" datetime="2019-11-22T14:21:24+08:00">2019-11-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>看到一篇文章<a href="https://jakearchibald.com/2017/arrays-symbols-realms/" target="_blank" rel="noopener">Arrays, symbols, and realms</a>，简单搜了一下，关于<a href="https://blog.xcatliu.com/2015/11/03/isarray/" target="_blank" rel="noopener">判断数组的文章</a>基本上从 <code>typeof</code>、<code>instanceof</code>、<code>Object.prototype.toString.call(obj) === &#39;[objectg Array]&#39;&#39;</code>讲到 <code>isArray</code>就完了。但是它实际上干了什么？</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>在推上，一个大佬问兄弟们，<a href="https://twitter.com/awbjs/status/939240121269809152" target="_blank" rel="noopener">大家知不知道 Array.isArray(obj) 干了什么</a>，结果显示，并不知道。更重要的是，本大佬也弄错了。</p>
+<h2 id="检查-arrays-的类型"><a href="#检查-arrays-的类型" class="headerlink" title="检查 arrays 的类型"></a>检查 arrays 的类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">假如说我们需要针对 `</span>obj<span class="string">` 是数组的情况，来专门做一些操作，比如 `</span><span class="built_in">JSON</span>.stringify<span class="string">`，它对于数组的输出，是跟其他对象不同的。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">我们可以这样：</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">if</span> (obj.constructor === <span class="built_in">Array</span>) <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>但对于继承于 Array 的数据来说，就不行了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SpecialArray</span> <span class="keyword">extends</span> <span class="title">Array</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> specialArray = <span class="keyword">new</span> SpecialArray();</span><br><span class="line"><span class="built_in">console</span>.log(specialArray.constructor === <span class="built_in">Array</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(specialArray.constructor === SpecialArray); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>针对子类我们又可以用 <code>instanceof</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(specialArray <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(specialArray <span class="keyword">instanceof</span> SpecialArray); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>但是当你遇到多个<strong><a href="https://www.ecma-international.org/ecma-262/6.0/#sec-code-realms" target="_blank" rel="noopener">领域</a></strong>的时候就不好使了：</p>
+<h3 id="多个领域"><a href="#多个领域" class="headerlink" title="多个领域"></a>多个领域</h3><p>一个领域包含了 JavaScript 的全局对象，<code>self</code> 指向的那个。可以这样讲：跑在 worker 里面的代码，和跑在页面里面的代码，是属于不同领域的。iframe 之间也是这样（属于不同领域）。但是，同源的 iframe 们共享一个 ECMAScript <code>agent</code>[啥意思？]，意味着对象这个东西可以<strong>在不同领域之间传递</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe srcdoc=<span class="string">"&lt;script&gt;var arr = [];&lt;/script&gt;"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">const</span> iframe = <span class="built_in">document</span>.querySelector(<span class="string">'iframe'</span>);</span><br><span class="line">  <span class="keyword">const</span> arr = iframe.contentWindow.arr;</span><br><span class="line">  <span class="built_in">console</span>.log(arr.constructor === <span class="built_in">Array</span>); <span class="comment">// false</span></span><br><span class="line">  <span class="built_in">console</span>.log(arr.constructor <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// false</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>都会返回 <code>false</code>，因为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span> === iframe.contentWindow.Array); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>iframe 会有各自不同的 array 构造器…</p>
+<h2 id="接下来说-Array-isArray"><a href="#接下来说-Array-isArray" class="headerlink" title="接下来说 Array.isArray"></a>接下来说 Array.isArray</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(arr)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Array.isArray</code> 对在另一个领域里面创建的数组也会返回 <code>true</code>。它对<code>Array</code> 的子类也会返回 <code>true</code>，<code>JSON.stringify</code> 内部用的就是它。</p>
+<p>但是，就像推上那位大佬<a href="https://twitter.com/awbjs/status/939607812094574594" target="_blank" rel="noopener">说的</a>，这不代表 <code>arr</code> 本身具有数组的方法。所有的方法们可能都被设成了 <code>undefined</code>，甚至 <code>arr</code> 的 <code>prototype</code> 可能都没了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> noProtoArray = [];</span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(noProtoArray, <span class="literal">null</span>);</span><br><span class="line"><span class="built_in">console</span>.log(noProtoArray.map); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(noProtoArray <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(noProtoArray)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>下面是你遇见这种数组了怎么办..</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(noProtoArray)) &#123;</span><br><span class="line">  <span class="keyword">const</span> mappedArray = <span class="built_in">Array</span>.prototype.map.call(noProtoArray, callback);</span><br><span class="line">  <span class="comment">// …</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-和-realm-（领域）"><a href="#Symbol-和-realm-（领域）" class="headerlink" title="Symbol 和 realm （领域）"></a>Symbol 和 realm （领域）</h2><p>看看这段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe srcdoc=<span class="string">"&lt;script&gt;var arr = [1, 2, 3];&lt;/script&gt;"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">const</span> iframe = <span class="built_in">document</span>.querySelector(<span class="string">'iframe'</span>);</span><br><span class="line">  <span class="keyword">const</span> arr = iframe.contentWindow.arr;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> item <span class="keyword">of</span> arr) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>地球人都知道会 log 出来 1,2,3。但这说明了啥？<br>for-of 循环内部使用的是 <code>arr[Symbol.iterator]</code>，这是跨领域之后还可以通用的。看：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">document</span>.querySelector(<span class="string">'iframe'</span>);</span><br><span class="line"><span class="keyword">const</span> iframeWindow = iframe.contentWindow;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span> === iframeWindow.Symbol); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.iterator === iframeWindow.Symbol.iterator); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>每个领域有它自己的 Symbol 实例的同时，他们的 <code>Symbol.iterator</code> 却是一样的。</p>
+<p>引用一句<a href="https://twitter.com/Keithamus/status/939788908417748992" target="_blank" rel="noopener">话</a>，<code>Symbol</code> 同时是 JavaScript 里最特殊和最不特殊的东西了。</p>
+<h3 id="最特殊"><a href="#最特殊" class="headerlink" title="最特殊"></a>最特殊</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> symbolOne = <span class="built_in">Symbol</span>(<span class="string">'foo'</span>);</span><br><span class="line"><span class="keyword">const</span> symbolTwo = <span class="built_in">Symbol</span>(<span class="string">'foo'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(symbolOne === symbolTwo); <span class="comment">// false</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line">obj[symbolOne] = <span class="string">'hello'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj[symbolTwo]); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(obj[symbolOne]); <span class="comment">// 'hello'</span></span><br></pre></td></tr></table></figure>
+
+<p>传给 <code>Symbol</code> 构造器的字符串只是对它的一个描述，同一个领域下面同一个描述的 symbol 也是独特的。</p>
+<h3 id="最不特殊"><a href="#最不特殊" class="headerlink" title="最不特殊"></a>最不特殊</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> symbolOne = <span class="built_in">Symbol</span>.for(<span class="string">'foo'</span>);</span><br><span class="line"><span class="keyword">const</span> symbolTwo = <span class="built_in">Symbol</span>.for(<span class="string">'foo'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(symbolOne === symbolTwo); <span class="comment">// true</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line">obj[symbolOne] = <span class="string">'hello'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj[symbolTwo]); <span class="comment">// 'hello'</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Symbol.for(str)</code> 新建了一个根据你字符串唯一的 symbol 对象。重点是，跨了领域之后，它还是一样的。。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">document</span>.querySelector(<span class="string">'iframe'</span>);</span><br><span class="line"><span class="keyword">const</span> iframeWindow = iframe.contentWindow;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.for(<span class="string">'foo'</span>) === iframeWindow.Symbol.for(<span class="string">'foo'</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>所以这个也就基本上是 <code>Symbol.iterator</code> 为啥能行的原因了。</p>
+<h2 id="根据传统，自己手写个-is-函数"><a href="#根据传统，自己手写个-is-函数" class="headerlink" title="根据传统，自己手写个 is 函数"></a>根据传统，自己手写个 <code>is</code> 函数</h2><p> 那么 symbol 对象可以让我们写出跨领域能用 <code>is</code> 方法：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> typeSymbol = <span class="built_in">Symbol</span>.for(<span class="string">'whatever-type-symbol'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Whatever</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> isWhatever(obj) &#123;</span><br><span class="line">    <span class="keyword">return</span> obj &amp;&amp; <span class="built_in">Boolean</span>(obj[typeSymbol]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>[typeSymbol] = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 或者下面这种不会被遍历出来</span></span><br><span class="line">  <span class="keyword">get</span> [typeSymbol]() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> whatever = <span class="keyword">new</span> Whatever();</span><br><span class="line">Whatever.isWhatever(whatever); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>这样唯一的一点不太好的地方，就是命名冲突了。别人也这么搞，而且还同名的话，就有问题了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/05/inheritance-in-javascript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/05/inheritance-in-javascript/" class="post-title-link" itemprop="url">inheritance-in-javascript</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-05 17:57:50" itemprop="dateCreated datePublished" datetime="2019-11-05T17:57:50+08:00">2019-11-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-22 16:14:29" itemprop="dateModified" datetime="2019-11-22T16:14:29+08:00">2019-11-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>继承这个东西都快被嚼烂了。但是没办法，不复习，还是会忘掉。</p>
+<h2 id="new-的过程中发生了什么"><a href="#new-的过程中发生了什么" class="headerlink" title="new 的过程中发生了什么"></a>new 的过程中发生了什么</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">age, name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.getCount = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        count++;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> laowang = <span class="keyword">new</span> Person(<span class="number">32</span>, <span class="string">'laowang'</span>);</span><br><span class="line">laowang.__proto__ === Person.prototype; <span class="comment">// true</span></span><br><span class="line">laowang <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> laozhang = &#123;&#125;;</span><br><span class="line">Person.call(laozhang, <span class="number">33</span>, <span class="string">'laozhang'</span>);</span><br><span class="line">laozhang; <span class="comment">// &#123;age: 33, name: 'laozhang'&#125;</span></span><br><span class="line">laozhang <span class="keyword">instanceof</span> Person; <span class="comment">// false</span></span><br><span class="line">laozhang.__proto__ = Person.prototype;</span><br><span class="line">laozhang <span class="keyword">instanceof</span> Person; <span class="comment">// true;</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来再看一段：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">laowang.__proto__ === Person.prototype; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">Person.prototype.__proto === <span class="built_in">Object</span>.prototype; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p> (摘抄一波 MDN 文档，写的太好了)  </p>
+<p>当谈到继承时，JavaScript 只有一种结构：对象。每个实例对象（ object ）都有一个私有属性（称之为 <code>__proto__</code> ）指向它的构造函数的原型对象（<code>prototype</code> ）。该原型对象也有一个自己的原型对象( <code>__proto__</code> ) ，层层向上直到一个对象的原型对象为 null。根据定义，null 没有原型，并作为这个原型链中的最后一个环节。  </p>
+<p>几乎所有 JavaScript 中的对象都是位于原型链顶端的 Object 的实例。</p>
+<h3 id="基于原型链的继承"><a href="#基于原型链的继承" class="headerlink" title="基于原型链的继承"></a>基于原型链的继承</h3><h4 id="继承属性"><a href="#继承属性" class="headerlink" title="继承属性"></a>继承属性</h4><p> JavaScript 对象是动态的属性“包”（指其自己的属性）。JavaScript 对象有一个指向一个原型对象的链。当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。</p>
+<p> <span style="background-color:##ff000088;color:#000000">注：原型链，是对象构成的链</span></p>
+<p>看一段<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">this</span>.b = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> o = <span class="keyword">new</span> f();    <span class="comment">// &#123; a: 1, b: 2 &#125;</span></span><br><span class="line"></span><br><span class="line">f.prototype.b = <span class="number">3</span>;</span><br><span class="line">f.prototype.c = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#123;a:1, b:2&#125; ---&gt; &#123;b:3, c:4&#125; ---&gt; Object.prototype---&gt; null</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(o.a);   <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(o.b);   <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(o.c);   <span class="comment">// 4</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="继承方法"><a href="#继承方法" class="headerlink" title="继承方法"></a>继承方法</h3><p>JavaScript 并没有其他基于类的语言所定义的“方法”。在 JavaScript 里，任何函数都可以添加到对象上作为对象的属性。函数的继承与其他的属性继承没有差别，包括上面的“属性遮蔽”（这种情况相当于其他语言的方法重写）。</p>
+<p>当继承的函数被调用时，this 指向的是当前继承的对象，而不是继承的函数所在的原型对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">  a: <span class="number">2</span>,</span><br><span class="line">  m: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(o.m()); <span class="comment">// 3</span></span><br><span class="line"><span class="comment">// 当调用 o.m 时，'this' 指向了 o.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">Object</span>.create(o);</span><br><span class="line"><span class="comment">// p是一个继承自 o 的对象</span></span><br><span class="line"></span><br><span class="line">p.a = <span class="number">4</span>; <span class="comment">// 创建 p 的自身属性 'a'</span></span><br><span class="line"><span class="built_in">console</span>.log(p.m()); <span class="comment">// 5</span></span><br><span class="line"><span class="comment">// 调用 p.m 时，'this' 指向了 p</span></span><br><span class="line"><span class="comment">// 又因为 p 继承了 o 的 m 函数</span></span><br><span class="line"><span class="comment">// 所以，此时的 'this.a' 即 p.a，就是 p 的自身属性 'a'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><input disabled type="checkbox"> Object.create(obj) 返回一个以 obj 为原型的对象…</li>
+</ul>
+<p>到现在为止，搞清楚了的是：在 JavaScript 中，一个对象如何访问到自己没有的属性/方法，通过基于原型链的继承。</p>
+<h3 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h3><ol>
+<li><p>在 JavaScript 中，函数（function）是允许拥有属性的。所有的函数会有一个特别的属性 —— <code>prototype</code> 。</p>
+</li>
+<li><p>当试图访问一个函数 <code>someFunction</code> 的实例对象 <code>someInstance</code> 的一个属性：</p>
+<ul>
+<li><p>浏览器（或其他的执行环境）首先会查看 <code>someInstance</code> 中是否存在这个属性。</p>
+</li>
+<li><p>如果不包含这个属性，那么会在 <code>someInstance</code> 的 <code>__proto__</code> / <code>[[Prototype]]</code> / <code>constructor.prototype</code> / <code>someFunction.prototype</code>（这几个东西等价）中去查找</p>
+</li>
+<li><p>如果还没有，那么会在 <code>someInstance</code> 的 <code>__proto__</code> 的 <code>__proto__</code> 中查找。</p>
+</li>
+<li><p>（默认情况下）任何函数的原型属性都是 <code>Object.prototype</code></p>
+</li>
+<li><p>那么下面几个东西等价</p>
+</li>
+<li><p><code>someInstance.__proto__.__proto__</code></p>
+</li>
+<li><p><code>someFunction.prototype.__proto__</code></p>
+</li>
+<li><p><code>Object.prototype</code></p>
+</li>
+<li><p>原型链的终点是 <code>Object.prototype.__proto__</code>，它指向 <code>null</code></p>
+</li>
+<li><p>在 <code>__proto__</code> 的整个原型链被查看之后，这里没有更多的 <code>__proto__</code>，浏览器断定这个属性不存在，就会给出这个属性值为 <code>undefined</code> 的结论</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="拓展一下"><a href="#拓展一下" class="headerlink" title="拓展一下"></a>拓展一下</h3><ul>
+<li><p>在 ES5 中引入了一个新方法 <code>Object.create(o)</code>，返回的对象的原型就是 o</p>
+</li>
+<li><p>在 ES6 中引入了一套关键字：<code>class</code>, <code>constructor</code>，<code>static</code>，<code>extends</code> 和 <code>super</code> 来实现 class，但实际上仍然是基于原型链的。（语法糖）</p>
+</li>
+<li><p>遍历对象的属性时，原型链上的<strong>每个</strong>可枚举属性都会被枚举出来。</p>
+<ul>
+<li>hasOwnProperty 和 Object.keys() 是 JavaScript 中两个处理属性并且不会遍历原型链的方法。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> property <span class="keyword">in</span> b)&#123;</span><br><span class="line">    <span class="keyword">if</span>(b.hasOwnProperty(property))&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(pro);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="再总结一下"><a href="#再总结一下" class="headerlink" title="再总结一下"></a>再总结一下</h3><ul>
+<li>我们需要牢记两点：1、<strong>proto</strong>和constructor属性是对象所独有的；2、 prototype属性是函数所独有的，因为函数也是一种对象，所以函数也拥有<strong>proto</strong>和constructor属性。</li>
+<li><strong>proto</strong>属性的作用就是当访问一个对象的属性时，如果该对象内部不存在这个属性，那么就会去它的<strong>proto</strong>属性所指向的那个对象里找，一直找，直到<strong>proto</strong>属性的终点null，再往上找就相当于在null上取值，会报错。通过<strong>proto</strong>属性将对象连接起来的这条链路即我们所谓的原型链。</li>
+<li>prototype属性的作用就是让该函数所实例化的对象们都可以找到公用的属性和方法，即f1.<strong>proto</strong> === Foo.prototype。</li>
+<li>constructor属性的含义就是指向该对象的构造函数，所有函数（此时看成对象了）最终的构造函数都指向Function。</li>
+</ul>
+<h3 id="再拓展一下"><a href="#再拓展一下" class="headerlink" title="再拓展一下"></a>再拓展一下</h3><ul>
+<li><p>不是所有 function object 都有 prototype 属性：</p>
+<blockquote>
+<p>   来自<a href="https://www.ecma-international.org/ecma-262/7.0/index.html#sec-function-instances-prototype" target="_blank" rel="noopener">ECMA-262规范</a>：</p>
+<p>   Function instances that can be used as a constructor have a prototype property. Whenever such a function instance is created another ordinary object is also created and is the initial value of the function’s prototype property. Unless otherwise specified, the value of the prototype property is used to initialize the [[Prototype]] internal slot of the object created when that function is invoked as a constructor.</p>
+<p>   NOTE  </p>
+<p>   Function objects created using Function.prototype.bind, or by evaluating a MethodDefinition (that are not a GeneratorMethod) or an ArrowFunction grammar production do not have a prototype property.</p>
+</blockquote>
+</li>
+<li><p>可以当成构造函数用的 function，才有 prototype，用来给实例化的对象的 __proto__ 赋值。那么没打算当构造函数的，就没有了。比如：</p>
+<ul>
+<li><p>bind 创建的函数</p>
+</li>
+<li><p>很多内置函数</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.fill.prototype                 <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.hasOwnProperty.prototype      <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>箭头函数</p>
+</li>
+</ul>
+</li>
+<li><p>反过来对象的话，没有 __proto__ 的除了 null 还有什么？ [TDB] </p>
+<ul>
+<li>好像只有 Object.create(null) ？</li>
+<li>Object.create(obj, { age : { value: 42, writable:true, configurable:true, enumerable:true}})</li>
+</ul>
+</li>
+<li><p><code>__proto__</code> 是一个存在于 <code>Object.prototype</code> 上设置了 getter 和 setter 的属性。所以说法：<code>__proto__</code> 是获取 <code>[[Prototype]]</code> 的方式更 OK。其实 <code>__proto__</code> 本身不是 <code>[[Prototype]]</code>… </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype</span><br><span class="line">constructor: ƒ Object()</span><br><span class="line">hasOwnProperty: ƒ hasOwnProperty()</span><br><span class="line">isPrototypeOf: ƒ isPrototypeOf()</span><br><span class="line">propertyIsEnumerable: ƒ propertyIsEnumerable()</span><br><span class="line">toLocaleString: ƒ toLocaleString()</span><br><span class="line">toString: ƒ toString()</span><br><span class="line">valueOf: ƒ valueOf()</span><br><span class="line">__defineGetter__: ƒ __defineGetter__()</span><br><span class="line">__defineSetter__: ƒ __defineSetter__()</span><br><span class="line">__lookupGetter__: ƒ __lookupGetter__()</span><br><span class="line">__lookupSetter__: ƒ __lookupSetter__()</span><br><span class="line">get __proto__: ƒ __proto__()</span><br><span class="line">set __proto__: ƒ __proto__()</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li>再去找的话，还有很多特例<ul>
+<li>比如 <code>Symbol</code>，有构造函数，但是不能 new</li>
+<li>比如 Generator Function，有 <code>prototype</code>，但不是构造函数</li>
+<li><code>Proxy</code> [TBD] <code>BigInt</code> [TBD]</li>
+</ul>
+</li>
+</ul>
+<h1 id="20191120-补充：如何实现继承"><a href="#20191120-补充：如何实现继承" class="headerlink" title="20191120 补充：如何实现继承"></a>20191120 补充：如何实现继承</h1><h2 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h2><p>###组合继承</p>
+<p>就是属性在父类构造函数中定义，方法在父类构造函数的原型上定义。</p>
+<p>然后子类构造函数中 Parent.call(this,value) 来继承父类的属性</p>
+<p>Child.prototype = new Parent() 来继承父类的方法</p>
+<p>缺点是 new 的时候，Child 的 prototype 上面多了无用的父类属性</p>
+<h3 id="组合寄生"><a href="#组合寄生" class="headerlink" title="组合寄生"></a>组合寄生</h3><p>直接用 ES5 最正确的方式来做继承<br>如此没有其它的东西，且有正确的 constructor 指向</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype,&#123;</span><br><span class="line">    <span class="keyword">constructor</span>:&#123;</span><br><span class="line">        value: Child,</span><br><span class="line">        enumerable: <span class="literal">false</span>,</span><br><span class="line">        configurable: <span class="literal">true</span>,</span><br><span class="line">        writable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(value)&#123;</span><br><span class="line">        <span class="keyword">this</span>.val = value;</span><br><span class="line">    &#125;</span><br><span class="line">    getValue()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(value)&#123;</span><br><span class="line">        <span class="keyword">super</span>(value)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/02/test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/02/test/" class="post-title-link" itemprop="url">Untitled</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-02 17:40:35" itemprop="dateCreated datePublished" datetime="2019-11-02T17:40:35+08:00">2019-11-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          function click1() {
+  return new Promise(function (resolve, reject) {
+    const time = Math.floor(Math.random() * 3000);
+    setTimeout(function () {
+      resolve(`1's time is ${time}`);
+    }, time);
+  })
+}
+
+function click2() {
+  return new Promise(function (resolve, reject) {
+    const time = Math.floor(Math.random() * 3000);
+    setTimeout(function () {
+      resolve(`2's time is ${time}`);
+    }, time);
+  })
+}
+
+function userClick() {
+  const count = 10;
+  for (let i = 0; i < count; i++) {
+    if (Math.random() > 0.5) {
+      click1().then(num => console.log(num));
+      console.log('click--->  1');
+    } else {
+      click2().then(num => console.log(num));
+      console.log('click--->  2');
+    }
+  }
+}
+
+userClick();
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/01/running-electron-on-windows/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -786,103 +1163,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/11/04/red-braised-pork/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="twohappy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="兽人永不为奴">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/04/red-braised-pork/" class="post-title-link" itemprop="url">「旧笔记搬运」关于红烧肉</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-11-04 12:47:36" itemprop="dateCreated datePublished" datetime="2017-11-04T12:47:36+08:00">2017-11-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-02 12:57:26" itemprop="dateModified" datetime="2019-11-02T12:57:26+08:00">2019-11-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1）五花肉：500克。以前看到有人说，红烧肉必须一做就做一大锅，没有两三斤肉烧不出好吃的红烧肉。其实并非如此。对于小家庭来说，500克算是一个比较合适的量，一次做得太多，虽然吃的时候过瘾，过后肯定后悔。倒不如每次都保留一个良好的印象，每过一段时间就做一顿解解馋，这更加符合健康之道。</p>
-<p>五花肉的层次越多越好，我比较偏好猪肋骨外侧的“上五花”，跟猪腹部的五花肉相比，这个部位脂肪层次多，但是每层脂肪又比较薄。这些五花肉需要提前切成3－4厘米见方的小块，肉块过小，瘦肉容易变硬变干，肉块过大，烹调过程中内部油脂不容易渗出，难免有些油腻。</p>
-<p>2）老抽酱油：20克</p>
-<p>2）料酒：20克</p>
-<p>3）干红辣椒：1支</p>
-<p>4）桂皮：一段（大概1厘米长就可以了，不要使用桂皮粉，烹调过程中会变黑，影响菜的品相）</p>
-<p>5）生姜：2－3厘米见方，切成片</p>
-<p>6）小葱：25克，切成5－6厘米的长段</p>
-<p>7）糖：30克</p>
-<p>8）盐：半茶匙（约3－4克）</p>
-<p>9）八角：4－5朵</p>
-<p>10）花生油：10克<br>一步是准备配料，一旦开启炉灶，红烧肉最好一气呵成，中间任何不必要的停顿都会影响菜的口味，所以必须提前把所有材料准备停当。</p>
-<p>第二步需要对五花肉进行预处理，传统上至少有三种处理方式：油炸、焯水和煸炒。除此之外，还可以借鉴西餐里面处理肉类的办法，直接把五花肉放在大火预热90秒的平底锅里面煎。</p>
-<p>把五花肉的四个侧面（不要去煎顶面的猪皮和底面的瘦肉层）都煎成金黄色，经过这样处理，一方面可以除去肥肉中的一部分油脂，猪肉表面金黄色的薄层会在慢炖的过程中融化在汤汁里面，增加许多风味，如果你不信，现在就可以把鼻子凑在煎好的五花肉上闻一闻，是不是已经香气扑鼻了呢？</p>
-<p>煎的过程中可以使用不粘锅，翻动五花肉的时候尽量使用硅胶夹子，动作要轻柔，这样可以保护肉的形态。煎好的五花肉放在盘子里面盖上铝箔保温备用。</p>
-<p>第三步是炒糖色。红烧肉的“红”其实就是焦糖的颜色。糖加热到170摄氏度的时候就会转化成焦糖，红烧菜肴最后收汁的时候，汤汁里面的糖在高温的作用下就会变成焦糖，给菜肴覆盖一层诱人的红棕色，并增添许多风味。理论上说，炒糖色并非绝对必须，可以在最后收汁的时候完成这个过程。但是红烧肉必须用加水（或者酒），收汁的时候把这些水完全烧干需要不少时间，等待过程当中，瘦肉部分可能就会变干变硬。提前炒好糖色就可以避免这些麻烦。</p>
-<p>炒糖色最好就用炖肉的锅子，这样等会就可以直接把肉和糖混合在一起。炖肉锅子的选择非常重要，直接关系到红烧肉的品质。如果你做的红烧肉瘦肉部分有变干变硬的倾向，十有八九就是锅子没有选对。选择锅子的时候首先要考虑的是锅盖的密封性，锅盖上绝对不能有通气孔，锅盖和锅的配合必须严丝合缝。本来我们也没有注意到这个问题，LG用锅子烧米饭的时候发现，但凡那些锅盖上有通气孔的锅子，煮出来的米饭表层都是硬的，而那些锅盖密封性能很好的锅子，煮出来的米饭表层和内层都是软的。由此联想到红烧肉的问题，LG后来通过对照试验就验证了这个猜测。其次锅底导热的均匀性也非常重要，局部过热很容易让富含胶质的红烧肉粘在锅底。人们常常觉得砂锅导热比较均匀，其实并不准确，砂锅因为导热系数低，锅底的受热其实很不均匀。个人推荐使用不锈钢复底锅，其导热均匀性比厚底铸铁锅还要好。</p>
-<p>在锅子里面倒入10克花生油，然后倒入30克白糖。花生油在这里就是起到一个导热媒介的作用，就像电脑CPU和风扇之间的导热硅脂一样，可以加快糖融化的过程。</p>
-<p>很快就会变成金黄色，这个时候你就需要把炉灶火力降到最低，或者干脆把锅子从炉灶上移开，因为焦糖变色的过程非常迅速，就是短短几秒钟的事情。拍摄过程中，LG就是因为等我聚焦，结果锅子在炉灶上停留的时间稍长了一点，炒好的糖色迅速变成深红色，进而变成黑色，LG只好倒掉重新再来。</p>
-<p>然后把前面煎好的五花肉放进锅子里面，翻动一下，让糖色均匀地裹在肉的表面。注意不要把所有的肉一起倒进锅子里面，因为里面析出的汁水跟滚烫的糖混合后会飞溅出来，比较安全的办法就是用夹子把肉一块块放进锅子里面，翻动的时候动作要轻柔，一来是保护五花肉的形态，二来是避免滚烫的汁水飞溅出来。</p>
-<p>第四步就是慢火炖肉。在锅子里面放入切好的葱段、姜片、八角、桂皮和20克老抽酱油，翻动一下，让配料和五花肉混合均匀。</p>
-<p>然后加入20克料酒和1支干红辣椒，翻炒均匀。</p>
-<p>最后倒入沸水，倒水的时候要贴着锅边，不要直接把水浇在肉上面，否则前面辛辛苦苦刚给五花肉裹上的糖色就被热水冲掉了。</p>
-<p>水的高度以能够淹没肉的高度的3/4为准，然后加入半茶匙盐（3－4克），翻动一下，让盐溶解在汤汁里面。对于红烧肉来说，就像苏东坡说的那样，应该少放水，但是这样一来就有一些肉直接暴露在水面上，如果锅盖密封性能比较好，这些暴露在外的肉就能保持较多的水分，如果锅盖密封性能不好，肉里的汁水就会渐渐蒸发，进而变干变硬。</p>
-<p>火烧开后，立刻把火力降到最低（把锅子转移到最小的灶眼上面，用最小的火力），慢火炖上90分钟左右。</p>
-<p>第五步是收汁。把锅子里面的汁水倒出来，倒的过程中用滤篮滤去八角桂皮等香料，五花肉仍然留在锅子里面，盖紧锅盖放在一边备用。</p>
-<p>等到汤汁收到类似糖浆性状的时候，就关掉炉灶，把五花肉从锅子里面取出来，放在平底锅里面，稍稍翻动一下，给五花肉表面包裹一层汤汁。</p>
-<p>然后，一秒钟也不要耽搁，马上开吃，看看这红烧肉的品相，它如何美味就不必多说了吧。红烧肉做好之后也会继续散发水分，瘦肉的口感会在很短的时间内变干变硬，肉皮变冷之后会变得坚韧，完全失去软糯轻盈的口感，所以吃的时候一定要抓紧时间哦！</p>
-<p>再重复一下完美红烧肉需要注意几个细节：</p>
-<p>1）用平底锅把五花肉表面煎成金黄色可以增加风味。</p>
-<p>2）锅子的选择，一定要用锅盖密封性能好的锅子，锅底导热的均匀性也要好。</p>
-<p>3）提前炒好糖色，缩短收汁时间。</p>
-<p>4）收汁之前撇去里面的肥油。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/11/04/about-css-positioning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -985,6 +1265,103 @@
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 <h3 id="相对定位"><a href="#相对定位" class="headerlink" title="相对定位"></a>相对定位</h3><p>这个也很好理解，因为元素不会从文档流中删除，原来的位置仍然保留，只是将内容偏移一定的距离。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/11/04/red-braised-pork/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/04/red-braised-pork/" class="post-title-link" itemprop="url">「旧笔记搬运」关于红烧肉</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-11-04 12:47:36" itemprop="dateCreated datePublished" datetime="2017-11-04T12:47:36+08:00">2017-11-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 12:57:26" itemprop="dateModified" datetime="2019-11-02T12:57:26+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1）五花肉：500克。以前看到有人说，红烧肉必须一做就做一大锅，没有两三斤肉烧不出好吃的红烧肉。其实并非如此。对于小家庭来说，500克算是一个比较合适的量，一次做得太多，虽然吃的时候过瘾，过后肯定后悔。倒不如每次都保留一个良好的印象，每过一段时间就做一顿解解馋，这更加符合健康之道。</p>
+<p>五花肉的层次越多越好，我比较偏好猪肋骨外侧的“上五花”，跟猪腹部的五花肉相比，这个部位脂肪层次多，但是每层脂肪又比较薄。这些五花肉需要提前切成3－4厘米见方的小块，肉块过小，瘦肉容易变硬变干，肉块过大，烹调过程中内部油脂不容易渗出，难免有些油腻。</p>
+<p>2）老抽酱油：20克</p>
+<p>2）料酒：20克</p>
+<p>3）干红辣椒：1支</p>
+<p>4）桂皮：一段（大概1厘米长就可以了，不要使用桂皮粉，烹调过程中会变黑，影响菜的品相）</p>
+<p>5）生姜：2－3厘米见方，切成片</p>
+<p>6）小葱：25克，切成5－6厘米的长段</p>
+<p>7）糖：30克</p>
+<p>8）盐：半茶匙（约3－4克）</p>
+<p>9）八角：4－5朵</p>
+<p>10）花生油：10克<br>一步是准备配料，一旦开启炉灶，红烧肉最好一气呵成，中间任何不必要的停顿都会影响菜的口味，所以必须提前把所有材料准备停当。</p>
+<p>第二步需要对五花肉进行预处理，传统上至少有三种处理方式：油炸、焯水和煸炒。除此之外，还可以借鉴西餐里面处理肉类的办法，直接把五花肉放在大火预热90秒的平底锅里面煎。</p>
+<p>把五花肉的四个侧面（不要去煎顶面的猪皮和底面的瘦肉层）都煎成金黄色，经过这样处理，一方面可以除去肥肉中的一部分油脂，猪肉表面金黄色的薄层会在慢炖的过程中融化在汤汁里面，增加许多风味，如果你不信，现在就可以把鼻子凑在煎好的五花肉上闻一闻，是不是已经香气扑鼻了呢？</p>
+<p>煎的过程中可以使用不粘锅，翻动五花肉的时候尽量使用硅胶夹子，动作要轻柔，这样可以保护肉的形态。煎好的五花肉放在盘子里面盖上铝箔保温备用。</p>
+<p>第三步是炒糖色。红烧肉的“红”其实就是焦糖的颜色。糖加热到170摄氏度的时候就会转化成焦糖，红烧菜肴最后收汁的时候，汤汁里面的糖在高温的作用下就会变成焦糖，给菜肴覆盖一层诱人的红棕色，并增添许多风味。理论上说，炒糖色并非绝对必须，可以在最后收汁的时候完成这个过程。但是红烧肉必须用加水（或者酒），收汁的时候把这些水完全烧干需要不少时间，等待过程当中，瘦肉部分可能就会变干变硬。提前炒好糖色就可以避免这些麻烦。</p>
+<p>炒糖色最好就用炖肉的锅子，这样等会就可以直接把肉和糖混合在一起。炖肉锅子的选择非常重要，直接关系到红烧肉的品质。如果你做的红烧肉瘦肉部分有变干变硬的倾向，十有八九就是锅子没有选对。选择锅子的时候首先要考虑的是锅盖的密封性，锅盖上绝对不能有通气孔，锅盖和锅的配合必须严丝合缝。本来我们也没有注意到这个问题，LG用锅子烧米饭的时候发现，但凡那些锅盖上有通气孔的锅子，煮出来的米饭表层都是硬的，而那些锅盖密封性能很好的锅子，煮出来的米饭表层和内层都是软的。由此联想到红烧肉的问题，LG后来通过对照试验就验证了这个猜测。其次锅底导热的均匀性也非常重要，局部过热很容易让富含胶质的红烧肉粘在锅底。人们常常觉得砂锅导热比较均匀，其实并不准确，砂锅因为导热系数低，锅底的受热其实很不均匀。个人推荐使用不锈钢复底锅，其导热均匀性比厚底铸铁锅还要好。</p>
+<p>在锅子里面倒入10克花生油，然后倒入30克白糖。花生油在这里就是起到一个导热媒介的作用，就像电脑CPU和风扇之间的导热硅脂一样，可以加快糖融化的过程。</p>
+<p>很快就会变成金黄色，这个时候你就需要把炉灶火力降到最低，或者干脆把锅子从炉灶上移开，因为焦糖变色的过程非常迅速，就是短短几秒钟的事情。拍摄过程中，LG就是因为等我聚焦，结果锅子在炉灶上停留的时间稍长了一点，炒好的糖色迅速变成深红色，进而变成黑色，LG只好倒掉重新再来。</p>
+<p>然后把前面煎好的五花肉放进锅子里面，翻动一下，让糖色均匀地裹在肉的表面。注意不要把所有的肉一起倒进锅子里面，因为里面析出的汁水跟滚烫的糖混合后会飞溅出来，比较安全的办法就是用夹子把肉一块块放进锅子里面，翻动的时候动作要轻柔，一来是保护五花肉的形态，二来是避免滚烫的汁水飞溅出来。</p>
+<p>第四步就是慢火炖肉。在锅子里面放入切好的葱段、姜片、八角、桂皮和20克老抽酱油，翻动一下，让配料和五花肉混合均匀。</p>
+<p>然后加入20克料酒和1支干红辣椒，翻炒均匀。</p>
+<p>最后倒入沸水，倒水的时候要贴着锅边，不要直接把水浇在肉上面，否则前面辛辛苦苦刚给五花肉裹上的糖色就被热水冲掉了。</p>
+<p>水的高度以能够淹没肉的高度的3/4为准，然后加入半茶匙盐（3－4克），翻动一下，让盐溶解在汤汁里面。对于红烧肉来说，就像苏东坡说的那样，应该少放水，但是这样一来就有一些肉直接暴露在水面上，如果锅盖密封性能比较好，这些暴露在外的肉就能保持较多的水分，如果锅盖密封性能不好，肉里的汁水就会渐渐蒸发，进而变干变硬。</p>
+<p>火烧开后，立刻把火力降到最低（把锅子转移到最小的灶眼上面，用最小的火力），慢火炖上90分钟左右。</p>
+<p>第五步是收汁。把锅子里面的汁水倒出来，倒的过程中用滤篮滤去八角桂皮等香料，五花肉仍然留在锅子里面，盖紧锅盖放在一边备用。</p>
+<p>等到汤汁收到类似糖浆性状的时候，就关掉炉灶，把五花肉从锅子里面取出来，放在平底锅里面，稍稍翻动一下，给五花肉表面包裹一层汤汁。</p>
+<p>然后，一秒钟也不要耽搁，马上开吃，看看这红烧肉的品相，它如何美味就不必多说了吧。红烧肉做好之后也会继续散发水分，瘦肉的口感会在很短的时间内变干变硬，肉皮变冷之后会变得坚韧，完全失去软糯轻盈的口感，所以吃的时候一定要抓紧时间哦！</p>
+<p>再重复一下完美红烧肉需要注意几个细节：</p>
+<p>1）用平底锅把五花肉表面煎成金黄色可以增加风味。</p>
+<p>2）锅子的选择，一定要用锅盖密封性能好的锅子，锅底导热的均匀性也要好。</p>
+<p>3）提前炒好糖色，缩短收汁时间。</p>
+<p>4）收汁之前撇去里面的肥油。</p>
 
       
     </div>
@@ -1167,7 +1544,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/07/06/201709706-for-in-and-string-indexes-of-array/">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/07/06/for-in-and-string-indexes-of-array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1181,7 +1558,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2017/07/06/201709706-for-in-and-string-indexes-of-array/" class="post-title-link" itemprop="url">数组的“字符串”索引 & for…in 和 for…of的区别</a>
+            <a href="/2017/07/06/for-in-and-string-indexes-of-array/" class="post-title-link" itemprop="url">数组的“字符串”索引 & for…in 和 for…of的区别</a>
         </h1>
 
         <div class="post-meta">
@@ -1198,7 +1575,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-28 01:21:18" itemprop="dateModified" datetime="2019-09-28T01:21:18+08:00">2019-09-28</time>
+                <time title="Modified: 2019-11-16 13:51:54" itemprop="dateModified" datetime="2019-11-16T13:51:54+08:00">2019-11-16</time>
               </span>
 
           
@@ -1298,6 +1675,138 @@
 
 <p>p.s. 这是两年前的笔记。现在回头看，就是很常用也很常见的一个设计。。</p>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-stream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/18/node-api-stream/" class="post-title-link" itemprop="url">API学习：Stream</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-18 13:02:55" itemprop="dateCreated datePublished" datetime="2017-04-18T13:02:55+08:00">2017-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 13:03:35" itemprop="dateModified" datetime="2019-11-02T13:03:35+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><p>Stream是一个抽象接口，<code>stream</code>模块提供了一个基础API用来创建实现了stream接口的对象。</p>
+<p>Nodejs提供了很多流对象，比如对一个HTTP服务器的request，和<code>process.stdout</code>标准输出都是流。</p>
+<p>流可以使可写，可读，或者可读写的。所有的stream都是EventEmitter的实例。</p>
+<p>stream模块可以这样使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stream = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Types-of-Streams"><a href="#Types-of-Streams" class="headerlink" title="Types of Streams"></a>Types of Streams</h2><ul>
+<li>Readable</li>
+<li>Writable</li>
+<li>Duplex</li>
+<li>Transform</li>
+</ul>
+<h2 id="Object-Mode"><a href="#Object-Mode" class="headerlink" title="Object Mode"></a>Object Mode</h2><p>Nodejs API创造的streams专门对strings和Buffer对象操作。但是对其他值操作也是可能的，这种stream在Object Mode下工作。</p>
+<h2 id="Buffering"><a href="#Buffering" class="headerlink" title="Buffering"></a>Buffering</h2><p>Writable 和 Readable 流都将数据存储在一个内部缓存里，分别可用 <code>writable._writableState.getBuffer()</code> 和 <code>readable._readableState.buffer</code> 来检索到。可能缓存的数据数量由传入stream构造器的hightWaterMark来决定。对于普通stream，hightWaterMark规定了一个byte的总数，对于工作在Object Mode下的stream，它规定了一个总的object数。</p>
+<p>在stream的实现调用stream.push(chunk)时，数据被缓存在Readable stream里。如果这个Stream的消费者没有调用stream.read()，这些数据就在内部队列里呆着，直到被消费为止。</p>
+<p>一旦内部读取缓存的大小达到了highWaterMark规定的限值，stream会暂时停止从相关数据源读取数据，直到已缓存的数据被消费为止。（也就是说，stream会停止调用内部用来填充读取缓存的的readable._read()方法）</p>
+<p>当writable.write(chunk)被重复调用时，数据被缓存在Writable stream里。当内部写缓存的总大小低于highWaterMark规定的限值时，writable.write()的调用会返回true，一旦达到或者超过限值，就会返回false。<br>stream API特别是stream.pipe()方法的一个重要目标，就是把数据的缓存限制在一个可接受的程度，这样速度不同的数据源和数据目的地就可以在一个有限的内存下正常工作(而不会撑满内存导致溢出)。<br>因 为<code>Duplex</code> 和 <code>Transform streams</code> 都是可读写的，他们都有两个独立的内部缓存用来读和写，允许两边独立操作，同时保持一个合适有效的数据流。比如，net.Socket实例是Duplex stream，它的Readable 一侧允许消费从socket里接收到的数据，Writable一侧允许向socket内写入数据。因为读写数据的速度有可能不一样，两边分开独立（缓存和）操作就很重要。<br><em>说实话这里没看懂</em></p>
+<h2 id="给Stream-Consumers的API"><a href="#给Stream-Consumers的API" class="headerlink" title="给Stream Consumers的API"></a>给Stream Consumers的API</h2><p>不管多简单，基本上所有的Node.js程序都在以某种方式使用stream。下面是一个在实现一个HTTP服务器的程序中使用stream的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer( <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// req is an http.IncomingMessage, which is a Readable Stream</span></span><br><span class="line">  <span class="comment">// res is an http.ServerResponse, which is a Writable Stream</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> body = <span class="string">''</span>;</span><br><span class="line">  <span class="comment">// Get the data as utf8 strings.</span></span><br><span class="line">  <span class="comment">// If an encoding is not set, Buffer objects will be received.</span></span><br><span class="line">  req.setEncoding(<span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Readable streams emit 'data' events once a listener is added</span></span><br><span class="line">  req.on(<span class="string">'data'</span>, (chunk) =&gt; &#123;</span><br><span class="line">    body += chunk;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the end event indicates that the entire body has been received</span></span><br><span class="line">  req.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(body);</span><br><span class="line">      <span class="comment">// write back something interesting to the user:</span></span><br><span class="line">      res.write(<span class="keyword">typeof</span> data);</span><br><span class="line">      res.end();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (er) &#123;</span><br><span class="line">      <span class="comment">// uh oh!  bad json!</span></span><br><span class="line">      res.statusCode = <span class="number">400</span>;</span><br><span class="line">      <span class="keyword">return</span> res.end(<span class="string">`error: <span class="subst">$&#123;er.message&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">1337</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '&#123;&#125;'</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '"foo"'</span></span><br><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d 'not json'</span></span><br><span class="line"><span class="comment">// error: Unexpected token o</span></span><br></pre></td></tr></table></figure>
+
+<p>可写流暴露了如write()和end()的方法，用来向stream写入数据。<br>可读流使用EventEmitter API来通知程序啥时候数据可以从stream中读取了。有多种方式可以读取。<br>可读流和可写流都各种使用EventEmitter API，来和stream的当前状态通信。</p>
+<h2 id="Writable-Streams"><a href="#Writable-Streams" class="headerlink" title="Writable Streams"></a>Writable Streams</h2><p>Writable Streams是一个数据要写入的目的地的抽象。</p>
+<ul>
+<li>HTTP requests, on the client</li>
+<li>HTTP responses, on the server</li>
+<li>fs write streams</li>
+<li>zlib streams</li>
+<li>crypto streams</li>
+<li>TCP sockets</li>
+<li>child process stdin</li>
+<li>process.stdout, process.stderr</li>
+</ul>
+<p>所有的Writable streams都实现了由 <code>stream.Writable</code> 类定义的接口。<br>虽然各种实例各有不同，但他们都遵循同样的基本使用模式，如下面这个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myStream = getWritableStreamSomehow();</span><br><span class="line">myStream.write(<span class="string">'some data'</span>);</span><br><span class="line">myStream.write(<span class="string">'some more data'</span>);</span><br><span class="line">myStream.end(<span class="string">'done writing data'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Class-stream-Writable"><a href="#Class-stream-Writable" class="headerlink" title="Class: stream.Writable"></a>Class: stream.Writable</h3><h4 id="Event-‘close’"><a href="#Event-‘close’" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘drain’"><a href="#Event-‘drain’" class="headerlink" title="Event: ‘drain’"></a>Event: ‘drain’</h4><h4 id="Event-‘error’"><a href="#Event-‘error’" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘finish’"><a href="#Event-‘finish’" class="headerlink" title="Event: ‘finish’"></a>Event: ‘finish’</h4><h4 id="Event-‘pipe’"><a href="#Event-‘pipe’" class="headerlink" title="Event: ‘pipe’"></a>Event: ‘pipe’</h4><h4 id="Event-‘unpipe’"><a href="#Event-‘unpipe’" class="headerlink" title="Event: ‘unpipe’"></a>Event: ‘unpipe’</h4><h4 id="writable-cork"><a href="#writable-cork" class="headerlink" title="writable.cork()"></a>writable.cork()</h4><h4 id="writable-end-chunk-encoding-callback"><a href="#writable-end-chunk-encoding-callback" class="headerlink" title="writable.end([chunk][, encoding][, callback])"></a>writable.end([chunk][, encoding][, callback])</h4><h4 id="writable-setDefaultEncoding-encoding"><a href="#writable-setDefaultEncoding-encoding" class="headerlink" title="writable.setDefaultEncoding(encoding)"></a>writable.setDefaultEncoding(encoding)</h4><h4 id="writable-uncork"><a href="#writable-uncork" class="headerlink" title="writable.uncork()"></a>writable.uncork()</h4><h4 id="writable-write-chunk-encoding-callback"><a href="#writable-write-chunk-encoding-callback" class="headerlink" title="writable.write(chunk[, encoding][, callback])"></a>writable.write(chunk[, encoding][, callback])</h4><h2 id="Readable-Streams"><a href="#Readable-Streams" class="headerlink" title="Readable Streams"></a>Readable Streams</h2><p>Writable Streams是一个源的抽象，数据可以通过它来消费。</p>
+<ul>
+<li>HTTP responses, on the client</li>
+<li>HTTP requests, on the server</li>
+<li>fs read streams</li>
+<li>zlib streams</li>
+<li>crypto streams</li>
+<li>TCP sockets</li>
+<li>child process stdout and stderr</li>
+<li>process.stdin</li>
+</ul>
+<p>所有的Readable streams都实现了由 <code>stream.Readable</code> 类定义的接口。</p>
+<h3 id="Two-Modes-两种模式"><a href="#Two-Modes-两种模式" class="headerlink" title="Two Modes 两种模式"></a>Two Modes 两种模式</h3><p>Readable streams实际上运行在以下两种模式之一：flowing和paused</p>
+<p>在flowing模式下，数据从相关系统中自动读取，并通过EventEmitter接口使用事件尽可能快的提供给一个程序。</p>
+<p>在paused模式下，stream.rad()方法必须显式的调用，来从stream中读取数据块。</p>
+<p>所有的Readable streams开始都处在paused模式，并可以通过以下几种方式之一切换成flowing模式：</p>
+<ul>
+<li>添加一个’data’事件的handler</li>
+<li>调用stream.resume()方法</li>
+<li>调用stream.pipe()方法，来将数据传给一个Writable</li>
+</ul>
+<p>Readable可以通过以下几种方式之一切换回paused模式：</p>
+<ul>
+<li>如果没有pipe目的地，调用stream.pause()方法</li>
+<li>如果有pipe目的地，移除所有的’data’事件handler，并通过调用stream.unpipe()移除所有的pipe目的地。</li>
+</ul>
+<p>需要记住的是，一个Readable不会生成数据，直到一个或者消费数据或者忽略数据的机制被提供。一旦消费机制消失或者失效，Readable会尝试停止生成数据</p>
+<h3 id="Three-States-三种状态"><a href="#Three-States-三种状态" class="headerlink" title="Three States 三种状态"></a>Three States 三种状态</h3><p>Readable“两种操作模式”是一个对其实现中更复杂的内部状态管理的简化抽象。<br>明确的说，任何给定的时点，一个Readable会处在以下三种可能状态之一：</p>
+<ul>
+<li>readable._readableState.flowing = null</li>
+<li>readable._readableState.flowing = false</li>
+<li>readable._readableState.flowing = true<br>null：消费数据的机制没有提供，所以stream不会生成他的数据<br>给’data’事件添加一个监听器，调用readable.pipe()方法，或者调用readable.resume()方法会把flowing属性置为true，导致Readable开始积极地emit事件，同时数据开始生成。<br>调用readable.pause()，readable.unpipe()或者接受到‘back pressure’会让flowing属性被置为false，暂停事件流，但不会停止数据的生成。<br>当flowing是false时，数据可能在stream的内部缓存里积累。<h3 id="Chosse-One-挑一个"><a href="#Chosse-One-挑一个" class="headerlink" title="Chosse One 挑一个"></a>Chosse One 挑一个</h3>Readable stream API 随着Node.js版本在进化，提供了一堆消费数据的方法。通常应该只选择一个来消费数据，永远不要用多种方式来消费同一个stream中的数据。<br>一般推荐readable.pipe()，因为使用最简单。需要细粒度的控制数据传输和生成的可以使用EventEmitter和readable.pause()/readable.resume() API。</li>
+</ul>
+<h3 id="Class-stream-Readable"><a href="#Class-stream-Readable" class="headerlink" title="Class: stream.Readable"></a>Class: stream.Readable</h3><h4 id="Event-‘close’-1"><a href="#Event-‘close’-1" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘data’"><a href="#Event-‘data’" class="headerlink" title="Event: ‘data’"></a>Event: ‘data’</h4><h4 id="Event-‘end’"><a href="#Event-‘end’" class="headerlink" title="Event: ‘end’"></a>Event: ‘end’</h4><h4 id="Event-‘error’-1"><a href="#Event-‘error’-1" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘readable’"><a href="#Event-‘readable’" class="headerlink" title="Event: ‘readable’"></a>Event: ‘readable’</h4><h4 id="readable-isPaused"><a href="#readable-isPaused" class="headerlink" title="readable.isPaused()"></a>readable.isPaused()</h4><h4 id="readable-pause"><a href="#readable-pause" class="headerlink" title="readable.pause()"></a>readable.pause()</h4><h4 id="readable-pipe-destination-options"><a href="#readable-pipe-destination-options" class="headerlink" title="readable.pipe(destination[, options])"></a>readable.pipe(destination[, options])</h4><h4 id="readable-read-size"><a href="#readable-read-size" class="headerlink" title="readable.read([size])"></a>readable.read([size])</h4><h4 id="readable-resume"><a href="#readable-resume" class="headerlink" title="readable.resume()"></a>readable.resume()</h4><h4 id="readable-setEncoding-encoding"><a href="#readable-setEncoding-encoding" class="headerlink" title="readable.setEncoding(encoding)"></a>readable.setEncoding(encoding)</h4><h4 id="readable-unpipe-destination"><a href="#readable-unpipe-destination" class="headerlink" title="readable.unpipe([destination])"></a>readable.unpipe([destination])</h4><h4 id="readable-unshift-chunk"><a href="#readable-unshift-chunk" class="headerlink" title="readable.unshift(chunk)"></a>readable.unshift(chunk)</h4><h4 id="readable-wrap-stream"><a href="#readable-wrap-stream" class="headerlink" title="readable.wrap(stream)"></a>readable.wrap(stream)</h4>
       
     </div>
 
@@ -1454,138 +1963,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-stream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="twohappy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="兽人永不为奴">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/18/node-api-stream/" class="post-title-link" itemprop="url">API学习：Stream</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-18 13:02:55" itemprop="dateCreated datePublished" datetime="2017-04-18T13:02:55+08:00">2017-04-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-02 13:03:35" itemprop="dateModified" datetime="2019-11-02T13:03:35+08:00">2019-11-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><p>Stream是一个抽象接口，<code>stream</code>模块提供了一个基础API用来创建实现了stream接口的对象。</p>
-<p>Nodejs提供了很多流对象，比如对一个HTTP服务器的request，和<code>process.stdout</code>标准输出都是流。</p>
-<p>流可以使可写，可读，或者可读写的。所有的stream都是EventEmitter的实例。</p>
-<p>stream模块可以这样使用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stream = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="Types-of-Streams"><a href="#Types-of-Streams" class="headerlink" title="Types of Streams"></a>Types of Streams</h2><ul>
-<li>Readable</li>
-<li>Writable</li>
-<li>Duplex</li>
-<li>Transform</li>
-</ul>
-<h2 id="Object-Mode"><a href="#Object-Mode" class="headerlink" title="Object Mode"></a>Object Mode</h2><p>Nodejs API创造的streams专门对strings和Buffer对象操作。但是对其他值操作也是可能的，这种stream在Object Mode下工作。</p>
-<h2 id="Buffering"><a href="#Buffering" class="headerlink" title="Buffering"></a>Buffering</h2><p>Writable 和 Readable 流都将数据存储在一个内部缓存里，分别可用 <code>writable._writableState.getBuffer()</code> 和 <code>readable._readableState.buffer</code> 来检索到。可能缓存的数据数量由传入stream构造器的hightWaterMark来决定。对于普通stream，hightWaterMark规定了一个byte的总数，对于工作在Object Mode下的stream，它规定了一个总的object数。</p>
-<p>在stream的实现调用stream.push(chunk)时，数据被缓存在Readable stream里。如果这个Stream的消费者没有调用stream.read()，这些数据就在内部队列里呆着，直到被消费为止。</p>
-<p>一旦内部读取缓存的大小达到了highWaterMark规定的限值，stream会暂时停止从相关数据源读取数据，直到已缓存的数据被消费为止。（也就是说，stream会停止调用内部用来填充读取缓存的的readable._read()方法）</p>
-<p>当writable.write(chunk)被重复调用时，数据被缓存在Writable stream里。当内部写缓存的总大小低于highWaterMark规定的限值时，writable.write()的调用会返回true，一旦达到或者超过限值，就会返回false。<br>stream API特别是stream.pipe()方法的一个重要目标，就是把数据的缓存限制在一个可接受的程度，这样速度不同的数据源和数据目的地就可以在一个有限的内存下正常工作(而不会撑满内存导致溢出)。<br>因 为<code>Duplex</code> 和 <code>Transform streams</code> 都是可读写的，他们都有两个独立的内部缓存用来读和写，允许两边独立操作，同时保持一个合适有效的数据流。比如，net.Socket实例是Duplex stream，它的Readable 一侧允许消费从socket里接收到的数据，Writable一侧允许向socket内写入数据。因为读写数据的速度有可能不一样，两边分开独立（缓存和）操作就很重要。<br><em>说实话这里没看懂</em></p>
-<h2 id="给Stream-Consumers的API"><a href="#给Stream-Consumers的API" class="headerlink" title="给Stream Consumers的API"></a>给Stream Consumers的API</h2><p>不管多简单，基本上所有的Node.js程序都在以某种方式使用stream。下面是一个在实现一个HTTP服务器的程序中使用stream的例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer( <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// req is an http.IncomingMessage, which is a Readable Stream</span></span><br><span class="line">  <span class="comment">// res is an http.ServerResponse, which is a Writable Stream</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> body = <span class="string">''</span>;</span><br><span class="line">  <span class="comment">// Get the data as utf8 strings.</span></span><br><span class="line">  <span class="comment">// If an encoding is not set, Buffer objects will be received.</span></span><br><span class="line">  req.setEncoding(<span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Readable streams emit 'data' events once a listener is added</span></span><br><span class="line">  req.on(<span class="string">'data'</span>, (chunk) =&gt; &#123;</span><br><span class="line">    body += chunk;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the end event indicates that the entire body has been received</span></span><br><span class="line">  req.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(body);</span><br><span class="line">      <span class="comment">// write back something interesting to the user:</span></span><br><span class="line">      res.write(<span class="keyword">typeof</span> data);</span><br><span class="line">      res.end();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (er) &#123;</span><br><span class="line">      <span class="comment">// uh oh!  bad json!</span></span><br><span class="line">      res.statusCode = <span class="number">400</span>;</span><br><span class="line">      <span class="keyword">return</span> res.end(<span class="string">`error: <span class="subst">$&#123;er.message&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">1337</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '&#123;&#125;'</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '"foo"'</span></span><br><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d 'not json'</span></span><br><span class="line"><span class="comment">// error: Unexpected token o</span></span><br></pre></td></tr></table></figure>
-
-<p>可写流暴露了如write()和end()的方法，用来向stream写入数据。<br>可读流使用EventEmitter API来通知程序啥时候数据可以从stream中读取了。有多种方式可以读取。<br>可读流和可写流都各种使用EventEmitter API，来和stream的当前状态通信。</p>
-<h2 id="Writable-Streams"><a href="#Writable-Streams" class="headerlink" title="Writable Streams"></a>Writable Streams</h2><p>Writable Streams是一个数据要写入的目的地的抽象。</p>
-<ul>
-<li>HTTP requests, on the client</li>
-<li>HTTP responses, on the server</li>
-<li>fs write streams</li>
-<li>zlib streams</li>
-<li>crypto streams</li>
-<li>TCP sockets</li>
-<li>child process stdin</li>
-<li>process.stdout, process.stderr</li>
-</ul>
-<p>所有的Writable streams都实现了由 <code>stream.Writable</code> 类定义的接口。<br>虽然各种实例各有不同，但他们都遵循同样的基本使用模式，如下面这个例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myStream = getWritableStreamSomehow();</span><br><span class="line">myStream.write(<span class="string">'some data'</span>);</span><br><span class="line">myStream.write(<span class="string">'some more data'</span>);</span><br><span class="line">myStream.end(<span class="string">'done writing data'</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Class-stream-Writable"><a href="#Class-stream-Writable" class="headerlink" title="Class: stream.Writable"></a>Class: stream.Writable</h3><h4 id="Event-‘close’"><a href="#Event-‘close’" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘drain’"><a href="#Event-‘drain’" class="headerlink" title="Event: ‘drain’"></a>Event: ‘drain’</h4><h4 id="Event-‘error’"><a href="#Event-‘error’" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘finish’"><a href="#Event-‘finish’" class="headerlink" title="Event: ‘finish’"></a>Event: ‘finish’</h4><h4 id="Event-‘pipe’"><a href="#Event-‘pipe’" class="headerlink" title="Event: ‘pipe’"></a>Event: ‘pipe’</h4><h4 id="Event-‘unpipe’"><a href="#Event-‘unpipe’" class="headerlink" title="Event: ‘unpipe’"></a>Event: ‘unpipe’</h4><h4 id="writable-cork"><a href="#writable-cork" class="headerlink" title="writable.cork()"></a>writable.cork()</h4><h4 id="writable-end-chunk-encoding-callback"><a href="#writable-end-chunk-encoding-callback" class="headerlink" title="writable.end([chunk][, encoding][, callback])"></a>writable.end([chunk][, encoding][, callback])</h4><h4 id="writable-setDefaultEncoding-encoding"><a href="#writable-setDefaultEncoding-encoding" class="headerlink" title="writable.setDefaultEncoding(encoding)"></a>writable.setDefaultEncoding(encoding)</h4><h4 id="writable-uncork"><a href="#writable-uncork" class="headerlink" title="writable.uncork()"></a>writable.uncork()</h4><h4 id="writable-write-chunk-encoding-callback"><a href="#writable-write-chunk-encoding-callback" class="headerlink" title="writable.write(chunk[, encoding][, callback])"></a>writable.write(chunk[, encoding][, callback])</h4><h2 id="Readable-Streams"><a href="#Readable-Streams" class="headerlink" title="Readable Streams"></a>Readable Streams</h2><p>Writable Streams是一个源的抽象，数据可以通过它来消费。</p>
-<ul>
-<li>HTTP responses, on the client</li>
-<li>HTTP requests, on the server</li>
-<li>fs read streams</li>
-<li>zlib streams</li>
-<li>crypto streams</li>
-<li>TCP sockets</li>
-<li>child process stdout and stderr</li>
-<li>process.stdin</li>
-</ul>
-<p>所有的Readable streams都实现了由 <code>stream.Readable</code> 类定义的接口。</p>
-<h3 id="Two-Modes-两种模式"><a href="#Two-Modes-两种模式" class="headerlink" title="Two Modes 两种模式"></a>Two Modes 两种模式</h3><p>Readable streams实际上运行在以下两种模式之一：flowing和paused</p>
-<p>在flowing模式下，数据从相关系统中自动读取，并通过EventEmitter接口使用事件尽可能快的提供给一个程序。</p>
-<p>在paused模式下，stream.rad()方法必须显式的调用，来从stream中读取数据块。</p>
-<p>所有的Readable streams开始都处在paused模式，并可以通过以下几种方式之一切换成flowing模式：</p>
-<ul>
-<li>添加一个’data’事件的handler</li>
-<li>调用stream.resume()方法</li>
-<li>调用stream.pipe()方法，来将数据传给一个Writable</li>
-</ul>
-<p>Readable可以通过以下几种方式之一切换回paused模式：</p>
-<ul>
-<li>如果没有pipe目的地，调用stream.pause()方法</li>
-<li>如果有pipe目的地，移除所有的’data’事件handler，并通过调用stream.unpipe()移除所有的pipe目的地。</li>
-</ul>
-<p>需要记住的是，一个Readable不会生成数据，直到一个或者消费数据或者忽略数据的机制被提供。一旦消费机制消失或者失效，Readable会尝试停止生成数据</p>
-<h3 id="Three-States-三种状态"><a href="#Three-States-三种状态" class="headerlink" title="Three States 三种状态"></a>Three States 三种状态</h3><p>Readable“两种操作模式”是一个对其实现中更复杂的内部状态管理的简化抽象。<br>明确的说，任何给定的时点，一个Readable会处在以下三种可能状态之一：</p>
-<ul>
-<li>readable._readableState.flowing = null</li>
-<li>readable._readableState.flowing = false</li>
-<li>readable._readableState.flowing = true<br>null：消费数据的机制没有提供，所以stream不会生成他的数据<br>给’data’事件添加一个监听器，调用readable.pipe()方法，或者调用readable.resume()方法会把flowing属性置为true，导致Readable开始积极地emit事件，同时数据开始生成。<br>调用readable.pause()，readable.unpipe()或者接受到‘back pressure’会让flowing属性被置为false，暂停事件流，但不会停止数据的生成。<br>当flowing是false时，数据可能在stream的内部缓存里积累。<h3 id="Chosse-One-挑一个"><a href="#Chosse-One-挑一个" class="headerlink" title="Chosse One 挑一个"></a>Chosse One 挑一个</h3>Readable stream API 随着Node.js版本在进化，提供了一堆消费数据的方法。通常应该只选择一个来消费数据，永远不要用多种方式来消费同一个stream中的数据。<br>一般推荐readable.pipe()，因为使用最简单。需要细粒度的控制数据传输和生成的可以使用EventEmitter和readable.pause()/readable.resume() API。</li>
-</ul>
-<h3 id="Class-stream-Readable"><a href="#Class-stream-Readable" class="headerlink" title="Class: stream.Readable"></a>Class: stream.Readable</h3><h4 id="Event-‘close’-1"><a href="#Event-‘close’-1" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘data’"><a href="#Event-‘data’" class="headerlink" title="Event: ‘data’"></a>Event: ‘data’</h4><h4 id="Event-‘end’"><a href="#Event-‘end’" class="headerlink" title="Event: ‘end’"></a>Event: ‘end’</h4><h4 id="Event-‘error’-1"><a href="#Event-‘error’-1" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘readable’"><a href="#Event-‘readable’" class="headerlink" title="Event: ‘readable’"></a>Event: ‘readable’</h4><h4 id="readable-isPaused"><a href="#readable-isPaused" class="headerlink" title="readable.isPaused()"></a>readable.isPaused()</h4><h4 id="readable-pause"><a href="#readable-pause" class="headerlink" title="readable.pause()"></a>readable.pause()</h4><h4 id="readable-pipe-destination-options"><a href="#readable-pipe-destination-options" class="headerlink" title="readable.pipe(destination[, options])"></a>readable.pipe(destination[, options])</h4><h4 id="readable-read-size"><a href="#readable-read-size" class="headerlink" title="readable.read([size])"></a>readable.read([size])</h4><h4 id="readable-resume"><a href="#readable-resume" class="headerlink" title="readable.resume()"></a>readable.resume()</h4><h4 id="readable-setEncoding-encoding"><a href="#readable-setEncoding-encoding" class="headerlink" title="readable.setEncoding(encoding)"></a>readable.setEncoding(encoding)</h4><h4 id="readable-unpipe-destination"><a href="#readable-unpipe-destination" class="headerlink" title="readable.unpipe([destination])"></a>readable.unpipe([destination])</h4><h4 id="readable-unshift-chunk"><a href="#readable-unshift-chunk" class="headerlink" title="readable.unshift(chunk)"></a>readable.unshift(chunk)</h4><h4 id="readable-wrap-stream"><a href="#readable-wrap-stream" class="headerlink" title="readable.wrap(stream)"></a>readable.wrap(stream)</h4>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1633,7 +2010,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
