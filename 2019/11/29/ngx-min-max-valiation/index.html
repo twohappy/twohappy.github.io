@@ -51,15 +51,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="兽人永不为奴">
-<meta property="og:url" content="http://twohappy.me/archives/2019/09/index.html">
+  <meta name="description" content="reactive 表单就不说了，validator 直接就有。问题是 legacy 项目里面的表单都是 template driven 表单，一开始文档说得很好：  To add validation to a template-driven form, you add the same validation attributes as you would with native HTML for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular 中 min&#x2F;max 校验">
+<meta property="og:url" content="http://twohappy.me/2019/11/29/ngx-min-max-valiation/index.html">
 <meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="reactive 表单就不说了，validator 直接就有。问题是 legacy 项目里面的表单都是 template driven 表单，一开始文档说得很好：  To add validation to a template-driven form, you add the same validation attributes as you would with native HTML for">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-30T06:59:15.716Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="兽人永不为奴">
+<meta name="twitter:title" content="Angular 中 min&#x2F;max 校验">
+<meta name="twitter:description" content="reactive 表单就不说了，validator 直接就有。问题是 legacy 项目里面的表单都是 template driven 表单，一开始文档说得很好：  To add validation to a template-driven form, you add the same validation attributes as you would with native HTML for">
 
-<link rel="canonical" href="http://twohappy.me/archives/2019/09/">
+<link rel="canonical" href="http://twohappy.me/2019/11/29/ngx-min-max-valiation/">
 
 
 <script id="page-configurations">
@@ -67,13 +71,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | 兽人永不为奴</title>
+  <title>Angular 中 min/max 校验 | 兽人永不为奴</title>
   
 
 
@@ -168,49 +172,96 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 22 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/29/ngx-min-max-valiation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular 中 min/max 校验
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-29 13:27:29" itemprop="dateCreated datePublished" datetime="2019-11-29T13:27:29+08:00">2019-11-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-30 14:59:15" itemprop="dateModified" datetime="2019-11-30T14:59:15+08:00">2019-11-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <p>reactive 表单就不说了，validator 直接就有。问题是 legacy 项目里面的表单都是 template driven 表单，一开始文档说得很好：</p>
+<blockquote>
+<p>To add validation to a template-driven form, you add the same validation attributes as you would with native HTML form validation. </p>
+</blockquote>
+<p>结果完全没用，SO 上面有说估计写校验器的哥们写到 min/max 的时候烦了不想写了，另外有清楚事情原委的人解释说，一开始是加了的，但是影响到了很多已经在自己表单里面加了 min/max ，但是又不想被校验的人，所以又回滚了。</p>
+<p>这事儿发生在 2017 年，然后这个 issue 到今天还开着：</p>
+<p><a href="https://github.com/angular/angular/issues/16352" target="_blank" rel="noopener">issue 16352</a></p>
+<p>在 reactive 表单中，因为可以访问到 formControl 实例，可以只写一个 validatorFn。但在 template driven 表单里面，就只能写个 customMin/customMax 指令来搞了。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Directive, Input &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; NG_VALIDATORS, Validator, FormControl &#125; <span class="keyword">from</span> <span class="string">'@angular/forms'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  selector: <span class="string">'[customMax][formControlName],[customMax][formControl],[customMax][ngModel]'</span>,</span><br><span class="line">  providers: [&#123; provide: NG_VALIDATORS, useExisting: CustomMaxDirective, multi: <span class="literal">true</span> &#125;],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> CustomMaxDirective <span class="keyword">implements</span> Validator &#123;</span><br><span class="line">  <span class="meta">@Input</span>()</span><br><span class="line">  customMax: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  validate(c: FormControl): &#123; [key: <span class="built_in">string</span>]: <span class="built_in">any</span> &#125; &#123;</span><br><span class="line">    <span class="keyword">return</span> c.value &gt; <span class="keyword">this</span>.customMax ? &#123; customMin: <span class="literal">true</span> &#125; : <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-09-27T11:03:49+08:00"
-              content="2019-09-27">
-          09-27
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/09/27/react-native-target-sdk-version-28/" itemprop="url">
-            <span itemprop="name">google play 要求 targetSdkVersion >= 28</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/28/difinitive-documents/" rel="next" title="神兵谱">
+                  <i class="fa fa-chevron-left"></i> 神兵谱
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>

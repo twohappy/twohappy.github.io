@@ -173,6 +173,314 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/29/ngx-min-max-valiation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/29/ngx-min-max-valiation/" class="post-title-link" itemprop="url">Angular 中 min/max 校验</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-29 13:27:29" itemprop="dateCreated datePublished" datetime="2019-11-29T13:27:29+08:00">2019-11-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-30 14:59:15" itemprop="dateModified" datetime="2019-11-30T14:59:15+08:00">2019-11-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>reactive 表单就不说了，validator 直接就有。问题是 legacy 项目里面的表单都是 template driven 表单，一开始文档说得很好：</p>
+<blockquote>
+<p>To add validation to a template-driven form, you add the same validation attributes as you would with native HTML form validation. </p>
+</blockquote>
+<p>结果完全没用，SO 上面有说估计写校验器的哥们写到 min/max 的时候烦了不想写了，另外有清楚事情原委的人解释说，一开始是加了的，但是影响到了很多已经在自己表单里面加了 min/max ，但是又不想被校验的人，所以又回滚了。</p>
+<p>这事儿发生在 2017 年，然后这个 issue 到今天还开着：</p>
+<p><a href="https://github.com/angular/angular/issues/16352" target="_blank" rel="noopener">issue 16352</a></p>
+<p>在 reactive 表单中，因为可以访问到 formControl 实例，可以只写一个 validatorFn。但在 template driven 表单里面，就只能写个 customMin/customMax 指令来搞了。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Directive, Input &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; NG_VALIDATORS, Validator, FormControl &#125; <span class="keyword">from</span> <span class="string">'@angular/forms'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  selector: <span class="string">'[customMax][formControlName],[customMax][formControl],[customMax][ngModel]'</span>,</span><br><span class="line">  providers: [&#123; provide: NG_VALIDATORS, useExisting: CustomMaxDirective, multi: <span class="literal">true</span> &#125;],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> CustomMaxDirective <span class="keyword">implements</span> Validator &#123;</span><br><span class="line">  <span class="meta">@Input</span>()</span><br><span class="line">  customMax: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  validate(c: FormControl): &#123; [key: <span class="built_in">string</span>]: <span class="built_in">any</span> &#125; &#123;</span><br><span class="line">    <span class="keyword">return</span> c.value &gt; <span class="keyword">this</span>.customMax ? &#123; customMin: <span class="literal">true</span> &#125; : <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/28/difinitive-documents/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/28/difinitive-documents/" class="post-title-link" itemprop="url">神兵谱</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-28 17:11:42" itemprop="dateCreated datePublished" datetime="2019-11-28T17:11:42+08:00">2019-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-30 14:59:15" itemprop="dateModified" datetime="2019-11-30T14:59:15+08:00">2019-11-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="/html.spec.whatwg.org/">HTML Standard</a></p>
+<p><a href="https://dom.spec.whatwg.org/" target="_blank" rel="noopener">DOM Standard</a></p>
+<p>whatwg 标准和 w3c标准的关系</p>
+<p><a href="https://www.infoq.cn/article/bsvFxt96DOh-SBZphBwJ" target="_blank" rel="noopener">WHATWG 击败 W3C，赢得 HTML 和 DOM 的控制权</a></p>
+<p><a href="https://www.zdnet.com/article/browser-vendors-win-war-with-w3c-over-html-and-dom-standards/" target="_blank" rel="noopener">Browser vendors win war with W3C over HTML and DOM standards</a><br>    * <a href="https://www.w3.org/2019/04/WHATWG-W3C-MOU.html" target="_blank" rel="noopener">备忘录</a></p>
+<p><a href="https://angular.io/docs" target="_blank" rel="noopener">https://angular.io/docs</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/26/js-basic-20191126-event-loop-and-async-programming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/26/js-basic-20191126-event-loop-and-async-programming/" class="post-title-link" itemprop="url">事件循环和异步编程</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-26 16:41:52" itemprop="dateCreated datePublished" datetime="2019-11-26T16:41:52+08:00">2019-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-01 15:45:43" itemprop="dateModified" datetime="2019-12-01T15:45:43+08:00">2019-12-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>关于这个话题，我的理解过程是从后往前开始的，js 语法，setTimeout，异步？，callback，Promise，事件循环？一步一步越来越懵逼。</p>
+<p>但是不管顺着哪个路线往上摸，到最后都是落到两个字：规范。</p>
+<p>那么尝试一下从前往后总结一下自己的理解，略去细节，以后方便<del>面试什么的</del>回忆。</p>
+<h2 id="HTML-Standard-和-ECMAScript®-Language-Specification"><a href="#HTML-Standard-和-ECMAScript®-Language-Specification" class="headerlink" title="HTML Standard 和 ECMAScript® Language Specification"></a>HTML Standard 和 ECMAScript® Language Specification</h2><p>要说异步编程这个事情，就要说运行环境（先不说 node），再说运行环境之前，我考虑了好几个切入点，结果一个问题引出另外一个问题，结果就变成了从下面这个问题开始</p>
+<h3 id="啥是异步？"><a href="#啥是异步？" class="headerlink" title="啥是异步？"></a>啥是异步？</h3><blockquote>
+<p>Asynchrony, in computer programming, refers to the occurrence of events independent of the main program flow and ways to deal with such events. </p>
+</blockquote>
+<p>事情发生的顺序，跟你写代码的顺序是独立的，就异步了。</p>
+<p>一个传统例子：假如现在要实现这么个东西：</p>
+<p>用户点击一个按钮，就请求一个网络图片（挺大，要 1s 来传输）并把它展示到页面上。</p>
+<p>同步就是：点了按钮，页面就卡死，1 秒以后显示一个图片。</p>
+<p>异步就是：点了按钮，页面没卡，<strong>还能点别的</strong>（事件发生的顺序跟代码不一样了），1 秒左右以后，显示这个图片。</p>
+<h3 id="JS-是异步的吗？"><a href="#JS-是异步的吗？" class="headerlink" title="JS 是异步的吗？"></a>JS 是异步的吗？</h3><p>不是，语言本身就异步的，基本没有，包括 JS，C，C++，Java，PHP，Python 都没这个能力。</p>
+<h3 id="那面经里面又异步又编程说的是啥？"><a href="#那面经里面又异步又编程说的是啥？" class="headerlink" title="那面经里面又异步又编程说的是啥？"></a>那面经里面又异步又编程说的是啥？</h3><p>是 JS 的运行环境（浏览器、node）暴露出来一些 api，让程序通过调用这些 api 来拥有「异步的行为」。</p>
+<p>ES6 之前的 ES5，通篇没有 timer、queue 这种东西。在 ES6 才对 Promise resolve 之后的回调函数怎么执行，来规定了一个 jobQueue。</p>
+<p>所以说其实前端是啥啊，<del>面向浏览器编程</del></p>
+<p><code>setTimeout()</code>、<code>setInterval()</code>、<code>setImmediate()</code>、<code>process.nextTick()</code>、<code>requestAnimationFrame()</code>、<code>queueMicroTask()</code>、<code>MutationObserver</code>、<code>Promise</code><br>这些，ES 规范里面<del>一个都没有</del>，只有 Promise。所以从语言层面去理解，就会像我一样一脸懵逼。<br>其它的会提到的还有<code>I/O</code>、<code>UI rendering</code>、<code>script</code></p>
+<p>换句话说，除非你在代码中调用了这些 api，你的代码都会是同步的。</p>
+<p>浏览器怎么调度这些任务产生异步行为，才是问题。</p>
+<p>三个概念：执行栈，任务队列，微任务队列。此处请看动画 step by step 演示 <a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" target="_blank" rel="noopener">https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/</a> 。</p>
+<p>执行栈：一个存储函数调用的<strong>栈结构</strong>，如果当前执行的函数只有一个 a，执行栈就是 | a |，调用了另外的函数 b，那么就会变成 | a | b |，b 执行完毕之后，出栈，就会变成 | a |，a 也执行完毕，调用栈就空了。</p>
+<p>对于要稍后执行的任务（比如 setTimeout 内的一段回调函数），浏览器会把它放到任务队列中，既然是队列就是加到最后。</p>
+<p>对于希望稍后<strong>尽快执行</strong>的任务，（比如 Promise 的 then），就把它放到微任务队列中。</p>
+<p>如果 a 的执行过程中，遇到了需要调度的异步 api 调用（往往是耗时的操作，压到栈里继续执行就会阻塞了），就不是压到栈里了，而是根据他们的类型，放到相应的队列里面去（以后再执行）。</p>
+<p>「以后」是什么时候呢？</p>
+<p>调用栈空了以后，因为这个往往意味着执行完一波操作了。就像你吃完饭了，可以去干别的了。</p>
+<p>注意，这里要提到一点，就是「吃饭」这个行为本身，就是事件循环的一节，也就是说，是一个宏任务。一个宏任务完成后，调用栈空了，这时候就去看一看微任务队列中，有没有需要执行的微任务。比如说吃饭时候接到两个电话，一个改 bug，我们放到宏任务队列中，一个给女朋友回电话，我们放到微任务队列中。</p>
+<p>调用栈的行为就像是吃饭过程中，需要热一下凉掉的饭菜，它是吃饭调用的另外一个函数，「热饭」就被压入栈，热完饭继续吃，就是出栈，吃饭过程中接到两个电话，就是调度任务队列，吃完饭，这个调用栈就空了。</p>
+<p>空了我们要去看一下这一轮事件循环的下一步，微任务队列。里面有一个任务，给女友回电话。</p>
+<p>我们把它拿出来，放到执行栈，开始打电话。</p>
+<p>打电话过程中，女友提醒你把家里猫屎铲了。这个似乎也比较紧急，我们就把它放到微任务队列中去。</p>
+<p>这里要注意在队列中的任务完毕以后，它才会从队列的首部移除。那么也就是说，我们在执行打电话这个微任务的时候，「铲屎」入队，这时候微任务队列中有两个微任务了。</p>
+<p>因为「微任务」紧急嘛，所以挂了电话，我们不会去修 bug，而是继续去铲屎。在铲完屎以后，才会开始下一个事件循环，去修 bug。</p>
+<h3 id="分一下类"><a href="#分一下类" class="headerlink" title="分一下类"></a>分一下类</h3><p>搞清楚事情的先后顺序之后，对于浏览器中的分类记一下就可以了：</p>
+<p>微任务包括 process.nextTick ，promise ，MutationObserver，其中 process.nextTick 为 Node 独有。还有 queueMicroTask</p>
+<p>宏任务包括 script ， setTimeout ，setInterval ，setImmediate ，I/O ，UI rendering。</p>
+<h3 id="es8-新加的-async-和-await-？？"><a href="#es8-新加的-async-和-await-？？" class="headerlink" title="es8 新加的 async 和 await ？？"></a>es8 新加的 async 和 await ？？</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/25/upgrade-angular/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/25/upgrade-angular/" class="post-title-link" itemprop="url">upgrade-angular</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-25 18:40:55 / Modified: 18:41:43" itemprop="dateCreated datePublished" datetime="2019-11-25T18:40:55+08:00">2019-11-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❯ ng serve</span><br><span class="line">Your global Angular CLI version (8.3.17) is greater than your <span class="built_in">local</span></span><br><span class="line">version (6.2.9). The <span class="built_in">local</span> Angular CLI version is used.</span><br><span class="line"></span><br><span class="line">To <span class="built_in">disable</span> this warning use <span class="string">"ng config -g cli.warnings.versionMismatch false"</span>.</span><br><span class="line">Cannot destructure property `createHash` of <span class="string">'undefined'</span> or <span class="string">'null'</span>.</span><br><span class="line">TypeError: Cannot destructure property `createHash` of <span class="string">'undefined'</span> or <span class="string">'null'</span>.</span><br></pre></td></tr></table></figure>
+
+<p>解决 <a href="https://github.com/angular/angular-cli/issues/13298#issuecomment-451636420" target="_blank" rel="noopener">issue</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @angular-devkit/build-angular@latest</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/22/arrays-symbols-realms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -279,7 +587,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/05/inheritance-in-javascript/">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/05/js-basic-20191105-inheritance-in-javascript/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -293,7 +601,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/05/inheritance-in-javascript/" class="post-title-link" itemprop="url">inheritance-in-javascript</a>
+            <a href="/2019/11/05/js-basic-20191105-inheritance-in-javascript/" class="post-title-link" itemprop="url">inheritance-in-javascript</a>
         </h1>
 
         <div class="post-meta">
@@ -310,7 +618,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-22 16:14:29" itemprop="dateModified" datetime="2019-11-22T16:14:29+08:00">2019-11-22</time>
+                <time title="Modified: 2019-11-30 14:59:15" itemprop="dateModified" datetime="2019-11-30T14:59:15+08:00">2019-11-30</time>
               </span>
 
           
@@ -1921,7 +2229,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

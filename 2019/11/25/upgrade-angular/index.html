@@ -51,15 +51,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="兽人永不为奴">
-<meta property="og:url" content="http://twohappy.me/archives/2019/09/index.html">
+  <meta name="description" content="问题 1234567❯ ng serveYour global Angular CLI version (8.3.17) is greater than your localversion (6.2.9). The local Angular CLI version is used.To disable this warning use &quot;ng config -g cli.warnings.ver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="upgrade-angular">
+<meta property="og:url" content="http://twohappy.me/2019/11/25/upgrade-angular/index.html">
 <meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="问题 1234567❯ ng serveYour global Angular CLI version (8.3.17) is greater than your localversion (6.2.9). The local Angular CLI version is used.To disable this warning use &quot;ng config -g cli.warnings.ver">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-25T10:41:43.845Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="兽人永不为奴">
+<meta name="twitter:title" content="upgrade-angular">
+<meta name="twitter:description" content="问题 1234567❯ ng serveYour global Angular CLI version (8.3.17) is greater than your localversion (6.2.9). The local Angular CLI version is used.To disable this warning use &quot;ng config -g cli.warnings.ver">
 
-<link rel="canonical" href="http://twohappy.me/archives/2019/09/">
+<link rel="canonical" href="http://twohappy.me/2019/11/25/upgrade-angular/">
 
 
 <script id="page-configurations">
@@ -67,13 +71,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>Archive | 兽人永不为奴</title>
+  <title>upgrade-angular | 兽人永不为奴</title>
   
 
 
@@ -168,49 +172,89 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 22 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/25/upgrade-angular/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          upgrade-angular
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-25 18:40:55 / Modified: 18:41:43" itemprop="dateCreated datePublished" datetime="2019-11-25T18:40:55+08:00">2019-11-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <p>问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❯ ng serve</span><br><span class="line">Your global Angular CLI version (8.3.17) is greater than your <span class="built_in">local</span></span><br><span class="line">version (6.2.9). The <span class="built_in">local</span> Angular CLI version is used.</span><br><span class="line"></span><br><span class="line">To <span class="built_in">disable</span> this warning use <span class="string">"ng config -g cli.warnings.versionMismatch false"</span>.</span><br><span class="line">Cannot destructure property `createHash` of <span class="string">'undefined'</span> or <span class="string">'null'</span>.</span><br><span class="line">TypeError: Cannot destructure property `createHash` of <span class="string">'undefined'</span> or <span class="string">'null'</span>.</span><br></pre></td></tr></table></figure>
+
+<p>解决 <a href="https://github.com/angular/angular-cli/issues/13298#issuecomment-451636420" target="_blank" rel="noopener">issue</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @angular-devkit/build-angular@latest</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-09-27T11:03:49+08:00"
-              content="2019-09-27">
-          09-27
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/09/27/react-native-target-sdk-version-28/" itemprop="url">
-            <span itemprop="name">google play 要求 targetSdkVersion >= 28</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/22/arrays-symbols-realms/" rel="next" title="「译」 isArray 背后做了什么？">
+                  <i class="fa fa-chevron-left"></i> 「译」 isArray 背后做了什么？
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/11/26/js-basic-20191126-event-loop-and-async-programming/" rel="prev" title="事件循环和异步编程">
+                  事件循环和异步编程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
