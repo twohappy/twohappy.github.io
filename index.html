@@ -173,6 +173,1109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/19/leetcode-search-20191219-leetcode-90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/19/leetcode-search-20191219-leetcode-90/" class="post-title-link" itemprop="url">leetcode-90</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-19 13:07:30 / Modified: 19:33:30" itemprop="dateCreated datePublished" datetime="2019-12-19T13:07:30+08:00">2019-12-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。</p>
+<p>说明：解集不能包含重复的子集。</p>
+<p>示例:</p>
+<p>输入: [1,2,2]<br>输出:<br>[<br>  [2],<br>  [1],<br>  [1,2,2],<br>  [2,2],<br>  [1,2],<br>  []<br>]</p>
+<hr>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> subsetsWithDup = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    nums.sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a-b)</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">const</span> path = [];</span><br><span class="line">    <span class="keyword">const</span> len = nums.length;</span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">current,path</span>)</span>&#123;</span><br><span class="line">        result.push([...path]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = current; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt; current &amp;&amp; nums[i] === nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            path.push(nums[i]);</span><br><span class="line">            backtrack(i+<span class="number">1</span>, path);</span><br><span class="line">            path.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    backtrack(<span class="number">0</span>, path);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/19/leetcode-search-20191219-leetcode-77/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/19/leetcode-search-20191219-leetcode-77/" class="post-title-link" itemprop="url">leetcode-77</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-19 13:07:30 / Modified: 19:33:30" itemprop="dateCreated datePublished" datetime="2019-12-19T13:07:30+08:00">2019-12-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。</p>
+<p>示例:</p>
+<p>输入: n = 4, k = 2<br>输出:<br>[<br>  [2,4],<br>  [3,4],<br>  [2,3],<br>  [1,2],<br>  [1,3],<br>  [1,4],</p>
+<h2 id><a href="#" class="headerlink" title="]"></a>]</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> combine = <span class="function"><span class="keyword">function</span>(<span class="params">n, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> path = [];</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">path, start</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.length === k)&#123;</span><br><span class="line">            result.push([...path]);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = start;i &lt;= n; i++)&#123;</span><br><span class="line">            path.push(i);</span><br><span class="line">            backtrack(path,i+<span class="number">1</span>);</span><br><span class="line">            path.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack([],<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/19/leetcode-search-20191219-leetcode-78/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/19/leetcode-search-20191219-leetcode-78/" class="post-title-link" itemprop="url">leetcode-78</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-19 13:07:30 / Modified: 19:33:30" itemprop="dateCreated datePublished" datetime="2019-12-19T13:07:30+08:00">2019-12-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。</p>
+<p>说明：解集不能包含重复的子集。</p>
+<p>示例:</p>
+<p>输入: nums = [1,2,3]<br>输出:<br>[<br>  [3],<br>  [1],<br>  [2],<br>  [1,2,3],<br>  [1,3],<br>  [2,3],<br>  [1,2],<br>  []<br>]</p>
+<hr>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> subsets = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">const</span> path = [];</span><br><span class="line">    <span class="keyword">const</span> len = nums.length;</span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">current,path</span>)</span>&#123;</span><br><span class="line">        result.push([...path]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = current; i &lt; len; i++)&#123;</span><br><span class="line">            path.push(nums[i]);</span><br><span class="line">            backtrack(i+<span class="number">1</span>, path);</span><br><span class="line">            path.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    backtrack(<span class="number">0</span>, path);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/18/leetcode-search-20191218-leetcode-40/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/18/leetcode-search-20191218-leetcode-40/" class="post-title-link" itemprop="url">leetcode-40</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-18 13:07:30" itemprop="dateCreated datePublished" datetime="2019-12-18T13:07:30+08:00">2019-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> combinationSum2 = <span class="function"><span class="keyword">function</span>(<span class="params">candidates, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    candidates = candidates.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> a - b);</span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">current, path, start</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(current === <span class="number">0</span>)&#123;</span><br><span class="line">            result.push([...path]);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(current&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = start; i &lt; candidates.length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; start &amp;&amp; candidates[i] == candidates[i - <span class="number">1</span>])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(path.length===<span class="number">0</span> || path[path.length<span class="number">-1</span>]&lt;=candidates[i])&#123;</span><br><span class="line">                path.push(candidates[i]);</span><br><span class="line">                backtrack(current - candidates[i], path, i+<span class="number">1</span>);</span><br><span class="line">                path.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    backtrack(target,[], <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/18/leetcode-search-20191218-leetcode-39/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/18/leetcode-search-20191218-leetcode-39/" class="post-title-link" itemprop="url">leetcode-40</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-18 13:07:30" itemprop="dateCreated datePublished" datetime="2019-12-18T13:07:30+08:00">2019-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; candidates</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; target</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> combinationSum = <span class="function"><span class="keyword">function</span>(<span class="params">candidates, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">current, path</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(current === <span class="number">0</span>)&#123;</span><br><span class="line">            result.push([...path]);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(current &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; candidates.length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(path.length===<span class="number">0</span> ||path.length &gt; <span class="number">0</span> &amp;&amp; path[path.length - <span class="number">1</span>] &lt;= candidates[i])&#123;</span><br><span class="line">                path.push(candidates[i]);</span><br><span class="line">                backtrack(current - candidates[i], path)</span><br><span class="line">                path.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack(target,[])</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/18/leetcode-search-20191218-leetcode-17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/18/leetcode-search-20191218-leetcode-17/" class="post-title-link" itemprop="url">leetcode-17</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-18 13:07:30" itemprop="dateCreated datePublished" datetime="2019-12-18T13:07:30+08:00">2019-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。</p>
+<p>给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。</p>
+<p>示例:</p>
+<p>输入：”23”<br>输出：[“ad”, “ae”, “af”, “bd”, “be”, “bf”, “cd”, “ce”, “cf”].</p>
+<hr>
+<h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; digits</span></span><br><span class="line"><span class="comment"> * @return &#123;string[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> letterCombinations = <span class="function"><span class="keyword">function</span>(<span class="params">digits</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(digits===<span class="string">''</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> map = &#123;</span><br><span class="line">        <span class="string">'2'</span>: <span class="string">'abc'</span>,</span><br><span class="line">        <span class="string">'3'</span>:<span class="string">'def'</span>,</span><br><span class="line">        <span class="string">'4'</span>:<span class="string">'ghi'</span>,</span><br><span class="line">        <span class="string">'5'</span>:<span class="string">'jkl'</span>,</span><br><span class="line">        <span class="string">'6'</span>:<span class="string">'mno'</span>,</span><br><span class="line">        <span class="string">'7'</span>:<span class="string">'pqrs'</span>,</span><br><span class="line">        <span class="string">'8'</span>:<span class="string">'tuv'</span>,</span><br><span class="line">        <span class="string">'9'</span>:<span class="string">'wxyz'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> arry = [<span class="string">''</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> digit <span class="keyword">of</span> digits)&#123;  <span class="comment">// digit = 2</span></span><br><span class="line">        <span class="keyword">const</span> temp = map[digit].split(<span class="string">''</span>); <span class="comment">// temp = [a, b, c]</span></span><br><span class="line">        <span class="keyword">const</span> len = arry.length;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">const</span> curr = arry.shift();</span><br><span class="line">            temp.forEach(<span class="function"><span class="params">item</span> =&gt;</span>&#123;</span><br><span class="line">                arry.push(<span class="string">`<span class="subst">$&#123;curr&#125;</span><span class="subst">$&#123;item&#125;</span>`</span>)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arry;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;string&#125; digits</span></span><br><span class="line"><span class="comment"> * @return &#123;string[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> letterCombinations = <span class="function"><span class="keyword">function</span>(<span class="params">digits</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(digits===<span class="string">''</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> map = &#123;</span><br><span class="line">        <span class="string">'2'</span>: [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>],</span><br><span class="line">        <span class="string">'3'</span>: [<span class="string">'d'</span>,<span class="string">'e'</span>,<span class="string">'f'</span>],</span><br><span class="line">        <span class="string">'4'</span>: [<span class="string">'g'</span>,<span class="string">'h'</span>,<span class="string">'i'</span>],</span><br><span class="line">        <span class="string">'5'</span>:[<span class="string">'j'</span>,<span class="string">'k'</span>,<span class="string">'l'</span>],</span><br><span class="line">        <span class="string">'6'</span>:[<span class="string">'m'</span>,<span class="string">'n'</span>,<span class="string">'o'</span>],</span><br><span class="line">        <span class="string">'7'</span>:[<span class="string">'p'</span>,<span class="string">'q'</span>,<span class="string">'r'</span>,<span class="string">'s'</span>],</span><br><span class="line">        <span class="string">'8'</span>:[<span class="string">'t'</span>,<span class="string">'u'</span>,<span class="string">'v'</span>],</span><br><span class="line">        <span class="string">'9'</span>:[<span class="string">'w'</span>,<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'z'</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> result = [];</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">backtrack</span>(<span class="params">combination, next_digits</span>)</span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>(next_digits === <span class="string">''</span>)&#123;</span><br><span class="line">    		result.push(combination);</span><br><span class="line">    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    		<span class="keyword">const</span> digit = next_digits[<span class="number">0</span>];</span><br><span class="line">    		<span class="keyword">const</span> letters = map[digit];</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; letters.length; i++)&#123;</span><br><span class="line">    			<span class="keyword">const</span> letter = letters[i];</span><br><span class="line">    			backtrack(combination + letter, next_digits.substring(<span class="number">1</span>))</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	backtrack(<span class="string">''</span>,digits);</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/13/leetcode-20191213-leetcode-27/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/13/leetcode-20191213-leetcode-27/" class="post-title-link" itemprop="url">leetcode-27 移除元素</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-13 14:49:22" itemprop="dateCreated datePublished" datetime="2019-12-13T14:49:22+08:00">2019-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
+<p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<p>示例 1:</p>
+<p>给定 nums = [3,2,2,3], val = 3,</p>
+<p>函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。</p>
+<p>你不需要考虑数组中超出新长度后面的元素。<br>示例 2:</p>
+<p>给定 nums = [0,1,2,2,3,0,4,2], val = 2,</p>
+<p>函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。</p>
+<p>注意这五个元素可为任意顺序。</p>
+<p>你不需要考虑数组中超出新长度后面的元素。</p>
+<hr>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removeElement = <span class="function"><span class="keyword">function</span>(<span class="params">nums, val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> curr = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] !== val)&#123;</span><br><span class="line">            nums[curr] = nums[i];</span><br><span class="line">            curr ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> curr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>改进：<br>大概是快指针从后往前。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/13/leetcode-20191213-leetcode-20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/13/leetcode-20191213-leetcode-20/" class="post-title-link" itemprop="url">leetcode-20 有效的括号</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-13 11:40:06" itemprop="dateCreated datePublished" datetime="2019-12-13T11:40:06+08:00">2019-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p>
+<p>有效字符串需满足：</p>
+<p>左括号必须用相同类型的右括号闭合。<br>左括号必须以正确的顺序闭合。<br>注意空字符串可被认为是有效字符串。</p>
+<p>示例 1:</p>
+<p>输入: “()”<br>输出: true<br>示例 2:</p>
+<p>输入: “()[]{}”<br>输出: true<br>示例 3:</p>
+<p>输入: “(]”<br>输出: false<br>示例 4:</p>
+<p>输入: “([)]”<br>输出: false<br>示例 5:</p>
+<p>输入: “{[]}”</p>
+<h2 id="输出-true"><a href="#输出-true" class="headerlink" title="输出: true"></a>输出: true</h2><p>思路：栈</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s === <span class="string">''</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(s.length === <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isLeft</span>(<span class="params">bracket</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> bracket === <span class="string">'('</span> || bracket === <span class="string">'['</span> || bracket === <span class="string">'&#123;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isRight</span>(<span class="params">bracket</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> bracket === <span class="string">')'</span> || bracket === <span class="string">']'</span> || bracket === <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isMatch</span>(<span class="params">left, right</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> left === <span class="string">'('</span> &amp;&amp; right === <span class="string">')'</span> || left === <span class="string">'['</span> &amp;&amp; right === <span class="string">']'</span> ||left === <span class="string">'&#123;'</span> &amp;&amp; right === <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> stack = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> char <span class="keyword">of</span> s)&#123;</span><br><span class="line">        <span class="keyword">if</span>(isLeft(char))&#123;</span><br><span class="line">            stack.push(char);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(isRight(char))&#123;</span><br><span class="line">            <span class="keyword">const</span> right = char;</span><br><span class="line">            <span class="keyword">const</span> last = stack[stack.length - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(isMatch(last, right))&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> stack.length === <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>发现太蠢了，还没有在太原一家小公司做笔试时候写的好<br>这样较好：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isValid = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> map = &#123;</span><br><span class="line">        <span class="string">'('</span>: <span class="string">')'</span>,</span><br><span class="line">        <span class="string">'['</span>: <span class="string">']'</span>,</span><br><span class="line">        <span class="string">'&#123;'</span>: <span class="string">'&#125;'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> stack = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">const</span> char <span class="keyword">of</span> s)&#123;</span><br><span class="line">        <span class="comment">// 左括号</span></span><br><span class="line">        <span class="keyword">if</span>(char <span class="keyword">in</span> map)&#123;</span><br><span class="line">            stack.push(char);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[stack[stack.length - <span class="number">1</span>]] !== char)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            stack.pop()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> stack.length === <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/11/leetcode-20191211-leetcode-9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/11/leetcode-20191211-leetcode-9/" class="post-title-link" itemprop="url">leetcode-9 回文数</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-11 16:01:36" itemprop="dateCreated datePublished" datetime="2019-12-11T16:01:36+08:00">2019-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-12 09:43:04" itemprop="dateModified" datetime="2019-12-12T09:43:04+08:00">2019-12-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>题目：<br>判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。</p>
+<p>示例 1:</p>
+<p>输入: 121<br>输出: true<br>示例 2:</p>
+<p>输入: -121<br>输出: false<br>解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。<br>示例 3:</p>
+<p>输入: 10<br>输出: false<br>解释: 从右向左读, 为 01 。因此它不是一个回文数。<br>进阶:</p>
+<p>你能不将整数转为字符串来解决这个问题吗？</p>
+<hr>
+<p>思路1：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isPalindrome = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> origin = x.toString();</span><br><span class="line">    <span class="keyword">const</span> reversed = origin.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">return</span> origin === reversed;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>思路2：弄一个反转的数字：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isPalindrome = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> reversed = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> origin = x;</span><br><span class="line">    <span class="keyword">while</span>(x&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        reversed = reversed * <span class="number">10</span> + x % <span class="number">10</span>;</span><br><span class="line">        x -= x % <span class="number">10</span></span><br><span class="line">        x = <span class="built_in">Math</span>.floor(x / <span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> reversed === origin;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路3：<br>翻转一半。此处脑子不行了，先算了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/11/leetcode-20191211-leetcode-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/11/leetcode-20191211-leetcode-7/" class="post-title-link" itemprop="url">leetcode-2 整数反转</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-11 14:01:59" itemprop="dateCreated datePublished" datetime="2019-12-11T14:01:59+08:00">2019-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-12 09:43:04" itemprop="dateModified" datetime="2019-12-12T09:43:04+08:00">2019-12-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>题目：<br>给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。<br>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 123</span><br><span class="line">输出: 32</span><br></pre></td></tr></table></figure>
+
+<p> 示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 123</span><br><span class="line">输出: 321</span><br></pre></td></tr></table></figure>
+
+<p> 示例 3:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 120</span><br><span class="line">输出: 21</span><br></pre></td></tr></table></figure>
+
+<p>注意:</p>
+<p>假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。</p>
+<hr>
+<p>其实可以 split(‘’).reverse().join(‘’)</p>
+<h2 id="但这个不是这道题要考察的东西"><a href="#但这个不是这道题要考察的东西" class="headerlink" title="但这个不是这道题要考察的东西"></a>但这个不是这道题要考察的东西</h2><p>思路：<br>结果每次 * 10 + x % 10<br>原整数每次整除 10<br>退出条件是 x &lt; 9<br>最后一次不管 x 是 0 ~ 9 的几，都在加一遍：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> reverse = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> max = <span class="number">0x7fffffff</span>;</span><br><span class="line">    <span class="keyword">const</span> min = <span class="number">-0x80000000</span>;</span><br><span class="line">    <span class="keyword">const</span> sign = x &gt; <span class="number">0</span>;</span><br><span class="line">    x = <span class="built_in">Math</span>.abs(x);</span><br><span class="line">    <span class="keyword">let</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(x &gt; <span class="number">9</span>)&#123;</span><br><span class="line">        result = result * <span class="number">10</span> + x % <span class="number">10</span>;</span><br><span class="line">        x = <span class="built_in">Math</span>.floor(x/<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    result = result * <span class="number">10</span> + x;</span><br><span class="line">    result = sign ? result: -result</span><br><span class="line">    <span class="keyword">if</span>(result &gt; max || result &lt; min)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="tip："><a href="#tip：" class="headerlink" title="tip："></a>tip：</h3><p>bin ~ hex 的转换</p>
+<p>hex 一位 对应 bin 的四位</p>
+<p>2^31 - 1</p>
+<p>就是 </p>
+<p>2^31 = 10….0 共有 31 个 0，一共 32 位。</p>
+<p>所以 hex 的结果有 8 位，</p>
+<p>2^31 = 1000 0000 0000 0000 0000 0000 0000 0000</p>
+<p>2^31 = 8 0 0 0 0 0 0 0</p>
+<p>2^31 = 7 f f f f f f f</p>
+<p>所以 max = 0x7fffffff<br>min = -80000000</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/11/leetcode-20191211-leetcode-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/11/leetcode-20191211-leetcode-0/" class="post-title-link" itemprop="url">leetcode-0</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-11 13:07:30" itemprop="dateCreated datePublished" datetime="2019-12-11T13:07:30+08:00">2019-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-12 09:43:04" itemprop="dateModified" datetime="2019-12-12T09:43:04+08:00">2019-12-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>之前在 codewars 写到 4 kyu 以后，很久都没做题玩了。这次从 leetcode 中文版开始补一补吧。<br>作为一只前端，还是先搞 easy，后 medium，应该就差不多了。<br>之前的玩耍主要以 pass 为主，这次要注意性能了。<br>因为在宇宙条面试中面试官的一句话印象深刻，「你这循环了几遍啊。。三遍啊。。」</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/11/leetcode-20191211-leetcode-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/11/leetcode-20191211-leetcode-1/" class="post-title-link" itemprop="url">leetcode-1 两数之和</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-11 13:06:51" itemprop="dateCreated datePublished" datetime="2019-12-11T13:06:51+08:00">2019-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-12 09:43:04" itemprop="dateModified" datetime="2019-12-12T09:43:04+08:00">2019-12-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h2><p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [2, 7, 11, 15], target = 9</span><br><span class="line"></span><br><span class="line">因为 nums[0] + nums[1] = 2 + 7 = 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure>
+
+<p>思路 1：<br>暴力循环，因为每个只有可能一组解，所以搞一个双重循环应该可以搞定。<br>for i {<br>    for j {<br>        if(nums[i] + nums[j] === target) return [i, j]<br>    }<br>}</p>
+<p>思路 2：<br>搞一个 Map，循环一遍 item，<br>遇到 item，把它作为 key，放到 Map 里，并检查是否有 Map[target - item] 存在，存在的话，把它存起来，返回。<br>坑在于有可能是两个相等的 item。<br>正解是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">遇到 item，先判断：target - item in map，</span><br><span class="line">如果 true，直接返回 [map[target - item], index]</span><br><span class="line">否则将 index 存起来 map[item] = index;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/05/a-lot-of-nextticks-inside-async-functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/05/a-lot-of-nextticks-inside-async-functions/" class="post-title-link" itemprop="url">微博有个梨的一个问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-05 09:17:30" itemprop="dateCreated datePublished" datetime="2019-12-05T09:17:30+08:00">2019-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这个东西竟然把我整懵了。<br>具体来说是这样的:<br>一开始在 macrotask 阶段，走到执行栈 script main hello 的时候，会把下面整个一坨包到一个 then 里面放到 microtask queue 里面，这时候 nexttick queue 两个任务，microtask queue 一个任务。然后执行栈空，开始这一轮的microtask 阶段。 nexttick queue 会在 microtask queue 之前执行。所以会有 before/after hello 在 hello 之后打印。<br>之后 microtask queue 会一直执行，接下来执行栈 hello.then world，打印 world，nexttick enqueue 两个任务，在 microtask queue 放一个 world.then，此时 microtask queue 为：| hello.then | world.then 。然后 hello.then 完毕，出队，此时「会在下一轮 macrotask 开始之前清空 microtask 队列」，微任务队列不为空，所以继续拿出 world.then，打印 foo，入队 两个 nexttick 任务，入队一个 foo.then ….</p>
+<p>直到 microtask 清空，然后下一个 microtask 轮次。其它一堆 brefore / after 都是在下一轮循环中的 nexttick 阶段打印的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/03/how-does-angular-2-change-detection-really-work/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/03/how-does-angular-2-change-detection-really-work/" class="post-title-link" itemprop="url">Angular 2 的变化监测机制</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-03 17:09:56" itemprop="dateCreated datePublished" datetime="2019-12-03T17:09:56+08:00">2019-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文为译文，<a href="https://blog.angular-university.io/how-does-angular-2-change-detection-really-work/" target="_blank" rel="noopener">原文地址</a></p>
+<p>与 Angular 1 相比，Angular变化检测机制更加透明，并且更易于推理。但是，在某些情况下（例如进行性能优化时），我们确实需要了解幕后情况。因此，让我们通过研究以下主题来更深入地研究变化检测：</p>
+<ul>
+<li>变化检测是怎么实现的？</li>
+<li>变化检测器长什么样，我能看到吗？</li>
+<li>默认的变化检测机制如何工作</li>
+<li>打开/关闭变化检测，和手动触发变化检测</li>
+<li>避免变化检测循环：生产与开发模式</li>
+<li>变化检测的<code>OnPush</code> 模式实际上干了什么？</li>
+<li>使用 Immutable.js 简化 Angular 应用的构建</li>
+<li>结论</li>
+</ul>
+<p>如果您需要有关 <code>OnPush</code> 变化检测的更多信息，请查看<a href="http://blog.angular-university.io/onpush-change-detection-how-it-works" target="_blank" rel="noopener">Angular OnPush变化检测和组件设计-避免常见陷阱</a>。</p>
+<h2 id="变化检测是怎么实现的？"><a href="#变化检测是怎么实现的？" class="headerlink" title="变化检测是怎么实现的？"></a>变化检测是怎么实现的？</h2><p>Angular 可以检测组件数据何时更改，然后自动重新渲染视图以反映该更改。但是，按钮单击之类的事件是非常底层的事件，它们触发后 Angular 是怎么做到自动检测的呢？</p>
+<p>要了解它是如何工作的，我们首先需要意识到在设计上，Javascript 的整个运行时是可以被重写覆盖的。如果我们希望，我们可以重写在 <code>String</code> 或 <code>Number</code> 中的方法（<code>String.prototype.trim = function(){}</code>之类的）。</p>
+<h2 id="覆盖浏览器默认行为"><a href="#覆盖浏览器默认行为" class="headerlink" title="覆盖浏览器默认行为"></a>覆盖浏览器默认行为</h2><p>发生的情况是，Angular 在启动时会给一些低级浏览器 API 打补丁，比如 <code>addEventListener</code>，这是用于注册所有浏览器事件（包括 click handlers）的浏览器函数。Angular 会把 <code>addEventListener</code> 替换为一个等效的新版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// this is the new version of addEventListener</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEventListener</span>(<span class="params">eventName, callback</span>) </span>&#123;</span><br><span class="line">     <span class="comment">// call the real addEventListener</span></span><br><span class="line">     callRealAddEventListener(eventName, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// first call the original callback</span></span><br><span class="line">        callback(...);     </span><br><span class="line">        <span class="comment">// and then run Angular-specific functionality</span></span><br><span class="line">        <span class="keyword">var</span> changed = angular2.runChangeDetection();</span><br><span class="line">         <span class="keyword">if</span> (changed) &#123;</span><br><span class="line">             angular2.reRenderUIPart();</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>新版本的 <code>addEventListener</code> 给事件处理程序（handlers）添加了功能：不仅可以调用已注册的回调，而且 Angular 还可以运行变化检测并更新 UI。</p>
+<h2 id="低级的-runtime-patching-是怎么工作的？"><a href="#低级的-runtime-patching-是怎么工作的？" class="headerlink" title="低级的 runtime patching 是怎么工作的？"></a>低级的 runtime patching 是怎么工作的？</h2><p>浏览器 API 的低级修补是由 Angular 附带的名为 <a href="https://github.com/angular/zone.js/" target="_blank" rel="noopener">Zone.js</a> 的库完成的。了解什么是 zone 很重要。</p>
+<p>一个 zone 是一个执行上下文，它可以在多个 Javascript VM 执行回合后幸存下来。这是一种通用机制，我们可以用来向浏览器添加额外的功能。Angular 在内部使用 Zones 来触发变化检测，但是另一种可能的用途是进行应用程序性能分析，或跟踪跨多个 VM 轮次运行的长堆栈跟踪。</p>
+<h2 id="支持浏览器异步-API"><a href="#支持浏览器异步-API" class="headerlink" title="支持浏览器异步 API"></a>支持浏览器异步 API</h2><p>以下常用的浏览器机制已被 patch，来支持变化检测：</p>
+<ul>
+<li>所有浏览器事件（events：click，mouseover，keyup 等）</li>
+<li>setTimeout() 和 setInterval()</li>
+<li>Ajax 请求</li>
+</ul>
+<p>实际上，Zone.js 还修补了许多其他浏览器 API，以透明地触发 Angular 变化检测，例如 Websockets。看一下 Zone.js 的 <a href="https://github.com/angular/zone.js/tree/master/test/patch" target="_blank" rel="noopener">test specifications</a>，看看当前支持什么。</p>
+<p>这种机制的局限性在于，如果由于某些原因，一个异步浏览器 API 不被 Zone.js 支持，那么将不会触发变化检测。例如，IndexedDB 回调就是这种情况。</p>
+<p>这解释了变化检测如何触发，但是一旦触发，它实际上怎么工作？</p>
+<h2 id="The-change-detection-tree-变化检测树"><a href="#The-change-detection-tree-变化检测树" class="headerlink" title="The change detection tree 变化检测树"></a>The change detection tree 变化检测树</h2><p>每个 Angular component 都有一个关联的变化检测器，该变化检测器在应用程序启动时创建。用下面这个 <code>TodoItem</code> 组件举例：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    selector: <span class="string">'todo-item'</span>,</span><br><span class="line">    template: <span class="string">'&lt;span class="todo noselect" (click)="onToggle()"&gt;&#123;&#123;todo.owner.firstname&#125;&#125; - &#123;&#123;todo.description&#125;&#125; - completed: &#123;&#123;todo.completed&#125;&#125;&lt;/span&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> TodoItem &#123;</span><br><span class="line">    <span class="meta">@Input</span>()</span><br><span class="line">    todo:Todo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Output</span>()</span><br><span class="line">    toggle = <span class="keyword">new</span> EventEmitter&lt;<span class="built_in">Object</span>&gt;();</span><br><span class="line"></span><br><span class="line">    onToggle() &#123;</span><br><span class="line">        <span class="keyword">this</span>.toggle.emit(<span class="keyword">this</span>.todo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个组件接受一个 Todo object 输入，并在 todo 状态改变的时候触发一个事件。为了使示例更有趣，<code>Todo</code> 类包含一个嵌套对象 owner：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> Todo &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> id: <span class="built_in">number</span>, </span></span><br><span class="line"><span class="params">        <span class="keyword">public</span> description: <span class="built_in">string</span>, </span></span><br><span class="line"><span class="params">        <span class="keyword">public</span> completed: <span class="built_in">boolean</span>, </span></span><br><span class="line"><span class="params">        <span class="keyword">public</span> owner: Owner</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到 Todo 有一个属性 <code>owner</code>，该属性本身就是一个具有两个属性的对象：first name 和 last name。</p>
+<h2 id="Todo-Item-的变化检测器是什么样的？"><a href="#Todo-Item-的变化检测器是什么样的？" class="headerlink" title="Todo Item 的变化检测器是什么样的？"></a>Todo Item 的变化检测器是什么样的？</h2><p>我们实际上可以在运行时看到变化检测器的外观！要查看它，只需在Todo类中添加一些代码即可在访问某些属性时触发断点。</p>
+<p>遇到断点时，我们可以遍历堆栈跟踪并查看实际的变化检测：</p>
+<p>角度变化检测器是什么样的</p>
+<p>不用担心，您将永远不必调试此代码！也不涉及任何魔术，它只是在应用程序启动时构建的普通Javascript方法。但是它是做什么的呢？</p>
+<p>默认变化检测机制如何工作？<br>乍一看，此方法可能看起来很陌生，带有所有名称奇怪的变量。但是，通过更深入地研究它，我们发现它的操作非常简单：对于模板中使用的每个表达式，它会将表达式中使用的属性的当前值与该属性的先前值进行比较。</p>
+<p>如果前后的属性值不同，则将其设置isChanged为true，就是这样！差不多了，它是通过使用一种称为的方法比较值的<br>looseNotIdentical()，这实际上只是===与这种NaN情况下的特殊逻辑的比较（请参见此处）。</p>
+<p>那嵌套对象owner呢？<br>我们可以在变化检测器代码中看到，还<br>owner检查了嵌套对象的属性是否存在差异。但是只比较firstname属性，不比较lastname属性。</p>
+<p>这是因为组件模板中未使用姓氏！同样，出于相同原因，未比较Todo的顶级id属性。</p>
+<p>这样，我们可以放心地说：</p>
+<p>默认情况下，“角度变化检测”通过检查模板表达式的值是否已更改来工作。这是对所有组件完成的。</p>
+<p>我们还可以得出以下结论：</p>
+<p>默认情况下，Angular不进行深度对象比较以检测更改，它仅考虑模板使用的属性</p>
+<p>为什么默认情况下变化检测如此工作？<br>Angular的主要目标之一是更加透明和易于使用，以使框架用户不必费劲地调试框架并了解内部机制，从而能够有效地使用它。</p>
+<p>如果您熟悉Angular 1，请考虑$digest()以及$apply()何时使用/不使用它们的所有陷阱。Angular的主要目标之一就是避免这种情况。</p>
+<p>参照比较怎么样？<br>事实是Javascript对象是可变的，Angular希望为这些对象提供开箱即用的全面支持。</p>
+<p>想象一下，如果Angular默认变化检测机制将基于组件输入的参考比较而不是默认机制，那会是什么？即使是像TODO应用程序这样简单的东西，构建起来也很棘手：开发人员必须非常小心地创建新的Todo，而不是简单地更新属性。</p>
+<p>但是正如我们将看到的，如果确实需要，仍然可以自定义Angular变化检测。</p>
+<p>性能如何？<br>注意待办事项列表组件的变化检测器如何显式引用该todos属性。</p>
+<p>做到这一点的另一种方法是动态地遍历组件的属性，使代码通用而不是特定于组件。这样，我们就不必在一开始就为每个组件构建一个变化检测器！那么这是什么故事呢？</p>
+<p>快速浏览虚拟机<br>所有这些都与Javascript虚拟机的工作方式有关。用于动态比较属性的代码，尽管VM即时编译器无法轻易地将泛型优化为本机代码。</p>
+<p>这与变化检测器的特定代码不同，变化检测器确实显式访问每个组件输入属性。该代码非常类似于我们手工编写的代码，并且很容易被虚拟机转换为本地代码。</p>
+<p>使用生成的但显式的检测器的最终结果是一种变化检测机制，该机制非常快（比Angular 1更快），可预测且易于推理。</p>
+<p>但是，如果遇到性能极限情况，是否有一种方法可以优化变化检测？</p>
+<p>在OnPush变化检测模式<br>如果Todo列表很大，我们可以将TodoList组件配置为仅在Todo列表更改时才进行更新。这可以通过将组件变化检测策略更新为OnPush：</p>
+<p>@ 组件（{<br>    选择器：“ todo-list ”，<br>    changeDetection：ChangeDetectionStrategy。OnPush，<br>    模板：…<br>}）<br>导出 类 TodoList {<br>    …<br>}</p>
+<p>查看由GitHub托管的原始04.ts<br>现在让我们向应用程序添加几个按钮：一个按钮通过直接对其进行变异来切换列表的第一项，另一个按钮将Todo添加到整个列表中。代码如下：</p>
+<p>@ 组件（{<br>    选择器：“ app ”，<br>    模板：<code>&lt;div&gt;
+                    &lt;todo-list [todos] =“ todos”&gt; &lt;/ todo-list&gt;
+               &lt;/ div&gt;
+               &lt;button（click）=“ toggleFirst（）”&gt;切换第一项&lt;/ button&gt;
+               &lt;按钮（点击）= “addTodo（）”&gt;添加到待办事项列表&lt;/按钮&gt;</code><br>}）<br>出口 类 应用 {<br>    待办事项：Array  =  initialData ;</p>
+<pre><code>构造函数（）{
+}
+
+toggleFirst（）{
+    这个。待办事项 [ 0 ]。已完成 =  ！ 这个。待办事项 [ 0 ]。完成 ;
+}
+
+addTodo（）{
+    让 newTodos =  this。待办事项。切片（0）;
+    newTodos。推（新的 Todo（1，“ TODO 4 ”，
+        false，新 所有者（“ John ”，“ Doe ”）））；
+    这个。todos  =  newTodos ;
+}</code></pre><p>}</p>
+<p>查看由GitHub托管的原始05.ts<br>现在让我们看看两个新按钮的行为：</p>
+<p>第一个按钮“切换第一项”不起作用！这是因为该toggleFirst()方法直接更改列表的元素。 TodoList无法检测到此信息，因为其输入参考todos未更改<br>第二个按钮确实起作用！请注意，该方法addTodo()创建了待办事项列表的副本，然后向该副本添加了一个项目，最后用已复制的列表替换了todos成员变量。这会触发变化检测，因为该组件在其输入中检测到参考更改：它收到了一个新列表！<br>在第二个按钮中，直接更改待办事项列表将不起作用！我们确实需要一个新列表。<br>难道OnPush真的只是由基准进行比较的投入？<br>事实并非如此，如果您尝试通过单击来切换待办事项，它仍然有效！即使您也将TodoItem切换到OnPush。这是因为<br>OnPush不仅仅检查组件输入中的更改：组件是否发出也会触发变化检测的事件。</p>
+<p>根据Victor Savkin在他的博客中的这段话：</p>
+<p>使用OnPush检测器时，框架将在其任何输入属性发生更改，何时触发事件或Observable触发事件时检查OnPush组件。</p>
+<p>尽管允许更好的性能，但OnPush如果与可变对象一起使用，则使用时会付出很高的复杂性。它可能会引入难以推理和重现的错误。但是有一种方法可以使之OnPush可行。</p>
+<p>使用Immutable.js简化Angular应用程序的构建<br>如果我们仅使用不可变对象和不可变列表构建应用程序，则可以OnPush透明地在任何地方使用它，而不会陷入变化检测错误的风险。这是因为对于不可变对象，修改数据的唯一方法是创建一个新的不可变对象并替换先前的对象。对于不可变的对象，我们可以保证：</p>
+<p>一个新的不可变对象将始终触发OnPush变化检测<br>我们不能通过忘记创建对象的新副本而意外地创建错误，因为修改数据的唯一方法是创建新对象<br>进行不可变的一个不错的选择是使用Immutable.js库。该库提供了用于构建应用程序的不可变基元，例如不可变对象（Map）和不可变列表。</p>
+<p>该库也可以以类型安全的方式使用，请查看此先前文章以获取有关如何执行此操作的示例。</p>
+<p>避免变化检测循环：生产与开发模式<br>Angular变化检测的重要属性之一是，它与Angular 1不同，它强制执行单向数据流：当更新控制器类上的数据时，变化检测将运行并更新视图。</p>
+<p>但是视图的更新本身不会触发进一步的更改，而这些更改又会触发视图的进一步更新，从而在Angular 1中创建了称为摘要循环的内容。</p>
+<p>如何在Angular中触发变化检测循环？<br>一种方法是使用生命周期回调。例如，在TodoList组件中，我们可以触发对另一个组件的回调，从而更改其中一个绑定：</p>
+<p>ngAfterViewChecked（）{<br>    如果（这个。回调 &amp;&amp;  此。点击）{<br>        控制台。日志（“状态更改中… ”）；<br>        这个。回调（数学。随机（））;<br>    }<br>}</p>
+<p>查看由GitHub托管的原始06.ts<br>错误消息将显示在控制台中：</p>
+<p>EXCEPTION: Expression ‘ in App@3:20’ has changed after it was checked<br>仅当我们在开发模式下运行Angular时，才会引发此错误消息。如果启用生产模式会怎样？</p>
+<p>enableProdMode（）;</p>
+<p>@ NgModule（{<br>    声明：[ App ]，<br>    导入：[ BrowserModule ]，<br>    引导程序：[ App ]<br>}）<br>导出 类 AppModule {}</p>
+<p>platformBrowserDynamic（）。bootstrapModule（AppModule）;</p>
+<p>查看由GitHub托管的原始07.ts<br>在生产模式下，不会引发该错误，并且仍然不会发现问题。</p>
+<p>变化检测问题是否经常发生？<br>我们确实必须竭尽全力触发变化检测循环，但以防万一在开发阶段最好始终使用开发模式，因为这样可以避免问题。</p>
+<p>这种保证是以Angular始终两次运行变化检测为代价的，第二次是检测此类情况。在生产模式下，变化检测仅运行一次。</p>
+<p>打开/关闭变化检测并手动触发<br>在某些特殊情况下，我们确实希望关闭变化检测。想象一下一种情况，其中大量数据通过Websocket从后端到达。我们可能只想每5秒更新一次UI的特定部分。为此，我们首先将变化检测器注入组件中：</p>
+<p>构造函数（私有 ref：ChangeDetectorRef）{<br>    参考。分离（）;<br>    setInterval（（）=&gt; {<br>      这个。参考。detectChanges（）;<br>    }，5000）；<br>  }</p>
+<p>查看由GitHub托管的原始08.ts<br>如我们所见，我们只需拆下变化检测器，即可有效地关闭变化检测。然后，我们只需每5秒手动调用一次即可触发它detectChanges()。</p>
+<p>结论<br>Angular 默认变化检测机制实际上与Angular 1类似：它比较浏览器事件之前和之后的模板表达式的值，以查看是否有所更改。它适用于所有组件。但是也有一些重要的区别：</p>
+<p>对于一个组件，没有变化检测循环，也没有像Angular 1中命名的那样的摘要循环。这允许仅通过查看其模板及其控制器来推断每个组件。</p>
+<p>另一个区别是，由于构建了变化检测器的方式，检测组件变化的机制要快得多。</p>
+<p>最后，与 Angular 1 不同，变化检测机制是可自定义的。</p>
+<p>我们真的需要对变化检测了解很多吗？<br>大概对于95％的应用程序和用例来说，可以肯定地说Angular Change Detection可以正常工作，我们不需要了解太多。出于以下几个原因，了解其工作原理仍然很有用：</p>
+<p>一方面，它有助于我们理解一些可能遇到的开发错误消息，例如与变化检测循环有关的消息。<br>它有助于我们读取错误堆栈跟踪，所有这些zone.afterTurnDone()突然看起来都更加清晰<br>在性能非常高的情况下（我们确定我们不应该只是将分页添加到该庞大的数据表中吗？），了解变化检测可以帮助我们进行性能优化。<br>请看下面的参考资料，以进一步了解角度变化检测。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/29/ngx-min-max-valiation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1382,103 +2485,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/11/04/red-braised-pork/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="twohappy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="兽人永不为奴">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/04/red-braised-pork/" class="post-title-link" itemprop="url">「旧笔记搬运」关于红烧肉</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-11-04 12:47:36" itemprop="dateCreated datePublished" datetime="2017-11-04T12:47:36+08:00">2017-11-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-02 12:57:26" itemprop="dateModified" datetime="2019-11-02T12:57:26+08:00">2019-11-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1）五花肉：500克。以前看到有人说，红烧肉必须一做就做一大锅，没有两三斤肉烧不出好吃的红烧肉。其实并非如此。对于小家庭来说，500克算是一个比较合适的量，一次做得太多，虽然吃的时候过瘾，过后肯定后悔。倒不如每次都保留一个良好的印象，每过一段时间就做一顿解解馋，这更加符合健康之道。</p>
-<p>五花肉的层次越多越好，我比较偏好猪肋骨外侧的“上五花”，跟猪腹部的五花肉相比，这个部位脂肪层次多，但是每层脂肪又比较薄。这些五花肉需要提前切成3－4厘米见方的小块，肉块过小，瘦肉容易变硬变干，肉块过大，烹调过程中内部油脂不容易渗出，难免有些油腻。</p>
-<p>2）老抽酱油：20克</p>
-<p>2）料酒：20克</p>
-<p>3）干红辣椒：1支</p>
-<p>4）桂皮：一段（大概1厘米长就可以了，不要使用桂皮粉，烹调过程中会变黑，影响菜的品相）</p>
-<p>5）生姜：2－3厘米见方，切成片</p>
-<p>6）小葱：25克，切成5－6厘米的长段</p>
-<p>7）糖：30克</p>
-<p>8）盐：半茶匙（约3－4克）</p>
-<p>9）八角：4－5朵</p>
-<p>10）花生油：10克<br>一步是准备配料，一旦开启炉灶，红烧肉最好一气呵成，中间任何不必要的停顿都会影响菜的口味，所以必须提前把所有材料准备停当。</p>
-<p>第二步需要对五花肉进行预处理，传统上至少有三种处理方式：油炸、焯水和煸炒。除此之外，还可以借鉴西餐里面处理肉类的办法，直接把五花肉放在大火预热90秒的平底锅里面煎。</p>
-<p>把五花肉的四个侧面（不要去煎顶面的猪皮和底面的瘦肉层）都煎成金黄色，经过这样处理，一方面可以除去肥肉中的一部分油脂，猪肉表面金黄色的薄层会在慢炖的过程中融化在汤汁里面，增加许多风味，如果你不信，现在就可以把鼻子凑在煎好的五花肉上闻一闻，是不是已经香气扑鼻了呢？</p>
-<p>煎的过程中可以使用不粘锅，翻动五花肉的时候尽量使用硅胶夹子，动作要轻柔，这样可以保护肉的形态。煎好的五花肉放在盘子里面盖上铝箔保温备用。</p>
-<p>第三步是炒糖色。红烧肉的“红”其实就是焦糖的颜色。糖加热到170摄氏度的时候就会转化成焦糖，红烧菜肴最后收汁的时候，汤汁里面的糖在高温的作用下就会变成焦糖，给菜肴覆盖一层诱人的红棕色，并增添许多风味。理论上说，炒糖色并非绝对必须，可以在最后收汁的时候完成这个过程。但是红烧肉必须用加水（或者酒），收汁的时候把这些水完全烧干需要不少时间，等待过程当中，瘦肉部分可能就会变干变硬。提前炒好糖色就可以避免这些麻烦。</p>
-<p>炒糖色最好就用炖肉的锅子，这样等会就可以直接把肉和糖混合在一起。炖肉锅子的选择非常重要，直接关系到红烧肉的品质。如果你做的红烧肉瘦肉部分有变干变硬的倾向，十有八九就是锅子没有选对。选择锅子的时候首先要考虑的是锅盖的密封性，锅盖上绝对不能有通气孔，锅盖和锅的配合必须严丝合缝。本来我们也没有注意到这个问题，LG用锅子烧米饭的时候发现，但凡那些锅盖上有通气孔的锅子，煮出来的米饭表层都是硬的，而那些锅盖密封性能很好的锅子，煮出来的米饭表层和内层都是软的。由此联想到红烧肉的问题，LG后来通过对照试验就验证了这个猜测。其次锅底导热的均匀性也非常重要，局部过热很容易让富含胶质的红烧肉粘在锅底。人们常常觉得砂锅导热比较均匀，其实并不准确，砂锅因为导热系数低，锅底的受热其实很不均匀。个人推荐使用不锈钢复底锅，其导热均匀性比厚底铸铁锅还要好。</p>
-<p>在锅子里面倒入10克花生油，然后倒入30克白糖。花生油在这里就是起到一个导热媒介的作用，就像电脑CPU和风扇之间的导热硅脂一样，可以加快糖融化的过程。</p>
-<p>很快就会变成金黄色，这个时候你就需要把炉灶火力降到最低，或者干脆把锅子从炉灶上移开，因为焦糖变色的过程非常迅速，就是短短几秒钟的事情。拍摄过程中，LG就是因为等我聚焦，结果锅子在炉灶上停留的时间稍长了一点，炒好的糖色迅速变成深红色，进而变成黑色，LG只好倒掉重新再来。</p>
-<p>然后把前面煎好的五花肉放进锅子里面，翻动一下，让糖色均匀地裹在肉的表面。注意不要把所有的肉一起倒进锅子里面，因为里面析出的汁水跟滚烫的糖混合后会飞溅出来，比较安全的办法就是用夹子把肉一块块放进锅子里面，翻动的时候动作要轻柔，一来是保护五花肉的形态，二来是避免滚烫的汁水飞溅出来。</p>
-<p>第四步就是慢火炖肉。在锅子里面放入切好的葱段、姜片、八角、桂皮和20克老抽酱油，翻动一下，让配料和五花肉混合均匀。</p>
-<p>然后加入20克料酒和1支干红辣椒，翻炒均匀。</p>
-<p>最后倒入沸水，倒水的时候要贴着锅边，不要直接把水浇在肉上面，否则前面辛辛苦苦刚给五花肉裹上的糖色就被热水冲掉了。</p>
-<p>水的高度以能够淹没肉的高度的3/4为准，然后加入半茶匙盐（3－4克），翻动一下，让盐溶解在汤汁里面。对于红烧肉来说，就像苏东坡说的那样，应该少放水，但是这样一来就有一些肉直接暴露在水面上，如果锅盖密封性能比较好，这些暴露在外的肉就能保持较多的水分，如果锅盖密封性能不好，肉里的汁水就会渐渐蒸发，进而变干变硬。</p>
-<p>火烧开后，立刻把火力降到最低（把锅子转移到最小的灶眼上面，用最小的火力），慢火炖上90分钟左右。</p>
-<p>第五步是收汁。把锅子里面的汁水倒出来，倒的过程中用滤篮滤去八角桂皮等香料，五花肉仍然留在锅子里面，盖紧锅盖放在一边备用。</p>
-<p>等到汤汁收到类似糖浆性状的时候，就关掉炉灶，把五花肉从锅子里面取出来，放在平底锅里面，稍稍翻动一下，给五花肉表面包裹一层汤汁。</p>
-<p>然后，一秒钟也不要耽搁，马上开吃，看看这红烧肉的品相，它如何美味就不必多说了吧。红烧肉做好之后也会继续散发水分，瘦肉的口感会在很短的时间内变干变硬，肉皮变冷之后会变得坚韧，完全失去软糯轻盈的口感，所以吃的时候一定要抓紧时间哦！</p>
-<p>再重复一下完美红烧肉需要注意几个细节：</p>
-<p>1）用平底锅把五花肉表面煎成金黄色可以增加风味。</p>
-<p>2）锅子的选择，一定要用锅盖密封性能好的锅子，锅底导热的均匀性也要好。</p>
-<p>3）提前炒好糖色，缩短收汁时间。</p>
-<p>4）收汁之前撇去里面的肥油。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/11/04/about-css-positioning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1581,6 +2587,103 @@
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 <h3 id="相对定位"><a href="#相对定位" class="headerlink" title="相对定位"></a>相对定位</h3><p>这个也很好理解，因为元素不会从文档流中删除，原来的位置仍然保留，只是将内容偏移一定的距离。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/11/04/red-braised-pork/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/04/red-braised-pork/" class="post-title-link" itemprop="url">「旧笔记搬运」关于红烧肉</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-11-04 12:47:36" itemprop="dateCreated datePublished" datetime="2017-11-04T12:47:36+08:00">2017-11-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 12:57:26" itemprop="dateModified" datetime="2019-11-02T12:57:26+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1）五花肉：500克。以前看到有人说，红烧肉必须一做就做一大锅，没有两三斤肉烧不出好吃的红烧肉。其实并非如此。对于小家庭来说，500克算是一个比较合适的量，一次做得太多，虽然吃的时候过瘾，过后肯定后悔。倒不如每次都保留一个良好的印象，每过一段时间就做一顿解解馋，这更加符合健康之道。</p>
+<p>五花肉的层次越多越好，我比较偏好猪肋骨外侧的“上五花”，跟猪腹部的五花肉相比，这个部位脂肪层次多，但是每层脂肪又比较薄。这些五花肉需要提前切成3－4厘米见方的小块，肉块过小，瘦肉容易变硬变干，肉块过大，烹调过程中内部油脂不容易渗出，难免有些油腻。</p>
+<p>2）老抽酱油：20克</p>
+<p>2）料酒：20克</p>
+<p>3）干红辣椒：1支</p>
+<p>4）桂皮：一段（大概1厘米长就可以了，不要使用桂皮粉，烹调过程中会变黑，影响菜的品相）</p>
+<p>5）生姜：2－3厘米见方，切成片</p>
+<p>6）小葱：25克，切成5－6厘米的长段</p>
+<p>7）糖：30克</p>
+<p>8）盐：半茶匙（约3－4克）</p>
+<p>9）八角：4－5朵</p>
+<p>10）花生油：10克<br>一步是准备配料，一旦开启炉灶，红烧肉最好一气呵成，中间任何不必要的停顿都会影响菜的口味，所以必须提前把所有材料准备停当。</p>
+<p>第二步需要对五花肉进行预处理，传统上至少有三种处理方式：油炸、焯水和煸炒。除此之外，还可以借鉴西餐里面处理肉类的办法，直接把五花肉放在大火预热90秒的平底锅里面煎。</p>
+<p>把五花肉的四个侧面（不要去煎顶面的猪皮和底面的瘦肉层）都煎成金黄色，经过这样处理，一方面可以除去肥肉中的一部分油脂，猪肉表面金黄色的薄层会在慢炖的过程中融化在汤汁里面，增加许多风味，如果你不信，现在就可以把鼻子凑在煎好的五花肉上闻一闻，是不是已经香气扑鼻了呢？</p>
+<p>煎的过程中可以使用不粘锅，翻动五花肉的时候尽量使用硅胶夹子，动作要轻柔，这样可以保护肉的形态。煎好的五花肉放在盘子里面盖上铝箔保温备用。</p>
+<p>第三步是炒糖色。红烧肉的“红”其实就是焦糖的颜色。糖加热到170摄氏度的时候就会转化成焦糖，红烧菜肴最后收汁的时候，汤汁里面的糖在高温的作用下就会变成焦糖，给菜肴覆盖一层诱人的红棕色，并增添许多风味。理论上说，炒糖色并非绝对必须，可以在最后收汁的时候完成这个过程。但是红烧肉必须用加水（或者酒），收汁的时候把这些水完全烧干需要不少时间，等待过程当中，瘦肉部分可能就会变干变硬。提前炒好糖色就可以避免这些麻烦。</p>
+<p>炒糖色最好就用炖肉的锅子，这样等会就可以直接把肉和糖混合在一起。炖肉锅子的选择非常重要，直接关系到红烧肉的品质。如果你做的红烧肉瘦肉部分有变干变硬的倾向，十有八九就是锅子没有选对。选择锅子的时候首先要考虑的是锅盖的密封性，锅盖上绝对不能有通气孔，锅盖和锅的配合必须严丝合缝。本来我们也没有注意到这个问题，LG用锅子烧米饭的时候发现，但凡那些锅盖上有通气孔的锅子，煮出来的米饭表层都是硬的，而那些锅盖密封性能很好的锅子，煮出来的米饭表层和内层都是软的。由此联想到红烧肉的问题，LG后来通过对照试验就验证了这个猜测。其次锅底导热的均匀性也非常重要，局部过热很容易让富含胶质的红烧肉粘在锅底。人们常常觉得砂锅导热比较均匀，其实并不准确，砂锅因为导热系数低，锅底的受热其实很不均匀。个人推荐使用不锈钢复底锅，其导热均匀性比厚底铸铁锅还要好。</p>
+<p>在锅子里面倒入10克花生油，然后倒入30克白糖。花生油在这里就是起到一个导热媒介的作用，就像电脑CPU和风扇之间的导热硅脂一样，可以加快糖融化的过程。</p>
+<p>很快就会变成金黄色，这个时候你就需要把炉灶火力降到最低，或者干脆把锅子从炉灶上移开，因为焦糖变色的过程非常迅速，就是短短几秒钟的事情。拍摄过程中，LG就是因为等我聚焦，结果锅子在炉灶上停留的时间稍长了一点，炒好的糖色迅速变成深红色，进而变成黑色，LG只好倒掉重新再来。</p>
+<p>然后把前面煎好的五花肉放进锅子里面，翻动一下，让糖色均匀地裹在肉的表面。注意不要把所有的肉一起倒进锅子里面，因为里面析出的汁水跟滚烫的糖混合后会飞溅出来，比较安全的办法就是用夹子把肉一块块放进锅子里面，翻动的时候动作要轻柔，一来是保护五花肉的形态，二来是避免滚烫的汁水飞溅出来。</p>
+<p>第四步就是慢火炖肉。在锅子里面放入切好的葱段、姜片、八角、桂皮和20克老抽酱油，翻动一下，让配料和五花肉混合均匀。</p>
+<p>然后加入20克料酒和1支干红辣椒，翻炒均匀。</p>
+<p>最后倒入沸水，倒水的时候要贴着锅边，不要直接把水浇在肉上面，否则前面辛辛苦苦刚给五花肉裹上的糖色就被热水冲掉了。</p>
+<p>水的高度以能够淹没肉的高度的3/4为准，然后加入半茶匙盐（3－4克），翻动一下，让盐溶解在汤汁里面。对于红烧肉来说，就像苏东坡说的那样，应该少放水，但是这样一来就有一些肉直接暴露在水面上，如果锅盖密封性能比较好，这些暴露在外的肉就能保持较多的水分，如果锅盖密封性能不好，肉里的汁水就会渐渐蒸发，进而变干变硬。</p>
+<p>火烧开后，立刻把火力降到最低（把锅子转移到最小的灶眼上面，用最小的火力），慢火炖上90分钟左右。</p>
+<p>第五步是收汁。把锅子里面的汁水倒出来，倒的过程中用滤篮滤去八角桂皮等香料，五花肉仍然留在锅子里面，盖紧锅盖放在一边备用。</p>
+<p>等到汤汁收到类似糖浆性状的时候，就关掉炉灶，把五花肉从锅子里面取出来，放在平底锅里面，稍稍翻动一下，给五花肉表面包裹一层汤汁。</p>
+<p>然后，一秒钟也不要耽搁，马上开吃，看看这红烧肉的品相，它如何美味就不必多说了吧。红烧肉做好之后也会继续散发水分，瘦肉的口感会在很短的时间内变干变硬，肉皮变冷之后会变得坚韧，完全失去软糯轻盈的口感，所以吃的时候一定要抓紧时间哦！</p>
+<p>再重复一下完美红烧肉需要注意几个细节：</p>
+<p>1）用平底锅把五花肉表面煎成金黄色可以增加风味。</p>
+<p>2）锅子的选择，一定要用锅盖密封性能好的锅子，锅底导热的均匀性也要好。</p>
+<p>3）提前炒好糖色，缩短收汁时间。</p>
+<p>4）收汁之前撇去里面的肥油。</p>
 
       
     </div>
@@ -1912,6 +3015,138 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-stream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/18/node-api-stream/" class="post-title-link" itemprop="url">API学习：Stream</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-18 13:02:55" itemprop="dateCreated datePublished" datetime="2017-04-18T13:02:55+08:00">2017-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 13:03:35" itemprop="dateModified" datetime="2019-11-02T13:03:35+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><p>Stream是一个抽象接口，<code>stream</code>模块提供了一个基础API用来创建实现了stream接口的对象。</p>
+<p>Nodejs提供了很多流对象，比如对一个HTTP服务器的request，和<code>process.stdout</code>标准输出都是流。</p>
+<p>流可以使可写，可读，或者可读写的。所有的stream都是EventEmitter的实例。</p>
+<p>stream模块可以这样使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stream = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Types-of-Streams"><a href="#Types-of-Streams" class="headerlink" title="Types of Streams"></a>Types of Streams</h2><ul>
+<li>Readable</li>
+<li>Writable</li>
+<li>Duplex</li>
+<li>Transform</li>
+</ul>
+<h2 id="Object-Mode"><a href="#Object-Mode" class="headerlink" title="Object Mode"></a>Object Mode</h2><p>Nodejs API创造的streams专门对strings和Buffer对象操作。但是对其他值操作也是可能的，这种stream在Object Mode下工作。</p>
+<h2 id="Buffering"><a href="#Buffering" class="headerlink" title="Buffering"></a>Buffering</h2><p>Writable 和 Readable 流都将数据存储在一个内部缓存里，分别可用 <code>writable._writableState.getBuffer()</code> 和 <code>readable._readableState.buffer</code> 来检索到。可能缓存的数据数量由传入stream构造器的hightWaterMark来决定。对于普通stream，hightWaterMark规定了一个byte的总数，对于工作在Object Mode下的stream，它规定了一个总的object数。</p>
+<p>在stream的实现调用stream.push(chunk)时，数据被缓存在Readable stream里。如果这个Stream的消费者没有调用stream.read()，这些数据就在内部队列里呆着，直到被消费为止。</p>
+<p>一旦内部读取缓存的大小达到了highWaterMark规定的限值，stream会暂时停止从相关数据源读取数据，直到已缓存的数据被消费为止。（也就是说，stream会停止调用内部用来填充读取缓存的的readable._read()方法）</p>
+<p>当writable.write(chunk)被重复调用时，数据被缓存在Writable stream里。当内部写缓存的总大小低于highWaterMark规定的限值时，writable.write()的调用会返回true，一旦达到或者超过限值，就会返回false。<br>stream API特别是stream.pipe()方法的一个重要目标，就是把数据的缓存限制在一个可接受的程度，这样速度不同的数据源和数据目的地就可以在一个有限的内存下正常工作(而不会撑满内存导致溢出)。<br>因 为<code>Duplex</code> 和 <code>Transform streams</code> 都是可读写的，他们都有两个独立的内部缓存用来读和写，允许两边独立操作，同时保持一个合适有效的数据流。比如，net.Socket实例是Duplex stream，它的Readable 一侧允许消费从socket里接收到的数据，Writable一侧允许向socket内写入数据。因为读写数据的速度有可能不一样，两边分开独立（缓存和）操作就很重要。<br><em>说实话这里没看懂</em></p>
+<h2 id="给Stream-Consumers的API"><a href="#给Stream-Consumers的API" class="headerlink" title="给Stream Consumers的API"></a>给Stream Consumers的API</h2><p>不管多简单，基本上所有的Node.js程序都在以某种方式使用stream。下面是一个在实现一个HTTP服务器的程序中使用stream的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer( <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// req is an http.IncomingMessage, which is a Readable Stream</span></span><br><span class="line">  <span class="comment">// res is an http.ServerResponse, which is a Writable Stream</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> body = <span class="string">''</span>;</span><br><span class="line">  <span class="comment">// Get the data as utf8 strings.</span></span><br><span class="line">  <span class="comment">// If an encoding is not set, Buffer objects will be received.</span></span><br><span class="line">  req.setEncoding(<span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Readable streams emit 'data' events once a listener is added</span></span><br><span class="line">  req.on(<span class="string">'data'</span>, (chunk) =&gt; &#123;</span><br><span class="line">    body += chunk;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the end event indicates that the entire body has been received</span></span><br><span class="line">  req.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(body);</span><br><span class="line">      <span class="comment">// write back something interesting to the user:</span></span><br><span class="line">      res.write(<span class="keyword">typeof</span> data);</span><br><span class="line">      res.end();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (er) &#123;</span><br><span class="line">      <span class="comment">// uh oh!  bad json!</span></span><br><span class="line">      res.statusCode = <span class="number">400</span>;</span><br><span class="line">      <span class="keyword">return</span> res.end(<span class="string">`error: <span class="subst">$&#123;er.message&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">1337</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '&#123;&#125;'</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '"foo"'</span></span><br><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d 'not json'</span></span><br><span class="line"><span class="comment">// error: Unexpected token o</span></span><br></pre></td></tr></table></figure>
+
+<p>可写流暴露了如write()和end()的方法，用来向stream写入数据。<br>可读流使用EventEmitter API来通知程序啥时候数据可以从stream中读取了。有多种方式可以读取。<br>可读流和可写流都各种使用EventEmitter API，来和stream的当前状态通信。</p>
+<h2 id="Writable-Streams"><a href="#Writable-Streams" class="headerlink" title="Writable Streams"></a>Writable Streams</h2><p>Writable Streams是一个数据要写入的目的地的抽象。</p>
+<ul>
+<li>HTTP requests, on the client</li>
+<li>HTTP responses, on the server</li>
+<li>fs write streams</li>
+<li>zlib streams</li>
+<li>crypto streams</li>
+<li>TCP sockets</li>
+<li>child process stdin</li>
+<li>process.stdout, process.stderr</li>
+</ul>
+<p>所有的Writable streams都实现了由 <code>stream.Writable</code> 类定义的接口。<br>虽然各种实例各有不同，但他们都遵循同样的基本使用模式，如下面这个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myStream = getWritableStreamSomehow();</span><br><span class="line">myStream.write(<span class="string">'some data'</span>);</span><br><span class="line">myStream.write(<span class="string">'some more data'</span>);</span><br><span class="line">myStream.end(<span class="string">'done writing data'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Class-stream-Writable"><a href="#Class-stream-Writable" class="headerlink" title="Class: stream.Writable"></a>Class: stream.Writable</h3><h4 id="Event-‘close’"><a href="#Event-‘close’" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘drain’"><a href="#Event-‘drain’" class="headerlink" title="Event: ‘drain’"></a>Event: ‘drain’</h4><h4 id="Event-‘error’"><a href="#Event-‘error’" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘finish’"><a href="#Event-‘finish’" class="headerlink" title="Event: ‘finish’"></a>Event: ‘finish’</h4><h4 id="Event-‘pipe’"><a href="#Event-‘pipe’" class="headerlink" title="Event: ‘pipe’"></a>Event: ‘pipe’</h4><h4 id="Event-‘unpipe’"><a href="#Event-‘unpipe’" class="headerlink" title="Event: ‘unpipe’"></a>Event: ‘unpipe’</h4><h4 id="writable-cork"><a href="#writable-cork" class="headerlink" title="writable.cork()"></a>writable.cork()</h4><h4 id="writable-end-chunk-encoding-callback"><a href="#writable-end-chunk-encoding-callback" class="headerlink" title="writable.end([chunk][, encoding][, callback])"></a>writable.end([chunk][, encoding][, callback])</h4><h4 id="writable-setDefaultEncoding-encoding"><a href="#writable-setDefaultEncoding-encoding" class="headerlink" title="writable.setDefaultEncoding(encoding)"></a>writable.setDefaultEncoding(encoding)</h4><h4 id="writable-uncork"><a href="#writable-uncork" class="headerlink" title="writable.uncork()"></a>writable.uncork()</h4><h4 id="writable-write-chunk-encoding-callback"><a href="#writable-write-chunk-encoding-callback" class="headerlink" title="writable.write(chunk[, encoding][, callback])"></a>writable.write(chunk[, encoding][, callback])</h4><h2 id="Readable-Streams"><a href="#Readable-Streams" class="headerlink" title="Readable Streams"></a>Readable Streams</h2><p>Writable Streams是一个源的抽象，数据可以通过它来消费。</p>
+<ul>
+<li>HTTP responses, on the client</li>
+<li>HTTP requests, on the server</li>
+<li>fs read streams</li>
+<li>zlib streams</li>
+<li>crypto streams</li>
+<li>TCP sockets</li>
+<li>child process stdout and stderr</li>
+<li>process.stdin</li>
+</ul>
+<p>所有的Readable streams都实现了由 <code>stream.Readable</code> 类定义的接口。</p>
+<h3 id="Two-Modes-两种模式"><a href="#Two-Modes-两种模式" class="headerlink" title="Two Modes 两种模式"></a>Two Modes 两种模式</h3><p>Readable streams实际上运行在以下两种模式之一：flowing和paused</p>
+<p>在flowing模式下，数据从相关系统中自动读取，并通过EventEmitter接口使用事件尽可能快的提供给一个程序。</p>
+<p>在paused模式下，stream.rad()方法必须显式的调用，来从stream中读取数据块。</p>
+<p>所有的Readable streams开始都处在paused模式，并可以通过以下几种方式之一切换成flowing模式：</p>
+<ul>
+<li>添加一个’data’事件的handler</li>
+<li>调用stream.resume()方法</li>
+<li>调用stream.pipe()方法，来将数据传给一个Writable</li>
+</ul>
+<p>Readable可以通过以下几种方式之一切换回paused模式：</p>
+<ul>
+<li>如果没有pipe目的地，调用stream.pause()方法</li>
+<li>如果有pipe目的地，移除所有的’data’事件handler，并通过调用stream.unpipe()移除所有的pipe目的地。</li>
+</ul>
+<p>需要记住的是，一个Readable不会生成数据，直到一个或者消费数据或者忽略数据的机制被提供。一旦消费机制消失或者失效，Readable会尝试停止生成数据</p>
+<h3 id="Three-States-三种状态"><a href="#Three-States-三种状态" class="headerlink" title="Three States 三种状态"></a>Three States 三种状态</h3><p>Readable“两种操作模式”是一个对其实现中更复杂的内部状态管理的简化抽象。<br>明确的说，任何给定的时点，一个Readable会处在以下三种可能状态之一：</p>
+<ul>
+<li>readable._readableState.flowing = null</li>
+<li>readable._readableState.flowing = false</li>
+<li>readable._readableState.flowing = true<br>null：消费数据的机制没有提供，所以stream不会生成他的数据<br>给’data’事件添加一个监听器，调用readable.pipe()方法，或者调用readable.resume()方法会把flowing属性置为true，导致Readable开始积极地emit事件，同时数据开始生成。<br>调用readable.pause()，readable.unpipe()或者接受到‘back pressure’会让flowing属性被置为false，暂停事件流，但不会停止数据的生成。<br>当flowing是false时，数据可能在stream的内部缓存里积累。<h3 id="Chosse-One-挑一个"><a href="#Chosse-One-挑一个" class="headerlink" title="Chosse One 挑一个"></a>Chosse One 挑一个</h3>Readable stream API 随着Node.js版本在进化，提供了一堆消费数据的方法。通常应该只选择一个来消费数据，永远不要用多种方式来消费同一个stream中的数据。<br>一般推荐readable.pipe()，因为使用最简单。需要细粒度的控制数据传输和生成的可以使用EventEmitter和readable.pause()/readable.resume() API。</li>
+</ul>
+<h3 id="Class-stream-Readable"><a href="#Class-stream-Readable" class="headerlink" title="Class: stream.Readable"></a>Class: stream.Readable</h3><h4 id="Event-‘close’-1"><a href="#Event-‘close’-1" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘data’"><a href="#Event-‘data’" class="headerlink" title="Event: ‘data’"></a>Event: ‘data’</h4><h4 id="Event-‘end’"><a href="#Event-‘end’" class="headerlink" title="Event: ‘end’"></a>Event: ‘end’</h4><h4 id="Event-‘error’-1"><a href="#Event-‘error’-1" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘readable’"><a href="#Event-‘readable’" class="headerlink" title="Event: ‘readable’"></a>Event: ‘readable’</h4><h4 id="readable-isPaused"><a href="#readable-isPaused" class="headerlink" title="readable.isPaused()"></a>readable.isPaused()</h4><h4 id="readable-pause"><a href="#readable-pause" class="headerlink" title="readable.pause()"></a>readable.pause()</h4><h4 id="readable-pipe-destination-options"><a href="#readable-pipe-destination-options" class="headerlink" title="readable.pipe(destination[, options])"></a>readable.pipe(destination[, options])</h4><h4 id="readable-read-size"><a href="#readable-read-size" class="headerlink" title="readable.read([size])"></a>readable.read([size])</h4><h4 id="readable-resume"><a href="#readable-resume" class="headerlink" title="readable.resume()"></a>readable.resume()</h4><h4 id="readable-setEncoding-encoding"><a href="#readable-setEncoding-encoding" class="headerlink" title="readable.setEncoding(encoding)"></a>readable.setEncoding(encoding)</h4><h4 id="readable-unpipe-destination"><a href="#readable-unpipe-destination" class="headerlink" title="readable.unpipe([destination])"></a>readable.unpipe([destination])</h4><h4 id="readable-unshift-chunk"><a href="#readable-unshift-chunk" class="headerlink" title="readable.unshift(chunk)"></a>readable.unshift(chunk)</h4><h4 id="readable-wrap-stream"><a href="#readable-wrap-stream" class="headerlink" title="readable.wrap(stream)"></a>readable.wrap(stream)</h4>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-events/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2050,138 +3285,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-stream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="twohappy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="兽人永不为奴">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/18/node-api-stream/" class="post-title-link" itemprop="url">API学习：Stream</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-18 13:02:55" itemprop="dateCreated datePublished" datetime="2017-04-18T13:02:55+08:00">2017-04-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-02 13:03:35" itemprop="dateModified" datetime="2019-11-02T13:03:35+08:00">2019-11-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><p>Stream是一个抽象接口，<code>stream</code>模块提供了一个基础API用来创建实现了stream接口的对象。</p>
-<p>Nodejs提供了很多流对象，比如对一个HTTP服务器的request，和<code>process.stdout</code>标准输出都是流。</p>
-<p>流可以使可写，可读，或者可读写的。所有的stream都是EventEmitter的实例。</p>
-<p>stream模块可以这样使用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stream = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="Types-of-Streams"><a href="#Types-of-Streams" class="headerlink" title="Types of Streams"></a>Types of Streams</h2><ul>
-<li>Readable</li>
-<li>Writable</li>
-<li>Duplex</li>
-<li>Transform</li>
-</ul>
-<h2 id="Object-Mode"><a href="#Object-Mode" class="headerlink" title="Object Mode"></a>Object Mode</h2><p>Nodejs API创造的streams专门对strings和Buffer对象操作。但是对其他值操作也是可能的，这种stream在Object Mode下工作。</p>
-<h2 id="Buffering"><a href="#Buffering" class="headerlink" title="Buffering"></a>Buffering</h2><p>Writable 和 Readable 流都将数据存储在一个内部缓存里，分别可用 <code>writable._writableState.getBuffer()</code> 和 <code>readable._readableState.buffer</code> 来检索到。可能缓存的数据数量由传入stream构造器的hightWaterMark来决定。对于普通stream，hightWaterMark规定了一个byte的总数，对于工作在Object Mode下的stream，它规定了一个总的object数。</p>
-<p>在stream的实现调用stream.push(chunk)时，数据被缓存在Readable stream里。如果这个Stream的消费者没有调用stream.read()，这些数据就在内部队列里呆着，直到被消费为止。</p>
-<p>一旦内部读取缓存的大小达到了highWaterMark规定的限值，stream会暂时停止从相关数据源读取数据，直到已缓存的数据被消费为止。（也就是说，stream会停止调用内部用来填充读取缓存的的readable._read()方法）</p>
-<p>当writable.write(chunk)被重复调用时，数据被缓存在Writable stream里。当内部写缓存的总大小低于highWaterMark规定的限值时，writable.write()的调用会返回true，一旦达到或者超过限值，就会返回false。<br>stream API特别是stream.pipe()方法的一个重要目标，就是把数据的缓存限制在一个可接受的程度，这样速度不同的数据源和数据目的地就可以在一个有限的内存下正常工作(而不会撑满内存导致溢出)。<br>因 为<code>Duplex</code> 和 <code>Transform streams</code> 都是可读写的，他们都有两个独立的内部缓存用来读和写，允许两边独立操作，同时保持一个合适有效的数据流。比如，net.Socket实例是Duplex stream，它的Readable 一侧允许消费从socket里接收到的数据，Writable一侧允许向socket内写入数据。因为读写数据的速度有可能不一样，两边分开独立（缓存和）操作就很重要。<br><em>说实话这里没看懂</em></p>
-<h2 id="给Stream-Consumers的API"><a href="#给Stream-Consumers的API" class="headerlink" title="给Stream Consumers的API"></a>给Stream Consumers的API</h2><p>不管多简单，基本上所有的Node.js程序都在以某种方式使用stream。下面是一个在实现一个HTTP服务器的程序中使用stream的例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer( <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// req is an http.IncomingMessage, which is a Readable Stream</span></span><br><span class="line">  <span class="comment">// res is an http.ServerResponse, which is a Writable Stream</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> body = <span class="string">''</span>;</span><br><span class="line">  <span class="comment">// Get the data as utf8 strings.</span></span><br><span class="line">  <span class="comment">// If an encoding is not set, Buffer objects will be received.</span></span><br><span class="line">  req.setEncoding(<span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Readable streams emit 'data' events once a listener is added</span></span><br><span class="line">  req.on(<span class="string">'data'</span>, (chunk) =&gt; &#123;</span><br><span class="line">    body += chunk;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the end event indicates that the entire body has been received</span></span><br><span class="line">  req.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(body);</span><br><span class="line">      <span class="comment">// write back something interesting to the user:</span></span><br><span class="line">      res.write(<span class="keyword">typeof</span> data);</span><br><span class="line">      res.end();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (er) &#123;</span><br><span class="line">      <span class="comment">// uh oh!  bad json!</span></span><br><span class="line">      res.statusCode = <span class="number">400</span>;</span><br><span class="line">      <span class="keyword">return</span> res.end(<span class="string">`error: <span class="subst">$&#123;er.message&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">1337</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '&#123;&#125;'</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '"foo"'</span></span><br><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d 'not json'</span></span><br><span class="line"><span class="comment">// error: Unexpected token o</span></span><br></pre></td></tr></table></figure>
-
-<p>可写流暴露了如write()和end()的方法，用来向stream写入数据。<br>可读流使用EventEmitter API来通知程序啥时候数据可以从stream中读取了。有多种方式可以读取。<br>可读流和可写流都各种使用EventEmitter API，来和stream的当前状态通信。</p>
-<h2 id="Writable-Streams"><a href="#Writable-Streams" class="headerlink" title="Writable Streams"></a>Writable Streams</h2><p>Writable Streams是一个数据要写入的目的地的抽象。</p>
-<ul>
-<li>HTTP requests, on the client</li>
-<li>HTTP responses, on the server</li>
-<li>fs write streams</li>
-<li>zlib streams</li>
-<li>crypto streams</li>
-<li>TCP sockets</li>
-<li>child process stdin</li>
-<li>process.stdout, process.stderr</li>
-</ul>
-<p>所有的Writable streams都实现了由 <code>stream.Writable</code> 类定义的接口。<br>虽然各种实例各有不同，但他们都遵循同样的基本使用模式，如下面这个例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myStream = getWritableStreamSomehow();</span><br><span class="line">myStream.write(<span class="string">'some data'</span>);</span><br><span class="line">myStream.write(<span class="string">'some more data'</span>);</span><br><span class="line">myStream.end(<span class="string">'done writing data'</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Class-stream-Writable"><a href="#Class-stream-Writable" class="headerlink" title="Class: stream.Writable"></a>Class: stream.Writable</h3><h4 id="Event-‘close’"><a href="#Event-‘close’" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘drain’"><a href="#Event-‘drain’" class="headerlink" title="Event: ‘drain’"></a>Event: ‘drain’</h4><h4 id="Event-‘error’"><a href="#Event-‘error’" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘finish’"><a href="#Event-‘finish’" class="headerlink" title="Event: ‘finish’"></a>Event: ‘finish’</h4><h4 id="Event-‘pipe’"><a href="#Event-‘pipe’" class="headerlink" title="Event: ‘pipe’"></a>Event: ‘pipe’</h4><h4 id="Event-‘unpipe’"><a href="#Event-‘unpipe’" class="headerlink" title="Event: ‘unpipe’"></a>Event: ‘unpipe’</h4><h4 id="writable-cork"><a href="#writable-cork" class="headerlink" title="writable.cork()"></a>writable.cork()</h4><h4 id="writable-end-chunk-encoding-callback"><a href="#writable-end-chunk-encoding-callback" class="headerlink" title="writable.end([chunk][, encoding][, callback])"></a>writable.end([chunk][, encoding][, callback])</h4><h4 id="writable-setDefaultEncoding-encoding"><a href="#writable-setDefaultEncoding-encoding" class="headerlink" title="writable.setDefaultEncoding(encoding)"></a>writable.setDefaultEncoding(encoding)</h4><h4 id="writable-uncork"><a href="#writable-uncork" class="headerlink" title="writable.uncork()"></a>writable.uncork()</h4><h4 id="writable-write-chunk-encoding-callback"><a href="#writable-write-chunk-encoding-callback" class="headerlink" title="writable.write(chunk[, encoding][, callback])"></a>writable.write(chunk[, encoding][, callback])</h4><h2 id="Readable-Streams"><a href="#Readable-Streams" class="headerlink" title="Readable Streams"></a>Readable Streams</h2><p>Writable Streams是一个源的抽象，数据可以通过它来消费。</p>
-<ul>
-<li>HTTP responses, on the client</li>
-<li>HTTP requests, on the server</li>
-<li>fs read streams</li>
-<li>zlib streams</li>
-<li>crypto streams</li>
-<li>TCP sockets</li>
-<li>child process stdout and stderr</li>
-<li>process.stdin</li>
-</ul>
-<p>所有的Readable streams都实现了由 <code>stream.Readable</code> 类定义的接口。</p>
-<h3 id="Two-Modes-两种模式"><a href="#Two-Modes-两种模式" class="headerlink" title="Two Modes 两种模式"></a>Two Modes 两种模式</h3><p>Readable streams实际上运行在以下两种模式之一：flowing和paused</p>
-<p>在flowing模式下，数据从相关系统中自动读取，并通过EventEmitter接口使用事件尽可能快的提供给一个程序。</p>
-<p>在paused模式下，stream.rad()方法必须显式的调用，来从stream中读取数据块。</p>
-<p>所有的Readable streams开始都处在paused模式，并可以通过以下几种方式之一切换成flowing模式：</p>
-<ul>
-<li>添加一个’data’事件的handler</li>
-<li>调用stream.resume()方法</li>
-<li>调用stream.pipe()方法，来将数据传给一个Writable</li>
-</ul>
-<p>Readable可以通过以下几种方式之一切换回paused模式：</p>
-<ul>
-<li>如果没有pipe目的地，调用stream.pause()方法</li>
-<li>如果有pipe目的地，移除所有的’data’事件handler，并通过调用stream.unpipe()移除所有的pipe目的地。</li>
-</ul>
-<p>需要记住的是，一个Readable不会生成数据，直到一个或者消费数据或者忽略数据的机制被提供。一旦消费机制消失或者失效，Readable会尝试停止生成数据</p>
-<h3 id="Three-States-三种状态"><a href="#Three-States-三种状态" class="headerlink" title="Three States 三种状态"></a>Three States 三种状态</h3><p>Readable“两种操作模式”是一个对其实现中更复杂的内部状态管理的简化抽象。<br>明确的说，任何给定的时点，一个Readable会处在以下三种可能状态之一：</p>
-<ul>
-<li>readable._readableState.flowing = null</li>
-<li>readable._readableState.flowing = false</li>
-<li>readable._readableState.flowing = true<br>null：消费数据的机制没有提供，所以stream不会生成他的数据<br>给’data’事件添加一个监听器，调用readable.pipe()方法，或者调用readable.resume()方法会把flowing属性置为true，导致Readable开始积极地emit事件，同时数据开始生成。<br>调用readable.pause()，readable.unpipe()或者接受到‘back pressure’会让flowing属性被置为false，暂停事件流，但不会停止数据的生成。<br>当flowing是false时，数据可能在stream的内部缓存里积累。<h3 id="Chosse-One-挑一个"><a href="#Chosse-One-挑一个" class="headerlink" title="Chosse One 挑一个"></a>Chosse One 挑一个</h3>Readable stream API 随着Node.js版本在进化，提供了一堆消费数据的方法。通常应该只选择一个来消费数据，永远不要用多种方式来消费同一个stream中的数据。<br>一般推荐readable.pipe()，因为使用最简单。需要细粒度的控制数据传输和生成的可以使用EventEmitter和readable.pause()/readable.resume() API。</li>
-</ul>
-<h3 id="Class-stream-Readable"><a href="#Class-stream-Readable" class="headerlink" title="Class: stream.Readable"></a>Class: stream.Readable</h3><h4 id="Event-‘close’-1"><a href="#Event-‘close’-1" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘data’"><a href="#Event-‘data’" class="headerlink" title="Event: ‘data’"></a>Event: ‘data’</h4><h4 id="Event-‘end’"><a href="#Event-‘end’" class="headerlink" title="Event: ‘end’"></a>Event: ‘end’</h4><h4 id="Event-‘error’-1"><a href="#Event-‘error’-1" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘readable’"><a href="#Event-‘readable’" class="headerlink" title="Event: ‘readable’"></a>Event: ‘readable’</h4><h4 id="readable-isPaused"><a href="#readable-isPaused" class="headerlink" title="readable.isPaused()"></a>readable.isPaused()</h4><h4 id="readable-pause"><a href="#readable-pause" class="headerlink" title="readable.pause()"></a>readable.pause()</h4><h4 id="readable-pipe-destination-options"><a href="#readable-pipe-destination-options" class="headerlink" title="readable.pipe(destination[, options])"></a>readable.pipe(destination[, options])</h4><h4 id="readable-read-size"><a href="#readable-read-size" class="headerlink" title="readable.read([size])"></a>readable.read([size])</h4><h4 id="readable-resume"><a href="#readable-resume" class="headerlink" title="readable.resume()"></a>readable.resume()</h4><h4 id="readable-setEncoding-encoding"><a href="#readable-setEncoding-encoding" class="headerlink" title="readable.setEncoding(encoding)"></a>readable.setEncoding(encoding)</h4><h4 id="readable-unpipe-destination"><a href="#readable-unpipe-destination" class="headerlink" title="readable.unpipe([destination])"></a>readable.unpipe([destination])</h4><h4 id="readable-unshift-chunk"><a href="#readable-unshift-chunk" class="headerlink" title="readable.unshift(chunk)"></a>readable.unshift(chunk)</h4><h4 id="readable-wrap-stream"><a href="#readable-wrap-stream" class="headerlink" title="readable.wrap(stream)"></a>readable.wrap(stream)</h4>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -2229,12 +3332,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

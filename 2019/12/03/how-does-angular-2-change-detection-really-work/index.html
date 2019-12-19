@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="兽人永不为奴" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本文为译文，原文地址 与 Angular 1 相比，Angular变化检测机制更加透明，并且更易于推理。但是，在某些情况下（例如进行性能优化时），我们确实需要了解幕后情况。因此，让我们通过研究以下主题来更深入地研究变化检测：  变化检测是怎么实现的？ 变化检测器长什么样，我能看到吗？ 默认的变化检测机制如何工作 打开/关闭变化检测，和手动触发变化检测 避免变化检测循环：生产与开发模式 变化检测的O">
+<meta name="keywords" content="Angular Core">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular 2 的变化监测机制">
+<meta property="og:url" content="http://twohappy.me/2019/12/03/how-does-angular-2-change-detection-really-work/index.html">
+<meta property="og:site_name" content="兽人永不为奴">
+<meta property="og:description" content="本文为译文，原文地址 与 Angular 1 相比，Angular变化检测机制更加透明，并且更易于推理。但是，在某些情况下（例如进行性能优化时），我们确实需要了解幕后情况。因此，让我们通过研究以下主题来更深入地研究变化检测：  变化检测是怎么实现的？ 变化检测器长什么样，我能看到吗？ 默认的变化检测机制如何工作 打开/关闭变化检测，和手动触发变化检测 避免变化检测循环：生产与开发模式 变化检测的O">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-19T11:33:30.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular 2 的变化监测机制">
+<meta name="twitter:description" content="本文为译文，原文地址 与 Angular 1 相比，Angular变化检测机制更加透明，并且更易于推理。但是，在某些情况下（例如进行性能优化时），我们确实需要了解幕后情况。因此，让我们通过研究以下主题来更深入地研究变化检测：  变化检测是怎么实现的？ 变化检测器长什么样，我能看到吗？ 默认的变化检测机制如何工作 打开/关闭变化检测，和手动触发变化检测 避免变化检测循环：生产与开发模式 变化检测的O">
+
+<link rel="canonical" href="http://twohappy.me/2019/12/03/how-does-angular-2-change-detection-really-work/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Angular 2 的变化监测机制 | 兽人永不为奴</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">兽人永不为奴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">除非包吃包住</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/03/how-does-angular-2-change-detection-really-work/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="兽人永不为奴">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular 2 的变化监测机制
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-03 17:09:56" itemprop="dateCreated datePublished" datetime="2019-12-03T17:09:56+08:00">2019-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文为译文，<a href="https://blog.angular-university.io/how-does-angular-2-change-detection-really-work/" target="_blank" rel="noopener">原文地址</a></p>
+<p>与 Angular 1 相比，Angular变化检测机制更加透明，并且更易于推理。但是，在某些情况下（例如进行性能优化时），我们确实需要了解幕后情况。因此，让我们通过研究以下主题来更深入地研究变化检测：</p>
+<ul>
+<li>变化检测是怎么实现的？</li>
+<li>变化检测器长什么样，我能看到吗？</li>
+<li>默认的变化检测机制如何工作</li>
+<li>打开/关闭变化检测，和手动触发变化检测</li>
+<li>避免变化检测循环：生产与开发模式</li>
+<li>变化检测的<code>OnPush</code> 模式实际上干了什么？</li>
+<li>使用 Immutable.js 简化 Angular 应用的构建</li>
+<li>结论</li>
+</ul>
+<p>如果您需要有关 <code>OnPush</code> 变化检测的更多信息，请查看<a href="http://blog.angular-university.io/onpush-change-detection-how-it-works" target="_blank" rel="noopener">Angular OnPush变化检测和组件设计-避免常见陷阱</a>。</p>
+<h2 id="变化检测是怎么实现的？"><a href="#变化检测是怎么实现的？" class="headerlink" title="变化检测是怎么实现的？"></a>变化检测是怎么实现的？</h2><p>Angular 可以检测组件数据何时更改，然后自动重新渲染视图以反映该更改。但是，按钮单击之类的事件是非常底层的事件，它们触发后 Angular 是怎么做到自动检测的呢？</p>
+<p>要了解它是如何工作的，我们首先需要意识到在设计上，Javascript 的整个运行时是可以被重写覆盖的。如果我们希望，我们可以重写在 <code>String</code> 或 <code>Number</code> 中的方法（<code>String.prototype.trim = function(){}</code>之类的）。</p>
+<h2 id="覆盖浏览器默认行为"><a href="#覆盖浏览器默认行为" class="headerlink" title="覆盖浏览器默认行为"></a>覆盖浏览器默认行为</h2><p>发生的情况是，Angular 在启动时会给一些低级浏览器 API 打补丁，比如 <code>addEventListener</code>，这是用于注册所有浏览器事件（包括 click handlers）的浏览器函数。Angular 会把 <code>addEventListener</code> 替换为一个等效的新版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// this is the new version of addEventListener</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEventListener</span>(<span class="params">eventName, callback</span>) </span>&#123;</span><br><span class="line">     <span class="comment">// call the real addEventListener</span></span><br><span class="line">     callRealAddEventListener(eventName, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// first call the original callback</span></span><br><span class="line">        callback(...);     </span><br><span class="line">        <span class="comment">// and then run Angular-specific functionality</span></span><br><span class="line">        <span class="keyword">var</span> changed = angular2.runChangeDetection();</span><br><span class="line">         <span class="keyword">if</span> (changed) &#123;</span><br><span class="line">             angular2.reRenderUIPart();</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>新版本的 <code>addEventListener</code> 给事件处理程序（handlers）添加了功能：不仅可以调用已注册的回调，而且 Angular 还可以运行变化检测并更新 UI。</p>
+<h2 id="低级的-runtime-patching-是怎么工作的？"><a href="#低级的-runtime-patching-是怎么工作的？" class="headerlink" title="低级的 runtime patching 是怎么工作的？"></a>低级的 runtime patching 是怎么工作的？</h2><p>浏览器 API 的低级修补是由 Angular 附带的名为 <a href="https://github.com/angular/zone.js/" target="_blank" rel="noopener">Zone.js</a> 的库完成的。了解什么是 zone 很重要。</p>
+<p>一个 zone 是一个执行上下文，它可以在多个 Javascript VM 执行回合后幸存下来。这是一种通用机制，我们可以用来向浏览器添加额外的功能。Angular 在内部使用 Zones 来触发变化检测，但是另一种可能的用途是进行应用程序性能分析，或跟踪跨多个 VM 轮次运行的长堆栈跟踪。</p>
+<h2 id="支持浏览器异步-API"><a href="#支持浏览器异步-API" class="headerlink" title="支持浏览器异步 API"></a>支持浏览器异步 API</h2><p>以下常用的浏览器机制已被 patch，来支持变化检测：</p>
+<ul>
+<li>所有浏览器事件（events：click，mouseover，keyup 等）</li>
+<li>setTimeout() 和 setInterval()</li>
+<li>Ajax 请求</li>
+</ul>
+<p>实际上，Zone.js 还修补了许多其他浏览器 API，以透明地触发 Angular 变化检测，例如 Websockets。看一下 Zone.js 的 <a href="https://github.com/angular/zone.js/tree/master/test/patch" target="_blank" rel="noopener">test specifications</a>，看看当前支持什么。</p>
+<p>这种机制的局限性在于，如果由于某些原因，一个异步浏览器 API 不被 Zone.js 支持，那么将不会触发变化检测。例如，IndexedDB 回调就是这种情况。</p>
+<p>这解释了变化检测如何触发，但是一旦触发，它实际上怎么工作？</p>
+<h2 id="The-change-detection-tree-变化检测树"><a href="#The-change-detection-tree-变化检测树" class="headerlink" title="The change detection tree 变化检测树"></a>The change detection tree 变化检测树</h2><p>每个 Angular component 都有一个关联的变化检测器，该变化检测器在应用程序启动时创建。用下面这个 <code>TodoItem</code> 组件举例：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    selector: <span class="string">'todo-item'</span>,</span><br><span class="line">    template: <span class="string">'&lt;span class="todo noselect" (click)="onToggle()"&gt;&#123;&#123;todo.owner.firstname&#125;&#125; - &#123;&#123;todo.description&#125;&#125; - completed: &#123;&#123;todo.completed&#125;&#125;&lt;/span&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> TodoItem &#123;</span><br><span class="line">    <span class="meta">@Input</span>()</span><br><span class="line">    todo:Todo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Output</span>()</span><br><span class="line">    toggle = <span class="keyword">new</span> EventEmitter&lt;<span class="built_in">Object</span>&gt;();</span><br><span class="line"></span><br><span class="line">    onToggle() &#123;</span><br><span class="line">        <span class="keyword">this</span>.toggle.emit(<span class="keyword">this</span>.todo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个组件接受一个 Todo object 输入，并在 todo 状态改变的时候触发一个事件。为了使示例更有趣，<code>Todo</code> 类包含一个嵌套对象 owner：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> Todo &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> id: <span class="built_in">number</span>, </span></span><br><span class="line"><span class="params">        <span class="keyword">public</span> description: <span class="built_in">string</span>, </span></span><br><span class="line"><span class="params">        <span class="keyword">public</span> completed: <span class="built_in">boolean</span>, </span></span><br><span class="line"><span class="params">        <span class="keyword">public</span> owner: Owner</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到 Todo 有一个属性 <code>owner</code>，该属性本身就是一个具有两个属性的对象：first name 和 last name。</p>
+<h2 id="Todo-Item-的变化检测器是什么样的？"><a href="#Todo-Item-的变化检测器是什么样的？" class="headerlink" title="Todo Item 的变化检测器是什么样的？"></a>Todo Item 的变化检测器是什么样的？</h2><p>我们实际上可以在运行时看到变化检测器的外观！要查看它，只需在Todo类中添加一些代码即可在访问某些属性时触发断点。</p>
+<p>遇到断点时，我们可以遍历堆栈跟踪并查看实际的变化检测：</p>
+<p>角度变化检测器是什么样的</p>
+<p>不用担心，您将永远不必调试此代码！也不涉及任何魔术，它只是在应用程序启动时构建的普通Javascript方法。但是它是做什么的呢？</p>
+<p>默认变化检测机制如何工作？<br>乍一看，此方法可能看起来很陌生，带有所有名称奇怪的变量。但是，通过更深入地研究它，我们发现它的操作非常简单：对于模板中使用的每个表达式，它会将表达式中使用的属性的当前值与该属性的先前值进行比较。</p>
+<p>如果前后的属性值不同，则将其设置isChanged为true，就是这样！差不多了，它是通过使用一种称为的方法比较值的<br>looseNotIdentical()，这实际上只是===与这种NaN情况下的特殊逻辑的比较（请参见此处）。</p>
+<p>那嵌套对象owner呢？<br>我们可以在变化检测器代码中看到，还<br>owner检查了嵌套对象的属性是否存在差异。但是只比较firstname属性，不比较lastname属性。</p>
+<p>这是因为组件模板中未使用姓氏！同样，出于相同原因，未比较Todo的顶级id属性。</p>
+<p>这样，我们可以放心地说：</p>
+<p>默认情况下，“角度变化检测”通过检查模板表达式的值是否已更改来工作。这是对所有组件完成的。</p>
+<p>我们还可以得出以下结论：</p>
+<p>默认情况下，Angular不进行深度对象比较以检测更改，它仅考虑模板使用的属性</p>
+<p>为什么默认情况下变化检测如此工作？<br>Angular的主要目标之一是更加透明和易于使用，以使框架用户不必费劲地调试框架并了解内部机制，从而能够有效地使用它。</p>
+<p>如果您熟悉Angular 1，请考虑$digest()以及$apply()何时使用/不使用它们的所有陷阱。Angular的主要目标之一就是避免这种情况。</p>
+<p>参照比较怎么样？<br>事实是Javascript对象是可变的，Angular希望为这些对象提供开箱即用的全面支持。</p>
+<p>想象一下，如果Angular默认变化检测机制将基于组件输入的参考比较而不是默认机制，那会是什么？即使是像TODO应用程序这样简单的东西，构建起来也很棘手：开发人员必须非常小心地创建新的Todo，而不是简单地更新属性。</p>
+<p>但是正如我们将看到的，如果确实需要，仍然可以自定义Angular变化检测。</p>
+<p>性能如何？<br>注意待办事项列表组件的变化检测器如何显式引用该todos属性。</p>
+<p>做到这一点的另一种方法是动态地遍历组件的属性，使代码通用而不是特定于组件。这样，我们就不必在一开始就为每个组件构建一个变化检测器！那么这是什么故事呢？</p>
+<p>快速浏览虚拟机<br>所有这些都与Javascript虚拟机的工作方式有关。用于动态比较属性的代码，尽管VM即时编译器无法轻易地将泛型优化为本机代码。</p>
+<p>这与变化检测器的特定代码不同，变化检测器确实显式访问每个组件输入属性。该代码非常类似于我们手工编写的代码，并且很容易被虚拟机转换为本地代码。</p>
+<p>使用生成的但显式的检测器的最终结果是一种变化检测机制，该机制非常快（比Angular 1更快），可预测且易于推理。</p>
+<p>但是，如果遇到性能极限情况，是否有一种方法可以优化变化检测？</p>
+<p>在OnPush变化检测模式<br>如果Todo列表很大，我们可以将TodoList组件配置为仅在Todo列表更改时才进行更新。这可以通过将组件变化检测策略更新为OnPush：</p>
+<p>@ 组件（{<br>    选择器：“ todo-list ”，<br>    changeDetection：ChangeDetectionStrategy。OnPush，<br>    模板：…<br>}）<br>导出 类 TodoList {<br>    …<br>}</p>
+<p>查看由GitHub托管的原始04.ts<br>现在让我们向应用程序添加几个按钮：一个按钮通过直接对其进行变异来切换列表的第一项，另一个按钮将Todo添加到整个列表中。代码如下：</p>
+<p>@ 组件（{<br>    选择器：“ app ”，<br>    模板：<code>&lt;div&gt;
+                    &lt;todo-list [todos] =“ todos”&gt; &lt;/ todo-list&gt;
+               &lt;/ div&gt;
+               &lt;button（click）=“ toggleFirst（）”&gt;切换第一项&lt;/ button&gt;
+               &lt;按钮（点击）= “addTodo（）”&gt;添加到待办事项列表&lt;/按钮&gt;</code><br>}）<br>出口 类 应用 {<br>    待办事项：Array  =  initialData ;</p>
+<pre><code>构造函数（）{
+}
+
+toggleFirst（）{
+    这个。待办事项 [ 0 ]。已完成 =  ！ 这个。待办事项 [ 0 ]。完成 ;
+}
+
+addTodo（）{
+    让 newTodos =  this。待办事项。切片（0）;
+    newTodos。推（新的 Todo（1，“ TODO 4 ”，
+        false，新 所有者（“ John ”，“ Doe ”）））；
+    这个。todos  =  newTodos ;
+}</code></pre><p>}</p>
+<p>查看由GitHub托管的原始05.ts<br>现在让我们看看两个新按钮的行为：</p>
+<p>第一个按钮“切换第一项”不起作用！这是因为该toggleFirst()方法直接更改列表的元素。 TodoList无法检测到此信息，因为其输入参考todos未更改<br>第二个按钮确实起作用！请注意，该方法addTodo()创建了待办事项列表的副本，然后向该副本添加了一个项目，最后用已复制的列表替换了todos成员变量。这会触发变化检测，因为该组件在其输入中检测到参考更改：它收到了一个新列表！<br>在第二个按钮中，直接更改待办事项列表将不起作用！我们确实需要一个新列表。<br>难道OnPush真的只是由基准进行比较的投入？<br>事实并非如此，如果您尝试通过单击来切换待办事项，它仍然有效！即使您也将TodoItem切换到OnPush。这是因为<br>OnPush不仅仅检查组件输入中的更改：组件是否发出也会触发变化检测的事件。</p>
+<p>根据Victor Savkin在他的博客中的这段话：</p>
+<p>使用OnPush检测器时，框架将在其任何输入属性发生更改，何时触发事件或Observable触发事件时检查OnPush组件。</p>
+<p>尽管允许更好的性能，但OnPush如果与可变对象一起使用，则使用时会付出很高的复杂性。它可能会引入难以推理和重现的错误。但是有一种方法可以使之OnPush可行。</p>
+<p>使用Immutable.js简化Angular应用程序的构建<br>如果我们仅使用不可变对象和不可变列表构建应用程序，则可以OnPush透明地在任何地方使用它，而不会陷入变化检测错误的风险。这是因为对于不可变对象，修改数据的唯一方法是创建一个新的不可变对象并替换先前的对象。对于不可变的对象，我们可以保证：</p>
+<p>一个新的不可变对象将始终触发OnPush变化检测<br>我们不能通过忘记创建对象的新副本而意外地创建错误，因为修改数据的唯一方法是创建新对象<br>进行不可变的一个不错的选择是使用Immutable.js库。该库提供了用于构建应用程序的不可变基元，例如不可变对象（Map）和不可变列表。</p>
+<p>该库也可以以类型安全的方式使用，请查看此先前文章以获取有关如何执行此操作的示例。</p>
+<p>避免变化检测循环：生产与开发模式<br>Angular变化检测的重要属性之一是，它与Angular 1不同，它强制执行单向数据流：当更新控制器类上的数据时，变化检测将运行并更新视图。</p>
+<p>但是视图的更新本身不会触发进一步的更改，而这些更改又会触发视图的进一步更新，从而在Angular 1中创建了称为摘要循环的内容。</p>
+<p>如何在Angular中触发变化检测循环？<br>一种方法是使用生命周期回调。例如，在TodoList组件中，我们可以触发对另一个组件的回调，从而更改其中一个绑定：</p>
+<p>ngAfterViewChecked（）{<br>    如果（这个。回调 &amp;&amp;  此。点击）{<br>        控制台。日志（“状态更改中… ”）；<br>        这个。回调（数学。随机（））;<br>    }<br>}</p>
+<p>查看由GitHub托管的原始06.ts<br>错误消息将显示在控制台中：</p>
+<p>EXCEPTION: Expression ‘ in App@3:20’ has changed after it was checked<br>仅当我们在开发模式下运行Angular时，才会引发此错误消息。如果启用生产模式会怎样？</p>
+<p>enableProdMode（）;</p>
+<p>@ NgModule（{<br>    声明：[ App ]，<br>    导入：[ BrowserModule ]，<br>    引导程序：[ App ]<br>}）<br>导出 类 AppModule {}</p>
+<p>platformBrowserDynamic（）。bootstrapModule（AppModule）;</p>
+<p>查看由GitHub托管的原始07.ts<br>在生产模式下，不会引发该错误，并且仍然不会发现问题。</p>
+<p>变化检测问题是否经常发生？<br>我们确实必须竭尽全力触发变化检测循环，但以防万一在开发阶段最好始终使用开发模式，因为这样可以避免问题。</p>
+<p>这种保证是以Angular始终两次运行变化检测为代价的，第二次是检测此类情况。在生产模式下，变化检测仅运行一次。</p>
+<p>打开/关闭变化检测并手动触发<br>在某些特殊情况下，我们确实希望关闭变化检测。想象一下一种情况，其中大量数据通过Websocket从后端到达。我们可能只想每5秒更新一次UI的特定部分。为此，我们首先将变化检测器注入组件中：</p>
+<p>构造函数（私有 ref：ChangeDetectorRef）{<br>    参考。分离（）;<br>    setInterval（（）=&gt; {<br>      这个。参考。detectChanges（）;<br>    }，5000）；<br>  }</p>
+<p>查看由GitHub托管的原始08.ts<br>如我们所见，我们只需拆下变化检测器，即可有效地关闭变化检测。然后，我们只需每5秒手动调用一次即可触发它detectChanges()。</p>
+<p>结论<br>Angular 默认变化检测机制实际上与Angular 1类似：它比较浏览器事件之前和之后的模板表达式的值，以查看是否有所更改。它适用于所有组件。但是也有一些重要的区别：</p>
+<p>对于一个组件，没有变化检测循环，也没有像Angular 1中命名的那样的摘要循环。这允许仅通过查看其模板及其控制器来推断每个组件。</p>
+<p>另一个区别是，由于构建了变化检测器的方式，检测组件变化的机制要快得多。</p>
+<p>最后，与 Angular 1 不同，变化检测机制是可自定义的。</p>
+<p>我们真的需要对变化检测了解很多吗？<br>大概对于95％的应用程序和用例来说，可以肯定地说Angular Change Detection可以正常工作，我们不需要了解太多。出于以下几个原因，了解其工作原理仍然很有用：</p>
+<p>一方面，它有助于我们理解一些可能遇到的开发错误消息，例如与变化检测循环有关的消息。<br>它有助于我们读取错误堆栈跟踪，所有这些zone.afterTurnDone()突然看起来都更加清晰<br>在性能非常高的情况下（我们确定我们不应该只是将分页添加到该庞大的数据表中吗？），了解变化检测可以帮助我们进行性能优化。<br>请看下面的参考资料，以进一步了解角度变化检测。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular-Core/" rel="tag"># Angular Core</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/29/ngx-min-max-valiation/" rel="next" title="Angular 中 min/max 校验">
+                  <i class="fa fa-chevron-left"></i> Angular 中 min/max 校验
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/12/05/a-lot-of-nextticks-inside-async-functions/" rel="prev" title="微博有个梨的一个问题">
+                  微博有个梨的一个问题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#变化检测是怎么实现的？"><span class="nav-number">1.</span> <span class="nav-text">变化检测是怎么实现的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖浏览器默认行为"><span class="nav-number">2.</span> <span class="nav-text">覆盖浏览器默认行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#低级的-runtime-patching-是怎么工作的？"><span class="nav-number">3.</span> <span class="nav-text">低级的 runtime patching 是怎么工作的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持浏览器异步-API"><span class="nav-number">4.</span> <span class="nav-text">支持浏览器异步 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-change-detection-tree-变化检测树"><span class="nav-number">5.</span> <span class="nav-text">The change detection tree 变化检测树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Todo-Item-的变化检测器是什么样的？"><span class="nav-number">6.</span> <span class="nav-text">Todo Item 的变化检测器是什么样的？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="twohappy"
+    src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">twohappy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">twohappy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
