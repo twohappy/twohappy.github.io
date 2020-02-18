@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="梦里飞奔" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="可以说是升级了一个 catalina 引起的麻烦事，也是日常解决问题的流程： tldr:电脑升级到了 catalina -&amp;gt; electron-builder 太老不支持 catalina 升级一下 -&amp;gt; dmg 默认不签名 -&amp;gt; 自动升级检测到升级包 -&amp;gt; 下载后通不过验证无法安装 -&amp;gt; 开了一个脑洞解决..  项目 electron-builder 之前的版本是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="electron-builder 升级后">
+<meta property="og:url" content="http://twohappy.me/2020/02/18/after-upgrade-electron-builder/index.html">
+<meta property="og:site_name" content="梦里飞奔">
+<meta property="og:description" content="可以说是升级了一个 catalina 引起的麻烦事，也是日常解决问题的流程： tldr:电脑升级到了 catalina -&amp;gt; electron-builder 太老不支持 catalina 升级一下 -&amp;gt; dmg 默认不签名 -&amp;gt; 自动升级检测到升级包 -&amp;gt; 下载后通不过验证无法安装 -&amp;gt; 开了一个脑洞解决..  项目 electron-builder 之前的版本是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-18T07:35:44.993Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="electron-builder 升级后">
+<meta name="twitter:description" content="可以说是升级了一个 catalina 引起的麻烦事，也是日常解决问题的流程： tldr:电脑升级到了 catalina -&amp;gt; electron-builder 太老不支持 catalina 升级一下 -&amp;gt; dmg 默认不签名 -&amp;gt; 自动升级检测到升级包 -&amp;gt; 下载后通不过验证无法安装 -&amp;gt; 开了一个脑洞解决..  项目 electron-builder 之前的版本是">
+
+<link rel="canonical" href="http://twohappy.me/2020/02/18/after-upgrade-electron-builder/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>electron-builder 升级后 | 梦里飞奔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">梦里飞奔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2020/02/18/after-upgrade-electron-builder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          electron-builder 升级后
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-18 10:34:42 / Modified: 15:35:44" itemprop="dateCreated datePublished" datetime="2020-02-18T10:34:42+08:00">2020-02-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>可以说是升级了一个 catalina 引起的麻烦事，也是日常解决问题的流程：</p>
+<p>tldr:电脑升级到了 catalina -&gt; electron-builder 太老不支持 catalina 升级一下 -&gt; dmg 默认不签名 -&gt; 自动升级检测到升级包 -&gt; 下载后通不过验证无法安装 -&gt; 开了一个脑洞解决..</p>
+<hr>
+<p>项目 electron-builder 之前的版本是 20.36.2，升级之后的版本是 22.3.2，跨了两个大版本。除了支持 catalina 以外，最一开始我以为没什么跟我有关的改动，直到自动升级时 updater 报了这么一个错：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"code"</span>: <span class="number">-1</span>,</span><br><span class="line">  <span class="string">"domain"</span>: <span class="string">'SQRLCodeSignatureErrorDomain'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>啥玩应啊，怎么又 sql 又 qr 还签名错了。我很懵。</p>
+<p>1、强行冷静来分析一下，api 是会返回一个 feed url 来给 electron-updater 来检查更新，下载后根据用户的选择，执行 updater 的重启更新或者下次启动更新。根据检测到更新之后的 log 和网速来看，安装包是下完了，卡在了安装这一步。</p>
+<p>打了一点 log 也验证了这个想法。</p>
+<p>2、那就只能面向 google debug 了。<br>搜索 「SQRLCodeSignatureErrorDomain」<br><code>获得 5 条结果 （用时 0.33 秒）</code><br>…</p>
+<p>基本都是 github 上的结果，分别属于 <code>Squirrel.Mac</code> 和 <code>atom</code>，大体看一遍，没啥用。Squirrel 出现的位置是代码，atom 是用户抱怨更新失败。虽然 atom 症状跟我很相似，但是并没有找到什么有价值的问题定位和解决。</p>
+<p>在 <a href="https://github.com/MayGo/tockler/issues/63#issuecomment-583758288" target="_blank" rel="noopener">MayGo/tockler</a> 这个 issue 下面提到了一个工具：<a href="https://brockerhoff.net/RB/AppCheckerLite/" target="_blank" rel="noopener">RB App Checker Lite</a>，已经好几年没更新了但还是很有用的样子。</p>
+<p>拖下来把打的包都检查一遍，发现… dmg 内的包没有签名？！</p>
+<p>3、然后我去了 electron-builder 的 issue 里面搜 ‘updater’，发现主要的讨论还是在 <code>notarize</code> 上面。甚至有人专门搞了一篇文章<a href="https://kilianvalkhof.com/2019/electron/notarizing-your-electron-application/" target="_blank" rel="noopener">notarizing-your-electron-application</a>。这个好像.. 可以放到待完善的任务里</p>
+<p>4、然后尝试在 electron-builder.json 的顶级 dmg 字段里面强制加上 <code>&quot;sign&quot;: true</code>，然后打 log 发现，代码确实执行了，但是包里面的 package 还是没有签名..</p>
+<p>5、头大</p>
+<p>6、取消了 target 中的 mas 和 mac，只保留 ‘dmg’ 和 ‘zip’</p>
+<p>7、竟然输出了签名 package</p>
+<p>8、问题暂时解决了</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/02/15/leetcode-20200215-leetcode-2/" rel="next" title="leetcode-27 移除元素">
+                  <i class="fa fa-chevron-left"></i> leetcode-27 移除元素
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="twohappy"
+    src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">twohappy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">twohappy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
