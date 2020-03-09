@@ -172,6 +172,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2020/03/09/primeng-9-breaks-dialogs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/09/primeng-9-breaks-dialogs/" class="post-title-link" itemprop="url">升级 ng 遇到的一个小问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-09 16:54:46 / Modified: 17:07:53" itemprop="dateCreated datePublished" datetime="2020-03-09T16:54:46+08:00">2020-03-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。</p>
+<p>刚开始遇到这个问题的时候，相关的 issue 基本没有。</p>
+<p>先看 console，没问题。</p>
+<p>看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。</p>
+<p><a href="https://github.com/primefaces/primeng/issues/8573" target="_blank" rel="noopener">issue</a> 里面有人提了，有的是不居中，但大部分是弹窗消失。</p>
+<p>有人提供了一个绕路方式：手动设置 left/top，基本就能看见了。<br>但是 mask 还在原处，在某些情况下（事实上是大部分情况下，因为需要用到 appendTo 的 dialog，肯定是 nest 到某些子组件里面去的），mask 是不能覆盖到全屏的。</p>
+<p>至于为什么，请看：<a href="https://coder-coder.com/z-index-isnt-working/" target="_blank" rel="noopener">4 reasons your z-index isn’t working (and how to fix it)</a></p>
+<p>把 primeng 仓库的代码扒下来，看代码。发现 wrapper 这个东西，是某一个人在今年初某次叫做「重写 dialog」的 commit 中修改的。还给了 issue 引用。</p>
+<p>去看一下 <a href="https://github.com/primefaces/primeng/issues/8475" target="_blank" rel="noopener">issue</a></p>
+<p>他说，like we did in  PrimeReact and PrimeVue。</p>
+<p>好的，去扒下来 primeReact 代码看一眼：</p>
+<p><a href="https://github.com/primefaces/primereact/blob/95f5dc3dcc500080f05a4cc93ead44b0f4dfbff0/src/components/dialog/Dialog.js#L378" target="_blank" rel="noopener">code</a></p>
+<p>这明显是连 mask 带里头的东西都 append 了</p>
+<p>提个 PR 完事。</p>
+<p>自己动手，丰衣足食。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2020/02/18/after-upgrade-electron-builder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -695,6 +768,75 @@ for(let i = 0; i &lt; length; i++ ){
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/19/leetcode-search-17-Letter-Combinations-of-a-Phone-Number-20191219-leetcode-77/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/19/leetcode-search-17-Letter-Combinations-of-a-Phone-Number-20191219-leetcode-77/" class="post-title-link" itemprop="url">leetcode-77</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-19 13:07:30" itemprop="dateCreated datePublished" datetime="2019-12-19T13:07:30+08:00">2019-12-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-15 16:57:10" itemprop="dateModified" datetime="2020-02-15T16:57:10+08:00">2020-02-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。</p>
+<p>示例:</p>
+<p>输入: n = 4, k = 2<br>输出:<br>[<br>  [2,4],<br>  [3,4],<br>  [2,3],<br>  [1,2],<br>  [1,3],<br>  [1,4],</p>
+<h2 id><a href="#" class="headerlink" title="]"></a>]</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> combine = <span class="function"><span class="keyword">function</span>(<span class="params">n, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> path = [];</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">path, start</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.length === k)&#123;</span><br><span class="line">            result.push([...path]);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = start;i &lt;= n; i++)&#123;</span><br><span class="line">            path.push(i);</span><br><span class="line">            backtrack(path,i+<span class="number">1</span>);</span><br><span class="line">            path.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack([],<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/19/leetcode-search-17-Letter-Combinations-of-a-Phone-Number-20191219-leetcode-90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -746,75 +888,6 @@ for(let i = 0; i &lt; length; i++ ){
 <p>输入: [1,2,2]<br>输出:<br>[<br>  [2],<br>  [1],<br>  [1,2,2],<br>  [2,2],<br>  [1,2],<br>  []<br>]</p>
 <hr>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[]&#125; nums</span></span><br><span class="line"><span class="comment"> * @return &#123;number[][]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> subsetsWithDup = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    nums.sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a-b)</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">const</span> path = [];</span><br><span class="line">    <span class="keyword">const</span> len = nums.length;</span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">current,path</span>)</span>&#123;</span><br><span class="line">        result.push([...path]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = current; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt; current &amp;&amp; nums[i] === nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            path.push(nums[i]);</span><br><span class="line">            backtrack(i+<span class="number">1</span>, path);</span><br><span class="line">            path.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    backtrack(<span class="number">0</span>, path);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/12/19/leetcode-search-17-Letter-Combinations-of-a-Phone-Number-20191219-leetcode-77/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="twohappy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="梦里飞奔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/19/leetcode-search-17-Letter-Combinations-of-a-Phone-Number-20191219-leetcode-77/" class="post-title-link" itemprop="url">leetcode-77</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-19 13:07:30" itemprop="dateCreated datePublished" datetime="2019-12-19T13:07:30+08:00">2019-12-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-15 16:57:10" itemprop="dateModified" datetime="2020-02-15T16:57:10+08:00">2020-02-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。</p>
-<p>示例:</p>
-<p>输入: n = 4, k = 2<br>输出:<br>[<br>  [2,4],<br>  [3,4],<br>  [2,3],<br>  [1,2],<br>  [1,3],<br>  [1,4],</p>
-<h2 id><a href="#" class="headerlink" title="]"></a>]</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> combine = <span class="function"><span class="keyword">function</span>(<span class="params">n, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> path = [];</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">const</span> backtrack = <span class="function"><span class="keyword">function</span>(<span class="params">path, start</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(path.length === k)&#123;</span><br><span class="line">            result.push([...path]);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = start;i &lt;= n; i++)&#123;</span><br><span class="line">            path.push(i);</span><br><span class="line">            backtrack(path,i+<span class="number">1</span>);</span><br><span class="line">            path.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack([],<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -3797,6 +3870,138 @@ addTodo（）{
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-stream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/18/node-api-stream/" class="post-title-link" itemprop="url">API学习：Stream</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-18 13:02:55" itemprop="dateCreated datePublished" datetime="2017-04-18T13:02:55+08:00">2017-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 13:03:35" itemprop="dateModified" datetime="2019-11-02T13:03:35+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><p>Stream是一个抽象接口，<code>stream</code>模块提供了一个基础API用来创建实现了stream接口的对象。</p>
+<p>Nodejs提供了很多流对象，比如对一个HTTP服务器的request，和<code>process.stdout</code>标准输出都是流。</p>
+<p>流可以使可写，可读，或者可读写的。所有的stream都是EventEmitter的实例。</p>
+<p>stream模块可以这样使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stream = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Types-of-Streams"><a href="#Types-of-Streams" class="headerlink" title="Types of Streams"></a>Types of Streams</h2><ul>
+<li>Readable</li>
+<li>Writable</li>
+<li>Duplex</li>
+<li>Transform</li>
+</ul>
+<h2 id="Object-Mode"><a href="#Object-Mode" class="headerlink" title="Object Mode"></a>Object Mode</h2><p>Nodejs API创造的streams专门对strings和Buffer对象操作。但是对其他值操作也是可能的，这种stream在Object Mode下工作。</p>
+<h2 id="Buffering"><a href="#Buffering" class="headerlink" title="Buffering"></a>Buffering</h2><p>Writable 和 Readable 流都将数据存储在一个内部缓存里，分别可用 <code>writable._writableState.getBuffer()</code> 和 <code>readable._readableState.buffer</code> 来检索到。可能缓存的数据数量由传入stream构造器的hightWaterMark来决定。对于普通stream，hightWaterMark规定了一个byte的总数，对于工作在Object Mode下的stream，它规定了一个总的object数。</p>
+<p>在stream的实现调用stream.push(chunk)时，数据被缓存在Readable stream里。如果这个Stream的消费者没有调用stream.read()，这些数据就在内部队列里呆着，直到被消费为止。</p>
+<p>一旦内部读取缓存的大小达到了highWaterMark规定的限值，stream会暂时停止从相关数据源读取数据，直到已缓存的数据被消费为止。（也就是说，stream会停止调用内部用来填充读取缓存的的readable._read()方法）</p>
+<p>当writable.write(chunk)被重复调用时，数据被缓存在Writable stream里。当内部写缓存的总大小低于highWaterMark规定的限值时，writable.write()的调用会返回true，一旦达到或者超过限值，就会返回false。<br>stream API特别是stream.pipe()方法的一个重要目标，就是把数据的缓存限制在一个可接受的程度，这样速度不同的数据源和数据目的地就可以在一个有限的内存下正常工作(而不会撑满内存导致溢出)。<br>因 为<code>Duplex</code> 和 <code>Transform streams</code> 都是可读写的，他们都有两个独立的内部缓存用来读和写，允许两边独立操作，同时保持一个合适有效的数据流。比如，net.Socket实例是Duplex stream，它的Readable 一侧允许消费从socket里接收到的数据，Writable一侧允许向socket内写入数据。因为读写数据的速度有可能不一样，两边分开独立（缓存和）操作就很重要。<br><em>说实话这里没看懂</em></p>
+<h2 id="给Stream-Consumers的API"><a href="#给Stream-Consumers的API" class="headerlink" title="给Stream Consumers的API"></a>给Stream Consumers的API</h2><p>不管多简单，基本上所有的Node.js程序都在以某种方式使用stream。下面是一个在实现一个HTTP服务器的程序中使用stream的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer( <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// req is an http.IncomingMessage, which is a Readable Stream</span></span><br><span class="line">  <span class="comment">// res is an http.ServerResponse, which is a Writable Stream</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> body = <span class="string">''</span>;</span><br><span class="line">  <span class="comment">// Get the data as utf8 strings.</span></span><br><span class="line">  <span class="comment">// If an encoding is not set, Buffer objects will be received.</span></span><br><span class="line">  req.setEncoding(<span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Readable streams emit 'data' events once a listener is added</span></span><br><span class="line">  req.on(<span class="string">'data'</span>, (chunk) =&gt; &#123;</span><br><span class="line">    body += chunk;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the end event indicates that the entire body has been received</span></span><br><span class="line">  req.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(body);</span><br><span class="line">      <span class="comment">// write back something interesting to the user:</span></span><br><span class="line">      res.write(<span class="keyword">typeof</span> data);</span><br><span class="line">      res.end();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (er) &#123;</span><br><span class="line">      <span class="comment">// uh oh!  bad json!</span></span><br><span class="line">      res.statusCode = <span class="number">400</span>;</span><br><span class="line">      <span class="keyword">return</span> res.end(<span class="string">`error: <span class="subst">$&#123;er.message&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">1337</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '&#123;&#125;'</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '"foo"'</span></span><br><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d 'not json'</span></span><br><span class="line"><span class="comment">// error: Unexpected token o</span></span><br></pre></td></tr></table></figure>
+
+<p>可写流暴露了如write()和end()的方法，用来向stream写入数据。<br>可读流使用EventEmitter API来通知程序啥时候数据可以从stream中读取了。有多种方式可以读取。<br>可读流和可写流都各种使用EventEmitter API，来和stream的当前状态通信。</p>
+<h2 id="Writable-Streams"><a href="#Writable-Streams" class="headerlink" title="Writable Streams"></a>Writable Streams</h2><p>Writable Streams是一个数据要写入的目的地的抽象。</p>
+<ul>
+<li>HTTP requests, on the client</li>
+<li>HTTP responses, on the server</li>
+<li>fs write streams</li>
+<li>zlib streams</li>
+<li>crypto streams</li>
+<li>TCP sockets</li>
+<li>child process stdin</li>
+<li>process.stdout, process.stderr</li>
+</ul>
+<p>所有的Writable streams都实现了由 <code>stream.Writable</code> 类定义的接口。<br>虽然各种实例各有不同，但他们都遵循同样的基本使用模式，如下面这个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myStream = getWritableStreamSomehow();</span><br><span class="line">myStream.write(<span class="string">'some data'</span>);</span><br><span class="line">myStream.write(<span class="string">'some more data'</span>);</span><br><span class="line">myStream.end(<span class="string">'done writing data'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Class-stream-Writable"><a href="#Class-stream-Writable" class="headerlink" title="Class: stream.Writable"></a>Class: stream.Writable</h3><h4 id="Event-‘close’"><a href="#Event-‘close’" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘drain’"><a href="#Event-‘drain’" class="headerlink" title="Event: ‘drain’"></a>Event: ‘drain’</h4><h4 id="Event-‘error’"><a href="#Event-‘error’" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘finish’"><a href="#Event-‘finish’" class="headerlink" title="Event: ‘finish’"></a>Event: ‘finish’</h4><h4 id="Event-‘pipe’"><a href="#Event-‘pipe’" class="headerlink" title="Event: ‘pipe’"></a>Event: ‘pipe’</h4><h4 id="Event-‘unpipe’"><a href="#Event-‘unpipe’" class="headerlink" title="Event: ‘unpipe’"></a>Event: ‘unpipe’</h4><h4 id="writable-cork"><a href="#writable-cork" class="headerlink" title="writable.cork()"></a>writable.cork()</h4><h4 id="writable-end-chunk-encoding-callback"><a href="#writable-end-chunk-encoding-callback" class="headerlink" title="writable.end([chunk][, encoding][, callback])"></a>writable.end([chunk][, encoding][, callback])</h4><h4 id="writable-setDefaultEncoding-encoding"><a href="#writable-setDefaultEncoding-encoding" class="headerlink" title="writable.setDefaultEncoding(encoding)"></a>writable.setDefaultEncoding(encoding)</h4><h4 id="writable-uncork"><a href="#writable-uncork" class="headerlink" title="writable.uncork()"></a>writable.uncork()</h4><h4 id="writable-write-chunk-encoding-callback"><a href="#writable-write-chunk-encoding-callback" class="headerlink" title="writable.write(chunk[, encoding][, callback])"></a>writable.write(chunk[, encoding][, callback])</h4><h2 id="Readable-Streams"><a href="#Readable-Streams" class="headerlink" title="Readable Streams"></a>Readable Streams</h2><p>Writable Streams是一个源的抽象，数据可以通过它来消费。</p>
+<ul>
+<li>HTTP responses, on the client</li>
+<li>HTTP requests, on the server</li>
+<li>fs read streams</li>
+<li>zlib streams</li>
+<li>crypto streams</li>
+<li>TCP sockets</li>
+<li>child process stdout and stderr</li>
+<li>process.stdin</li>
+</ul>
+<p>所有的Readable streams都实现了由 <code>stream.Readable</code> 类定义的接口。</p>
+<h3 id="Two-Modes-两种模式"><a href="#Two-Modes-两种模式" class="headerlink" title="Two Modes 两种模式"></a>Two Modes 两种模式</h3><p>Readable streams实际上运行在以下两种模式之一：flowing和paused</p>
+<p>在flowing模式下，数据从相关系统中自动读取，并通过EventEmitter接口使用事件尽可能快的提供给一个程序。</p>
+<p>在paused模式下，stream.rad()方法必须显式的调用，来从stream中读取数据块。</p>
+<p>所有的Readable streams开始都处在paused模式，并可以通过以下几种方式之一切换成flowing模式：</p>
+<ul>
+<li>添加一个’data’事件的handler</li>
+<li>调用stream.resume()方法</li>
+<li>调用stream.pipe()方法，来将数据传给一个Writable</li>
+</ul>
+<p>Readable可以通过以下几种方式之一切换回paused模式：</p>
+<ul>
+<li>如果没有pipe目的地，调用stream.pause()方法</li>
+<li>如果有pipe目的地，移除所有的’data’事件handler，并通过调用stream.unpipe()移除所有的pipe目的地。</li>
+</ul>
+<p>需要记住的是，一个Readable不会生成数据，直到一个或者消费数据或者忽略数据的机制被提供。一旦消费机制消失或者失效，Readable会尝试停止生成数据</p>
+<h3 id="Three-States-三种状态"><a href="#Three-States-三种状态" class="headerlink" title="Three States 三种状态"></a>Three States 三种状态</h3><p>Readable“两种操作模式”是一个对其实现中更复杂的内部状态管理的简化抽象。<br>明确的说，任何给定的时点，一个Readable会处在以下三种可能状态之一：</p>
+<ul>
+<li>readable._readableState.flowing = null</li>
+<li>readable._readableState.flowing = false</li>
+<li>readable._readableState.flowing = true<br>null：消费数据的机制没有提供，所以stream不会生成他的数据<br>给’data’事件添加一个监听器，调用readable.pipe()方法，或者调用readable.resume()方法会把flowing属性置为true，导致Readable开始积极地emit事件，同时数据开始生成。<br>调用readable.pause()，readable.unpipe()或者接受到‘back pressure’会让flowing属性被置为false，暂停事件流，但不会停止数据的生成。<br>当flowing是false时，数据可能在stream的内部缓存里积累。<h3 id="Chosse-One-挑一个"><a href="#Chosse-One-挑一个" class="headerlink" title="Chosse One 挑一个"></a>Chosse One 挑一个</h3>Readable stream API 随着Node.js版本在进化，提供了一堆消费数据的方法。通常应该只选择一个来消费数据，永远不要用多种方式来消费同一个stream中的数据。<br>一般推荐readable.pipe()，因为使用最简单。需要细粒度的控制数据传输和生成的可以使用EventEmitter和readable.pause()/readable.resume() API。</li>
+</ul>
+<h3 id="Class-stream-Readable"><a href="#Class-stream-Readable" class="headerlink" title="Class: stream.Readable"></a>Class: stream.Readable</h3><h4 id="Event-‘close’-1"><a href="#Event-‘close’-1" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘data’"><a href="#Event-‘data’" class="headerlink" title="Event: ‘data’"></a>Event: ‘data’</h4><h4 id="Event-‘end’"><a href="#Event-‘end’" class="headerlink" title="Event: ‘end’"></a>Event: ‘end’</h4><h4 id="Event-‘error’-1"><a href="#Event-‘error’-1" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘readable’"><a href="#Event-‘readable’" class="headerlink" title="Event: ‘readable’"></a>Event: ‘readable’</h4><h4 id="readable-isPaused"><a href="#readable-isPaused" class="headerlink" title="readable.isPaused()"></a>readable.isPaused()</h4><h4 id="readable-pause"><a href="#readable-pause" class="headerlink" title="readable.pause()"></a>readable.pause()</h4><h4 id="readable-pipe-destination-options"><a href="#readable-pipe-destination-options" class="headerlink" title="readable.pipe(destination[, options])"></a>readable.pipe(destination[, options])</h4><h4 id="readable-read-size"><a href="#readable-read-size" class="headerlink" title="readable.read([size])"></a>readable.read([size])</h4><h4 id="readable-resume"><a href="#readable-resume" class="headerlink" title="readable.resume()"></a>readable.resume()</h4><h4 id="readable-setEncoding-encoding"><a href="#readable-setEncoding-encoding" class="headerlink" title="readable.setEncoding(encoding)"></a>readable.setEncoding(encoding)</h4><h4 id="readable-unpipe-destination"><a href="#readable-unpipe-destination" class="headerlink" title="readable.unpipe([destination])"></a>readable.unpipe([destination])</h4><h4 id="readable-unshift-chunk"><a href="#readable-unshift-chunk" class="headerlink" title="readable.unshift(chunk)"></a>readable.unshift(chunk)</h4><h4 id="readable-wrap-stream"><a href="#readable-wrap-stream" class="headerlink" title="readable.wrap(stream)"></a>readable.wrap(stream)</h4>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-events/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3935,138 +4140,6 @@ addTodo（）{
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2017/04/18/node-api-stream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="twohappy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="梦里飞奔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/04/18/node-api-stream/" class="post-title-link" itemprop="url">API学习：Stream</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-18 13:02:55" itemprop="dateCreated datePublished" datetime="2017-04-18T13:02:55+08:00">2017-04-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-02 13:03:35" itemprop="dateModified" datetime="2019-11-02T13:03:35+08:00">2019-11-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><p>Stream是一个抽象接口，<code>stream</code>模块提供了一个基础API用来创建实现了stream接口的对象。</p>
-<p>Nodejs提供了很多流对象，比如对一个HTTP服务器的request，和<code>process.stdout</code>标准输出都是流。</p>
-<p>流可以使可写，可读，或者可读写的。所有的stream都是EventEmitter的实例。</p>
-<p>stream模块可以这样使用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stream = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="Types-of-Streams"><a href="#Types-of-Streams" class="headerlink" title="Types of Streams"></a>Types of Streams</h2><ul>
-<li>Readable</li>
-<li>Writable</li>
-<li>Duplex</li>
-<li>Transform</li>
-</ul>
-<h2 id="Object-Mode"><a href="#Object-Mode" class="headerlink" title="Object Mode"></a>Object Mode</h2><p>Nodejs API创造的streams专门对strings和Buffer对象操作。但是对其他值操作也是可能的，这种stream在Object Mode下工作。</p>
-<h2 id="Buffering"><a href="#Buffering" class="headerlink" title="Buffering"></a>Buffering</h2><p>Writable 和 Readable 流都将数据存储在一个内部缓存里，分别可用 <code>writable._writableState.getBuffer()</code> 和 <code>readable._readableState.buffer</code> 来检索到。可能缓存的数据数量由传入stream构造器的hightWaterMark来决定。对于普通stream，hightWaterMark规定了一个byte的总数，对于工作在Object Mode下的stream，它规定了一个总的object数。</p>
-<p>在stream的实现调用stream.push(chunk)时，数据被缓存在Readable stream里。如果这个Stream的消费者没有调用stream.read()，这些数据就在内部队列里呆着，直到被消费为止。</p>
-<p>一旦内部读取缓存的大小达到了highWaterMark规定的限值，stream会暂时停止从相关数据源读取数据，直到已缓存的数据被消费为止。（也就是说，stream会停止调用内部用来填充读取缓存的的readable._read()方法）</p>
-<p>当writable.write(chunk)被重复调用时，数据被缓存在Writable stream里。当内部写缓存的总大小低于highWaterMark规定的限值时，writable.write()的调用会返回true，一旦达到或者超过限值，就会返回false。<br>stream API特别是stream.pipe()方法的一个重要目标，就是把数据的缓存限制在一个可接受的程度，这样速度不同的数据源和数据目的地就可以在一个有限的内存下正常工作(而不会撑满内存导致溢出)。<br>因 为<code>Duplex</code> 和 <code>Transform streams</code> 都是可读写的，他们都有两个独立的内部缓存用来读和写，允许两边独立操作，同时保持一个合适有效的数据流。比如，net.Socket实例是Duplex stream，它的Readable 一侧允许消费从socket里接收到的数据，Writable一侧允许向socket内写入数据。因为读写数据的速度有可能不一样，两边分开独立（缓存和）操作就很重要。<br><em>说实话这里没看懂</em></p>
-<h2 id="给Stream-Consumers的API"><a href="#给Stream-Consumers的API" class="headerlink" title="给Stream Consumers的API"></a>给Stream Consumers的API</h2><p>不管多简单，基本上所有的Node.js程序都在以某种方式使用stream。下面是一个在实现一个HTTP服务器的程序中使用stream的例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer( <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// req is an http.IncomingMessage, which is a Readable Stream</span></span><br><span class="line">  <span class="comment">// res is an http.ServerResponse, which is a Writable Stream</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> body = <span class="string">''</span>;</span><br><span class="line">  <span class="comment">// Get the data as utf8 strings.</span></span><br><span class="line">  <span class="comment">// If an encoding is not set, Buffer objects will be received.</span></span><br><span class="line">  req.setEncoding(<span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Readable streams emit 'data' events once a listener is added</span></span><br><span class="line">  req.on(<span class="string">'data'</span>, (chunk) =&gt; &#123;</span><br><span class="line">    body += chunk;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the end event indicates that the entire body has been received</span></span><br><span class="line">  req.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = <span class="built_in">JSON</span>.parse(body);</span><br><span class="line">      <span class="comment">// write back something interesting to the user:</span></span><br><span class="line">      res.write(<span class="keyword">typeof</span> data);</span><br><span class="line">      res.end();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (er) &#123;</span><br><span class="line">      <span class="comment">// uh oh!  bad json!</span></span><br><span class="line">      res.statusCode = <span class="number">400</span>;</span><br><span class="line">      <span class="keyword">return</span> res.end(<span class="string">`error: <span class="subst">$&#123;er.message&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">1337</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '&#123;&#125;'</span></span><br><span class="line"><span class="comment">// object</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d '"foo"'</span></span><br><span class="line"><span class="comment">// string</span></span><br><span class="line"><span class="comment">// $ curl localhost:1337 -d 'not json'</span></span><br><span class="line"><span class="comment">// error: Unexpected token o</span></span><br></pre></td></tr></table></figure>
-
-<p>可写流暴露了如write()和end()的方法，用来向stream写入数据。<br>可读流使用EventEmitter API来通知程序啥时候数据可以从stream中读取了。有多种方式可以读取。<br>可读流和可写流都各种使用EventEmitter API，来和stream的当前状态通信。</p>
-<h2 id="Writable-Streams"><a href="#Writable-Streams" class="headerlink" title="Writable Streams"></a>Writable Streams</h2><p>Writable Streams是一个数据要写入的目的地的抽象。</p>
-<ul>
-<li>HTTP requests, on the client</li>
-<li>HTTP responses, on the server</li>
-<li>fs write streams</li>
-<li>zlib streams</li>
-<li>crypto streams</li>
-<li>TCP sockets</li>
-<li>child process stdin</li>
-<li>process.stdout, process.stderr</li>
-</ul>
-<p>所有的Writable streams都实现了由 <code>stream.Writable</code> 类定义的接口。<br>虽然各种实例各有不同，但他们都遵循同样的基本使用模式，如下面这个例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myStream = getWritableStreamSomehow();</span><br><span class="line">myStream.write(<span class="string">'some data'</span>);</span><br><span class="line">myStream.write(<span class="string">'some more data'</span>);</span><br><span class="line">myStream.end(<span class="string">'done writing data'</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Class-stream-Writable"><a href="#Class-stream-Writable" class="headerlink" title="Class: stream.Writable"></a>Class: stream.Writable</h3><h4 id="Event-‘close’"><a href="#Event-‘close’" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘drain’"><a href="#Event-‘drain’" class="headerlink" title="Event: ‘drain’"></a>Event: ‘drain’</h4><h4 id="Event-‘error’"><a href="#Event-‘error’" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘finish’"><a href="#Event-‘finish’" class="headerlink" title="Event: ‘finish’"></a>Event: ‘finish’</h4><h4 id="Event-‘pipe’"><a href="#Event-‘pipe’" class="headerlink" title="Event: ‘pipe’"></a>Event: ‘pipe’</h4><h4 id="Event-‘unpipe’"><a href="#Event-‘unpipe’" class="headerlink" title="Event: ‘unpipe’"></a>Event: ‘unpipe’</h4><h4 id="writable-cork"><a href="#writable-cork" class="headerlink" title="writable.cork()"></a>writable.cork()</h4><h4 id="writable-end-chunk-encoding-callback"><a href="#writable-end-chunk-encoding-callback" class="headerlink" title="writable.end([chunk][, encoding][, callback])"></a>writable.end([chunk][, encoding][, callback])</h4><h4 id="writable-setDefaultEncoding-encoding"><a href="#writable-setDefaultEncoding-encoding" class="headerlink" title="writable.setDefaultEncoding(encoding)"></a>writable.setDefaultEncoding(encoding)</h4><h4 id="writable-uncork"><a href="#writable-uncork" class="headerlink" title="writable.uncork()"></a>writable.uncork()</h4><h4 id="writable-write-chunk-encoding-callback"><a href="#writable-write-chunk-encoding-callback" class="headerlink" title="writable.write(chunk[, encoding][, callback])"></a>writable.write(chunk[, encoding][, callback])</h4><h2 id="Readable-Streams"><a href="#Readable-Streams" class="headerlink" title="Readable Streams"></a>Readable Streams</h2><p>Writable Streams是一个源的抽象，数据可以通过它来消费。</p>
-<ul>
-<li>HTTP responses, on the client</li>
-<li>HTTP requests, on the server</li>
-<li>fs read streams</li>
-<li>zlib streams</li>
-<li>crypto streams</li>
-<li>TCP sockets</li>
-<li>child process stdout and stderr</li>
-<li>process.stdin</li>
-</ul>
-<p>所有的Readable streams都实现了由 <code>stream.Readable</code> 类定义的接口。</p>
-<h3 id="Two-Modes-两种模式"><a href="#Two-Modes-两种模式" class="headerlink" title="Two Modes 两种模式"></a>Two Modes 两种模式</h3><p>Readable streams实际上运行在以下两种模式之一：flowing和paused</p>
-<p>在flowing模式下，数据从相关系统中自动读取，并通过EventEmitter接口使用事件尽可能快的提供给一个程序。</p>
-<p>在paused模式下，stream.rad()方法必须显式的调用，来从stream中读取数据块。</p>
-<p>所有的Readable streams开始都处在paused模式，并可以通过以下几种方式之一切换成flowing模式：</p>
-<ul>
-<li>添加一个’data’事件的handler</li>
-<li>调用stream.resume()方法</li>
-<li>调用stream.pipe()方法，来将数据传给一个Writable</li>
-</ul>
-<p>Readable可以通过以下几种方式之一切换回paused模式：</p>
-<ul>
-<li>如果没有pipe目的地，调用stream.pause()方法</li>
-<li>如果有pipe目的地，移除所有的’data’事件handler，并通过调用stream.unpipe()移除所有的pipe目的地。</li>
-</ul>
-<p>需要记住的是，一个Readable不会生成数据，直到一个或者消费数据或者忽略数据的机制被提供。一旦消费机制消失或者失效，Readable会尝试停止生成数据</p>
-<h3 id="Three-States-三种状态"><a href="#Three-States-三种状态" class="headerlink" title="Three States 三种状态"></a>Three States 三种状态</h3><p>Readable“两种操作模式”是一个对其实现中更复杂的内部状态管理的简化抽象。<br>明确的说，任何给定的时点，一个Readable会处在以下三种可能状态之一：</p>
-<ul>
-<li>readable._readableState.flowing = null</li>
-<li>readable._readableState.flowing = false</li>
-<li>readable._readableState.flowing = true<br>null：消费数据的机制没有提供，所以stream不会生成他的数据<br>给’data’事件添加一个监听器，调用readable.pipe()方法，或者调用readable.resume()方法会把flowing属性置为true，导致Readable开始积极地emit事件，同时数据开始生成。<br>调用readable.pause()，readable.unpipe()或者接受到‘back pressure’会让flowing属性被置为false，暂停事件流，但不会停止数据的生成。<br>当flowing是false时，数据可能在stream的内部缓存里积累。<h3 id="Chosse-One-挑一个"><a href="#Chosse-One-挑一个" class="headerlink" title="Chosse One 挑一个"></a>Chosse One 挑一个</h3>Readable stream API 随着Node.js版本在进化，提供了一堆消费数据的方法。通常应该只选择一个来消费数据，永远不要用多种方式来消费同一个stream中的数据。<br>一般推荐readable.pipe()，因为使用最简单。需要细粒度的控制数据传输和生成的可以使用EventEmitter和readable.pause()/readable.resume() API。</li>
-</ul>
-<h3 id="Class-stream-Readable"><a href="#Class-stream-Readable" class="headerlink" title="Class: stream.Readable"></a>Class: stream.Readable</h3><h4 id="Event-‘close’-1"><a href="#Event-‘close’-1" class="headerlink" title="Event: ‘close’"></a>Event: ‘close’</h4><h4 id="Event-‘data’"><a href="#Event-‘data’" class="headerlink" title="Event: ‘data’"></a>Event: ‘data’</h4><h4 id="Event-‘end’"><a href="#Event-‘end’" class="headerlink" title="Event: ‘end’"></a>Event: ‘end’</h4><h4 id="Event-‘error’-1"><a href="#Event-‘error’-1" class="headerlink" title="Event: ‘error’"></a>Event: ‘error’</h4><h4 id="Event-‘readable’"><a href="#Event-‘readable’" class="headerlink" title="Event: ‘readable’"></a>Event: ‘readable’</h4><h4 id="readable-isPaused"><a href="#readable-isPaused" class="headerlink" title="readable.isPaused()"></a>readable.isPaused()</h4><h4 id="readable-pause"><a href="#readable-pause" class="headerlink" title="readable.pause()"></a>readable.pause()</h4><h4 id="readable-pipe-destination-options"><a href="#readable-pipe-destination-options" class="headerlink" title="readable.pipe(destination[, options])"></a>readable.pipe(destination[, options])</h4><h4 id="readable-read-size"><a href="#readable-read-size" class="headerlink" title="readable.read([size])"></a>readable.read([size])</h4><h4 id="readable-resume"><a href="#readable-resume" class="headerlink" title="readable.resume()"></a>readable.resume()</h4><h4 id="readable-setEncoding-encoding"><a href="#readable-setEncoding-encoding" class="headerlink" title="readable.setEncoding(encoding)"></a>readable.setEncoding(encoding)</h4><h4 id="readable-unpipe-destination"><a href="#readable-unpipe-destination" class="headerlink" title="readable.unpipe([destination])"></a>readable.unpipe([destination])</h4><h4 id="readable-unshift-chunk"><a href="#readable-unshift-chunk" class="headerlink" title="readable.unshift(chunk)"></a>readable.unshift(chunk)</h4><h4 id="readable-wrap-stream"><a href="#readable-wrap-stream" class="headerlink" title="readable.wrap(stream)"></a>readable.wrap(stream)</h4>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -4114,7 +4187,7 @@ addTodo（）{
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

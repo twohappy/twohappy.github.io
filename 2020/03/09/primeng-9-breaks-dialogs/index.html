@@ -51,19 +51,19 @@
   };
 </script>
 
-  <meta name="description" content="HTML Standard DOM Standard whatwg 标准和 w3c标准的关系 WHATWG 击败 W3C，赢得 HTML 和 DOM 的控制权 Browser vendors win war with W3C over HTML and DOM standards    * 备忘录 https://angular.io/docs">
+  <meta name="description" content="之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。 刚开始遇到这个问题的时候，相关的 issue 基本没有。 先看 console，没问题。 看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。 issue 里面有人提了，有的是不居中，但大部分是弹窗消失。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="神兵谱">
-<meta property="og:url" content="http://twohappy.me/2019/11/28/difinitive-documents/index.html">
+<meta property="og:title" content="升级 ng 遇到的一个小问题">
+<meta property="og:url" content="http://twohappy.me/2020/03/09/primeng-9-breaks-dialogs/index.html">
 <meta property="og:site_name" content="梦里飞奔">
-<meta property="og:description" content="HTML Standard DOM Standard whatwg 标准和 w3c标准的关系 WHATWG 击败 W3C，赢得 HTML 和 DOM 的控制权 Browser vendors win war with W3C over HTML and DOM standards    * 备忘录 https://angular.io/docs">
+<meta property="og:description" content="之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。 刚开始遇到这个问题的时候，相关的 issue 基本没有。 先看 console，没问题。 看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。 issue 里面有人提了，有的是不居中，但大部分是弹窗消失。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-30T06:59:15.716Z">
+<meta property="og:updated_time" content="2020-03-09T09:07:53.485Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="神兵谱">
-<meta name="twitter:description" content="HTML Standard DOM Standard whatwg 标准和 w3c标准的关系 WHATWG 击败 W3C，赢得 HTML 和 DOM 的控制权 Browser vendors win war with W3C over HTML and DOM standards    * 备忘录 https://angular.io/docs">
+<meta name="twitter:title" content="升级 ng 遇到的一个小问题">
+<meta name="twitter:description" content="之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。 刚开始遇到这个问题的时候，相关的 issue 基本没有。 先看 console，没问题。 看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。 issue 里面有人提了，有的是不居中，但大部分是弹窗消失。">
 
-<link rel="canonical" href="http://twohappy.me/2019/11/28/difinitive-documents/">
+<link rel="canonical" href="http://twohappy.me/2020/03/09/primeng-9-breaks-dialogs/">
 
 
 <script id="page-configurations">
@@ -77,7 +77,7 @@
   };
 </script>
 
-  <title>神兵谱 | 梦里飞奔</title>
+  <title>升级 ng 遇到的一个小问题 | 梦里飞奔</title>
   
 
 
@@ -176,7 +176,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/28/difinitive-documents/">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2020/03/09/primeng-9-breaks-dialogs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -189,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          神兵谱
+          升级 ng 遇到的一个小问题
         </h1>
 
         <div class="post-meta">
@@ -198,16 +198,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-11-28 17:11:42" itemprop="dateCreated datePublished" datetime="2019-11-28T17:11:42+08:00">2019-11-28</time>
+              <time title="Created: 2020-03-09 16:54:46 / Modified: 17:07:53" itemprop="dateCreated datePublished" datetime="2020-03-09T16:54:46+08:00">2020-03-09</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-30 14:59:15" itemprop="dateModified" datetime="2019-11-30T14:59:15+08:00">2019-11-30</time>
-              </span>
 
           
 
@@ -220,12 +214,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a href="/html.spec.whatwg.org/">HTML Standard</a></p>
-<p><a href="https://dom.spec.whatwg.org/" target="_blank" rel="noopener">DOM Standard</a></p>
-<p>whatwg 标准和 w3c标准的关系</p>
-<p><a href="https://www.infoq.cn/article/bsvFxt96DOh-SBZphBwJ" target="_blank" rel="noopener">WHATWG 击败 W3C，赢得 HTML 和 DOM 的控制权</a></p>
-<p><a href="https://www.zdnet.com/article/browser-vendors-win-war-with-w3c-over-html-and-dom-standards/" target="_blank" rel="noopener">Browser vendors win war with W3C over HTML and DOM standards</a><br>    * <a href="https://www.w3.org/2019/04/WHATWG-W3C-MOU.html" target="_blank" rel="noopener">备忘录</a></p>
-<p><a href="https://angular.io/docs" target="_blank" rel="noopener">https://angular.io/docs</a></p>
+        <p>之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。</p>
+<p>刚开始遇到这个问题的时候，相关的 issue 基本没有。</p>
+<p>先看 console，没问题。</p>
+<p>看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。</p>
+<p><a href="https://github.com/primefaces/primeng/issues/8573" target="_blank" rel="noopener">issue</a> 里面有人提了，有的是不居中，但大部分是弹窗消失。</p>
+<p>有人提供了一个绕路方式：手动设置 left/top，基本就能看见了。<br>但是 mask 还在原处，在某些情况下（事实上是大部分情况下，因为需要用到 appendTo 的 dialog，肯定是 nest 到某些子组件里面去的），mask 是不能覆盖到全屏的。</p>
+<p>至于为什么，请看：<a href="https://coder-coder.com/z-index-isnt-working/" target="_blank" rel="noopener">4 reasons your z-index isn’t working (and how to fix it)</a></p>
+<p>把 primeng 仓库的代码扒下来，看代码。发现 wrapper 这个东西，是某一个人在今年初某次叫做「重写 dialog」的 commit 中修改的。还给了 issue 引用。</p>
+<p>去看一下 <a href="https://github.com/primefaces/primeng/issues/8475" target="_blank" rel="noopener">issue</a></p>
+<p>他说，like we did in  PrimeReact and PrimeVue。</p>
+<p>好的，去扒下来 primeReact 代码看一眼：</p>
+<p><a href="https://github.com/primefaces/primereact/blob/95f5dc3dcc500080f05a4cc93ead44b0f4dfbff0/src/components/dialog/Dialog.js#L378" target="_blank" rel="noopener">code</a></p>
+<p>这明显是连 mask 带里头的东西都 append 了</p>
+<p>提个 PR 完事。</p>
+<p>自己动手，丰衣足食。</p>
 
     </div>
 
@@ -239,17 +242,14 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/26/js-basic-20191126-event-loop-and-async-programming/" rel="next" title="事件循环和异步编程">
-                  <i class="fa fa-chevron-left"></i> 事件循环和异步编程
+                <a href="/2020/02/18/after-upgrade-electron-builder/" rel="next" title="electron-builder 升级后">
+                  <i class="fa fa-chevron-left"></i> electron-builder 升级后
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/29/ngx-min-max-valiation/" rel="prev" title="Angular 中 min/max 校验">
-                  Angular 中 min/max 校验 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
