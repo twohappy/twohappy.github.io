@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="梦里飞奔">
 <meta property="og:description" content="之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。 刚开始遇到这个问题的时候，相关的 issue 基本没有。 先看 console，没问题。 看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。 issue 里面有人提了，有的是不居中，但大部分是弹窗消失。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-09T09:07:53.485Z">
+<meta property="og:updated_time" content="2020-03-10T15:05:20.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="升级 ng 遇到的一个小问题">
 <meta name="twitter:description" content="之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。 刚开始遇到这个问题的时候，相关的 issue 基本没有。 先看 console，没问题。 看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。 issue 里面有人提了，有的是不居中，但大部分是弹窗消失。">
@@ -198,10 +198,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-09 16:54:46 / Modified: 17:07:53" itemprop="dateCreated datePublished" datetime="2020-03-09T16:54:46+08:00">2020-03-09</time>
+              <time title="Created: 2020-03-09 16:54:46" itemprop="dateCreated datePublished" datetime="2020-03-09T16:54:46+08:00">2020-03-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-10 23:05:20" itemprop="dateModified" datetime="2020-03-10T23:05:20+08:00">2020-03-10</time>
+              </span>
 
           
 
@@ -227,7 +233,7 @@
 <p>好的，去扒下来 primeReact 代码看一眼：</p>
 <p><a href="https://github.com/primefaces/primereact/blob/95f5dc3dcc500080f05a4cc93ead44b0f4dfbff0/src/components/dialog/Dialog.js#L378" target="_blank" rel="noopener">code</a></p>
 <p>这明显是连 mask 带里头的东西都 append 了</p>
-<p>提个 PR 完事。</p>
+<p>提个 <a href="https://github.com/primefaces/primeng/pull/8603" target="_blank" rel="noopener">PR</a> 完事。</p>
 <p>自己动手，丰衣足食。</p>
 
     </div>
@@ -303,12 +309,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
