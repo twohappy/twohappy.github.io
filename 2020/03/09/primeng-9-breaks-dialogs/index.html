@@ -9,71 +9,39 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <link rel="alternate" href="/atom.xml" title="梦里飞奔" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-
 <script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.5.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
-    sidebarPadding: 40
-  };
-</script>
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"twohappy.github.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。 刚开始遇到这个问题的时候，相关的 issue 基本没有。 先看 console，没问题。 看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。 issue 里面有人提了，有的是不居中，但大部分是弹窗消失。">
+<meta name="keywords" content="angular">
 <meta property="og:type" content="article">
 <meta property="og:title" content="升级 ng 遇到的一个小问题">
-<meta property="og:url" content="http://twohappy.me/2020/03/09/primeng-9-breaks-dialogs/index.html">
+<meta property="og:url" content="http://twohappy.github.io/2020/03/09/primeng-9-breaks-dialogs/index.html">
 <meta property="og:site_name" content="梦里飞奔">
 <meta property="og:description" content="之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。 刚开始遇到这个问题的时候，相关的 issue 基本没有。 先看 console，没问题。 看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。 issue 里面有人提了，有的是不居中，但大部分是弹窗消失。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-10T15:05:20.979Z">
+<meta property="og:updated_time" content="2020-03-15T08:07:06.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="升级 ng 遇到的一个小问题">
 <meta name="twitter:description" content="之前工作的很好的 primeng modal dialog 突然就不好使了，只有 mask，没有弹窗。 刚开始遇到这个问题的时候，相关的 issue 基本没有。 先看 console，没问题。 看 Elements，好像是 mask 层放在了 dialog 子元素里面，而 container 容器又被 append 到了 body 上。 issue 里面有人提了，有的是不居中，但大部分是弹窗消失。">
 
-<link rel="canonical" href="http://twohappy.me/2020/03/09/primeng-9-breaks-dialogs/">
+<link rel="canonical" href="http://twohappy.github.io/2020/03/09/primeng-9-breaks-dialogs/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
+    isHome : false,
+    isPost : true
   };
 </script>
 
@@ -116,6 +84,14 @@
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
   <div class="site-meta">
 
     <div>
@@ -127,11 +103,8 @@
     </div>
   </div>
 
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
@@ -176,7 +149,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2020/03/09/primeng-9-breaks-dialogs/">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/03/09/primeng-9-breaks-dialogs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -206,7 +179,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-10 23:05:20" itemprop="dateModified" datetime="2020-03-10T23:05:20+08:00">2020-03-10</time>
+                <time title="Modified: 2020-03-15 16:07:06" itemprop="dateModified" datetime="2020-03-15T16:07:06+08:00">2020-03-15</time>
               </span>
 
           
@@ -243,21 +216,24 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/angular/" rel="tag"># angular</a>
+          </div>
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-                <a href="/2020/02/18/after-upgrade-electron-builder/" rel="next" title="electron-builder 升级后">
-                  <i class="fa fa-chevron-left"></i> electron-builder 升级后
-                </a>
-            </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-            </div>
-          </div>
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/18/after-upgrade-electron-builder/" rel="prev" title="electron-builder 升级后">
+      <i class="fa fa-chevron-left"></i> electron-builder 升级后
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/15/deep-dive-into-angular-compiler-note/" rel="next" title="慎入 Angular Compiler 笔记">
+      慎入 Angular Compiler 笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
     
   </article>
@@ -270,6 +246,28 @@
 
           </div>
           
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
           
@@ -299,8 +297,6 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <img class="site-author-image" itemprop="image" alt="twohappy"
-    src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">twohappy</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -309,21 +305,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
-  <div class="feed-link motion-element">
-    <a href="/atom.xml" rel="alternate">
-      <i class="fa fa-rss"></i>RSS
-    </a>
-  </div>
 
 
 
@@ -353,7 +344,7 @@
   <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
   </div>
 
         
@@ -365,11 +356,6 @@
 
 
 
-
-
-
-
-        
       </div>
     </footer>
   </div>
@@ -385,7 +371,6 @@
 
 
   
-
 
 
 

@@ -9,52 +9,21 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <link rel="alternate" href="/atom.xml" title="梦里飞奔" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-
 <script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.5.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
-    sidebarPadding: 40
-  };
-</script>
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"twohappy.github.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="继承这个东西都快被嚼烂了。但是没办法，不复习，还是会忘掉。 new 的过程中发生了什么1234567891011121314151617181920function Person(age, name)&amp;#123;    let count = 0;    this.age = age;    this.name = name;    this.getCount = function()&amp;#123;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="inheritance-in-javascript">
-<meta property="og:url" content="http://twohappy.me/2019/11/05/js-basic-20191105-inheritance-in-javascript/index.html">
+<meta property="og:url" content="http://twohappy.github.io/2019/11/05/js-basic-20191105-inheritance-in-javascript/index.html">
 <meta property="og:site_name" content="梦里飞奔">
 <meta property="og:description" content="继承这个东西都快被嚼烂了。但是没办法，不复习，还是会忘掉。 new 的过程中发生了什么1234567891011121314151617181920function Person(age, name)&amp;#123;    let count = 0;    this.age = age;    this.name = name;    this.getCount = function()&amp;#123;">
 <meta property="og:locale" content="zh-Hans">
@@ -63,17 +32,15 @@
 <meta name="twitter:title" content="inheritance-in-javascript">
 <meta name="twitter:description" content="继承这个东西都快被嚼烂了。但是没办法，不复习，还是会忘掉。 new 的过程中发生了什么1234567891011121314151617181920function Person(age, name)&amp;#123;    let count = 0;    this.age = age;    this.name = name;    this.getCount = function()&amp;#123;">
 
-<link rel="canonical" href="http://twohappy.me/2019/11/05/js-basic-20191105-inheritance-in-javascript/">
+<link rel="canonical" href="http://twohappy.github.io/2019/11/05/js-basic-20191105-inheritance-in-javascript/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
+    isHome : false,
+    isPost : true
   };
 </script>
 
@@ -116,6 +83,14 @@
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
   <div class="site-meta">
 
     <div>
@@ -127,11 +102,8 @@
     </div>
   </div>
 
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
@@ -176,7 +148,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.me/2019/11/05/js-basic-20191105-inheritance-in-javascript/">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/11/05/js-basic-20191105-inheritance-in-javascript/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -349,21 +321,18 @@
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/01/running-electron-on-windows/" rel="next" title="在 windows 环境下开发 Electron 应用">
-                  <i class="fa fa-chevron-left"></i> 在 windows 环境下开发 Electron 应用
-                </a>
-            </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/22/arrays-symbols-realms/" rel="prev" title="「译」 isArray 背后做了什么？">
-                  「译」 isArray 背后做了什么？ <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/01/running-electron-on-windows/" rel="prev" title="在 windows 环境下开发 Electron 应用">
+      <i class="fa fa-chevron-left"></i> 在 windows 环境下开发 Electron 应用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/22/arrays-symbols-realms/" rel="next" title="「译」 isArray 背后做了什么？">
+      「译」 isArray 背后做了什么？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
     
   </article>
@@ -376,6 +345,28 @@
 
           </div>
           
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
           
@@ -406,8 +397,6 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <img class="site-author-image" itemprop="image" alt="twohappy"
-    src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">twohappy</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -416,21 +405,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
-  <div class="feed-link motion-element">
-    <a href="/atom.xml" rel="alternate">
-      <i class="fa fa-rss"></i>RSS
-    </a>
-  </div>
 
 
 
@@ -460,7 +444,7 @@
   <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
   </div>
 
         
@@ -472,11 +456,6 @@
 
 
 
-
-
-
-
-        
       </div>
     </footer>
   </div>
@@ -492,7 +471,6 @@
 
 
   
-
 
 
 
