@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://twohappy.github.io/2020/03/15/deep-dive-into-angular-compiler-note/images/20200315/ng-compilation-process.png">
 <meta property="og:image" content="http://twohappy.github.io/2020/03/15/deep-dive-into-angular-compiler-note/images/20200315/compilation-plus-export-scopes.png">
 <meta property="og:image" content="http://twohappy.github.io/2020/03/15/deep-dive-into-angular-compiler-note/images/20200315/type-checking-template-approach.png">
-<meta property="og:updated_time" content="2020-03-15T08:05:41.905Z">
+<meta property="og:updated_time" content="2020-03-15T08:17:01.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="慎入 Angular Compiler 笔记">
 <meta name="twitter:description" content="看了一个演讲：Deep Dive into the Angular Compiler | Alex Rickabaugh，记录一下要点： compiler 做了什么？ 把 declarative template 转换成可以执行的 imperative code 前者是「What」 to do，而后者是「How」 to do in runtime  编译很难理解，为什么不自己写命令式代码？ 会有很">
@@ -178,7 +178,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-03-15 14:29:48 / Modified: 16:05:41" itemprop="dateCreated datePublished" datetime="2020-03-15T14:29:48+08:00">2020-03-15</time>
+              <time title="Created: 2020-03-15 14:29:48 / Modified: 16:17:01" itemprop="dateCreated datePublished" datetime="2020-03-15T14:29:48+08:00">2020-03-15</time>
             </span>
 
           
@@ -246,7 +246,8 @@
 
 </li>
 </ul>
-<h2 id="Features-of-the-Compiler"><a href="#Features-of-the-Compiler" class="headerlink" title="Features of the Compiler"></a>Features of the Compiler</h2><h4 id="NgModule-Scopes"><a href="#NgModule-Scopes" class="headerlink" title="NgModule Scopes"></a>NgModule Scopes</h4><p>Angular 能够确定某个 selector 就是某个组件（而非其他具有相同 selector 的组件）的原因当然是因为 ngModule，所有在 ngModule 的 declarations 数组中声明的组件，在它（这个 ngModule）的 template 中都是可用的。这一堆 components 叫做这个 module 的 compilation scope<br>当我们把某个组件抽离到它自己的 module 中时，这个组件就同时在 declarations 和 exports 数组中了。在 exports 中的组件，就构成了这个 module 的 export scope。在所有引用了这个 module 的其它 module 中，这个 export scope 中的组件也是可用的，在这些个其它的 module 中，他们的 compilation scope 就由自己的 compilation scope 和导入的 module 的 export scope 构成。</p>
+<h2 id="Features-of-the-Compiler"><a href="#Features-of-the-Compiler" class="headerlink" title="Features of the Compiler"></a>Features of the Compiler</h2><h4 id="NgModule-Scopes"><a href="#NgModule-Scopes" class="headerlink" title="NgModule Scopes"></a>NgModule Scopes</h4><p>Angular 能够确定某个 selector 就是某个组件（而非其他具有相同 selector 的组件）的原因当然是因为 ngModule，所有在 ngModule 的 declarations 数组中声明的组件，在它（这个 ngModule）的 template 中都是可用的。这一堆 components 叫做这个 module 的 compilation scope  </p>
+<p>当我们把某个组件抽离到它自己的 module 中时，这个组件就同时在 declarations 和 exports 数组中了。在 exports 中的组件，就构成了这个 module 的 export scope。在所有引用了这个 module 的其它 module 中，这个 export scope 中的组件也是可用的，在这些个其它的 module 中，他们的 compilation scope 就由自己的 compilation scope 和导入的 module 的 export scope 构成。</p>
 <p><img src="images/20200315/compilation-plus-export-scopes.png" alt="img"></p>
 <h6 id="Template-Scoping"><a href="#Template-Scoping" class="headerlink" title="Template Scoping"></a>Template Scoping</h6><p>当遇到了 <code>&lt;user-view&gt;&lt;/user-view&gt;</code> 这样的 selector 的时候，compiler 就知道它只可能是当前编译域中的那个 UserView 组件，而不是其他的同名组件。</p>
 <h6 id="Optimize"><a href="#Optimize" class="headerlink" title="Optimize"></a>Optimize</h6><p>compiler 可以检查全体 compilation scope 来确定，哪些组件真正被使用了，哪些没有。这些信息可以给 tree-shaker 来移除没用被使用的那些代码。</p>
@@ -277,7 +278,10 @@
     <a href="/2020/03/09/primeng-9-breaks-dialogs/" rel="prev" title="升级 ng 遇到的一个小问题">
       <i class="fa fa-chevron-left"></i> 升级 ng 遇到的一个小问题
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/19/overview-of-angular-animation/" rel="next" title="angular 动画不探">
+      angular 动画不探 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -351,7 +355,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
