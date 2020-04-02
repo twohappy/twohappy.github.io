@@ -13,11 +13,11 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"twohappy.github.io","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"twohappy.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -36,7 +36,8 @@
   CONFIG.page = {
     sidebar: "",
     isHome : true,
-    isPost : false
+    isPost : false,
+    lang   : 'zh-Hans'
   };
 </script>
 
@@ -89,13 +90,11 @@
 
   <div class="site-meta">
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">梦里飞奔</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">梦里飞奔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
   </div>
 
   <div class="site-nav-right">
@@ -105,22 +104,26 @@
 </div>
 
 
+
+
 <nav class="site-nav">
-  
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
-
 </nav>
+
+
+
+
 </div>
     </header>
 
@@ -136,14 +139,346 @@
         <div class="content-wrap">
           
 
-          <div class="content">
+          <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/04/02/review-angular-lifecycle/">
 
-  <div class="posts-expand">
-        
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/02/review-angular-lifecycle/" class="post-title-link" itemprop="url">angular 生命周期一张表看明白</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-02 11:07:16 / Modified: 18:54:54" itemprop="dateCreated datePublished" datetime="2020-04-02T11:07:16+08:00">2020-04-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>app.component.html：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">comp-root</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">content-child-1</span>&gt;</span><span class="tag">&lt;/<span class="name">content-child-1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">comp-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>comp-root.component.html:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view-child-1</span>&gt;</span><span class="tag">&lt;/<span class="name">view-child-1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right">component</th>
+<th>hook</th>
+<th>call times</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">comp-root</td>
+<td>ngOnChanges</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngOnInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngDoCheck</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngOnChanges</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngOnInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngDoCheck</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngAfterContentInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngAfterContentChecked</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngAfterContentInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngAfterContentChecked</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngOnChanges</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngOnInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngDoCheck</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngAfterContentInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngAfterContentChecked</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngAfterViewInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngAfterViewChecked</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngAfterViewInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngAfterViewChecked</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngAfterViewInit</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngAfterViewChecked</td>
+<td>1 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngDoCheck</td>
+<td>2 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngDoCheck</td>
+<td>2 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngAfterContentChecked</td>
+<td>2 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngAfterContentChecked</td>
+<td>2 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngDoCheck</td>
+<td>2 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngAfterContentChecked</td>
+<td>2 time</td>
+</tr>
+<tr>
+<td align="right">view-child-1</td>
+<td>ngAfterViewChecked</td>
+<td>2 time</td>
+</tr>
+<tr>
+<td align="right">content-child-1</td>
+<td>ngAfterViewChecked</td>
+<td>2 time</td>
+</tr>
+<tr>
+<td align="right">comp-root</td>
+<td>ngAfterViewChecked</td>
+<td>2 time</td>
+</tr>
+</tbody></table>
+<p>有意思的是：初始化过程中，额外执行了一次 Change detection</p>
+<p>之后分析一波</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/03/30/high-performance-web-sites-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/30/high-performance-web-sites-note/" class="post-title-link" itemprop="url">读「高性能网站建设指南」</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-30 22:32:24" itemprop="dateCreated datePublished" datetime="2020-03-30T22:32:24+08:00">2020-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-02 11:05:52" itemprop="dateModified" datetime="2020-04-02T11:05:52+08:00">2020-04-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li><p>减少 http 请求</p>
+<ul>
+<li>合并</li>
+</ul>
+</li>
+<li><p>使用 CDN</p>
+</li>
+<li><p>使用 Expires 头</p>
+<ul>
+<li><code>Expires: GMT TIME</code></li>
+<li><code>Cache-Control: max-age=3600</code> 秒</li>
+<li>带个 hash 使得文件更新时文件名同时更新</li>
+<li>条件 GET 请求</li>
+</ul>
+</li>
+<li><p>压缩组件/使用 Gzip</p>
+<ul>
+<li><code>Accept-Encoding: gzip, deflate</code></li>
+<li><code>Content-Encoding: gzip</code></li>
+<li>服务器的响应中添加 <code>Vary: Accept-Encoding</code>，使得代理缓存响应的多个版本</li>
+<li><code>Vary: *</code> / <code>Cache-Control: private</code> 禁用代理缓存</li>
+</ul>
+</li>
+<li><p>将样式表放在顶部</p>
+</li>
+<li><p>将脚本放在底部</p>
+</li>
+<li><p>避免 css 表达式</p>
+</li>
+<li><p>使用外部 Javascript 和 CSS</p>
+</li>
+<li><p>减少 DNS 查找</p>
+</li>
+<li><p>精简 Javascript</p>
+</li>
+<li><p>避免重定向</p>
+</li>
+<li><p>删除重复脚本</p>
+</li>
+<li><p>配置 ETag</p>
+</li>
+<li><p>使 Ajax 可缓存</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/03/30/high-performance-javascript-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -156,15 +491,15 @@
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2020/03/30/high-performance-javascript-note/" class="post-title-link" itemprop="url">读「高性能 javascript」</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
               
@@ -232,10 +567,10 @@
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/03/19/overview-of-angular-animation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -248,15 +583,15 @@
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2020/03/19/overview-of-angular-animation/" class="post-title-link" itemprop="url">angular 动画不探</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -264,7 +599,7 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2020-03-30 18:02:47" itemprop="dateModified" datetime="2020-03-30T18:02:47+08:00">2020-03-30</time>
@@ -302,10 +637,10 @@
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/03/15/deep-dive-into-angular-compiler-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -318,15 +653,15 @@
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2020/03/15/deep-dive-into-angular-compiler-note/" class="post-title-link" itemprop="url">慎入 Angular Compiler 笔记</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
               
@@ -425,10 +760,10 @@
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/03/09/primeng-9-breaks-dialogs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -441,15 +776,15 @@
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2020/03/09/primeng-9-breaks-dialogs/" class="post-title-link" itemprop="url">升级 ng 遇到的一个小问题</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -457,7 +792,7 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2020-03-15 16:07:06" itemprop="dateModified" datetime="2020-03-15T16:07:06+08:00">2020-03-15</time>
@@ -504,10 +839,10 @@
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/02/18/after-upgrade-electron-builder/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -520,15 +855,15 @@
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2020/02/18/after-upgrade-electron-builder/" class="post-title-link" itemprop="url">electron-builder 升级后</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -536,7 +871,7 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2020-03-15 16:07:06" itemprop="dateModified" datetime="2020-03-15T16:07:06+08:00">2020-03-15</time>
@@ -587,10 +922,10 @@
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/12/05/a-lot-of-nextticks-inside-async-functions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -603,15 +938,15 @@
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/12/05/a-lot-of-nextticks-inside-async-functions/" class="post-title-link" itemprop="url">微博有个梨的一个问题</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -619,7 +954,7 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2020-03-15 16:07:06" itemprop="dateModified" datetime="2020-03-15T16:07:06+08:00">2020-03-15</time>
@@ -653,10 +988,10 @@
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/12/03/how-does-angular-2-change-detection-really-work/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -669,15 +1004,15 @@
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/12/03/how-does-angular-2-change-detection-really-work/" class="post-title-link" itemprop="url">Angular 2 的变化监测机制</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -685,7 +1020,7 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-12-19 19:33:30" itemprop="dateModified" datetime="2019-12-19T19:33:30+08:00">2019-12-19</time>
@@ -827,10 +1162,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/11/29/ngx-min-max-valiation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -843,15 +1178,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/29/ngx-min-max-valiation/" class="post-title-link" itemprop="url">Angular 中 min/max 校验</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -859,7 +1194,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2020-03-15 16:07:06" itemprop="dateModified" datetime="2020-03-15T16:07:06+08:00">2020-03-15</time>
@@ -901,10 +1236,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/11/28/difinitive-documents/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -917,15 +1252,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/28/difinitive-documents/" class="post-title-link" itemprop="url">神兵谱</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -933,7 +1268,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2020-03-15 16:07:06" itemprop="dateModified" datetime="2020-03-15T16:07:06+08:00">2020-03-15</time>
@@ -971,10 +1306,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/11/26/js-basic-20191126-event-loop-and-async-programming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -987,15 +1322,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/26/js-basic-20191126-event-loop-and-async-programming/" class="post-title-link" itemprop="url">事件循环和异步编程</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -1003,7 +1338,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-12-01 15:45:43" itemprop="dateModified" datetime="2019-12-01T15:45:43+08:00">2019-12-01</time>
@@ -1071,10 +1406,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/11/25/upgrade-angular/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1087,15 +1422,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/25/upgrade-angular/" class="post-title-link" itemprop="url">upgrade-angular</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
               
@@ -1135,10 +1470,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/11/22/arrays-symbols-realms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1151,15 +1486,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/22/arrays-symbols-realms/" class="post-title-link" itemprop="url">「译」 isArray 背后做了什么？</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
               
@@ -1241,10 +1576,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/11/05/js-basic-20191105-inheritance-in-javascript/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1257,15 +1592,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/05/js-basic-20191105-inheritance-in-javascript/" class="post-title-link" itemprop="url">inheritance-in-javascript</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -1273,7 +1608,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-30 14:59:15" itemprop="dateModified" datetime="2019-11-30T14:59:15+08:00">2019-11-30</time>
@@ -1423,10 +1758,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/11/01/running-electron-on-windows/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1439,15 +1774,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/01/running-electron-on-windows/" class="post-title-link" itemprop="url">在 windows 环境下开发 Electron 应用</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
               
@@ -1502,10 +1837,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/10/28/upgrade-react-native/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1518,15 +1853,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/10/28/upgrade-react-native/" class="post-title-link" itemprop="url">升级 React Native 项目</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
               
@@ -1562,10 +1897,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/10/24/axios-or-fetch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1578,15 +1913,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/10/24/axios-or-fetch/" class="post-title-link" itemprop="url">axios 和 fetch</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -1594,7 +1929,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-10-27 02:02:44" itemprop="dateModified" datetime="2019-10-27T02:02:44+08:00">2019-10-27</time>
@@ -1639,10 +1974,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/10/17/electron-updater-wont-trigger-download-events/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1655,15 +1990,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/10/17/electron-updater-wont-trigger-download-events/" class="post-title-link" itemprop="url">electron-updater 检测到新版本后，不会触发下载事件</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
               
@@ -1707,10 +2042,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/10/13/what-is-a-side-effect/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1723,15 +2058,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/10/13/what-is-a-side-effect/" class="post-title-link" itemprop="url">what-is-a-side-effect</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -1739,7 +2074,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-02 12:59:53" itemprop="dateModified" datetime="2019-11-02T12:59:53+08:00">2019-11-02</time>
@@ -1775,10 +2110,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2019/09/27/react-native-target-sdk-version-28/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1791,15 +2126,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/09/27/react-native-target-sdk-version-28/" class="post-title-link" itemprop="url">google play 要求 targetSdkVersion >= 28</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -1807,7 +2142,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-09-28 01:08:19" itemprop="dateModified" datetime="2019-09-28T01:08:19+08:00">2019-09-28</time>
@@ -1860,10 +2195,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/12/03/console/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1876,15 +2211,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/12/03/console/" class="post-title-link" itemprop="url">「旧笔记搬运」 关于 console</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -1892,7 +2227,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-02 12:47:13" itemprop="dateModified" datetime="2019-11-02T12:47:13+08:00">2019-11-02</time>
@@ -1950,10 +2285,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/11/13/about-fractal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1966,15 +2301,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/11/13/about-fractal/" class="post-title-link" itemprop="url">「旧笔记搬运」关于 fractal</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -1982,7 +2317,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-02 12:48:28" itemprop="dateModified" datetime="2019-11-02T12:48:28+08:00">2019-11-02</time>
@@ -2036,10 +2371,107 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/11/04/red-braised-pork/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/04/red-braised-pork/" class="post-title-link" itemprop="url">「旧笔记搬运」关于红烧肉</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-11-04 12:47:36" itemprop="dateCreated datePublished" datetime="2017-11-04T12:47:36+08:00">2017-11-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-02 12:57:26" itemprop="dateModified" datetime="2019-11-02T12:57:26+08:00">2019-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1）五花肉：500克。以前看到有人说，红烧肉必须一做就做一大锅，没有两三斤肉烧不出好吃的红烧肉。其实并非如此。对于小家庭来说，500克算是一个比较合适的量，一次做得太多，虽然吃的时候过瘾，过后肯定后悔。倒不如每次都保留一个良好的印象，每过一段时间就做一顿解解馋，这更加符合健康之道。</p>
+<p>五花肉的层次越多越好，我比较偏好猪肋骨外侧的“上五花”，跟猪腹部的五花肉相比，这个部位脂肪层次多，但是每层脂肪又比较薄。这些五花肉需要提前切成3－4厘米见方的小块，肉块过小，瘦肉容易变硬变干，肉块过大，烹调过程中内部油脂不容易渗出，难免有些油腻。</p>
+<p>2）老抽酱油：20克</p>
+<p>2）料酒：20克</p>
+<p>3）干红辣椒：1支</p>
+<p>4）桂皮：一段（大概1厘米长就可以了，不要使用桂皮粉，烹调过程中会变黑，影响菜的品相）</p>
+<p>5）生姜：2－3厘米见方，切成片</p>
+<p>6）小葱：25克，切成5－6厘米的长段</p>
+<p>7）糖：30克</p>
+<p>8）盐：半茶匙（约3－4克）</p>
+<p>9）八角：4－5朵</p>
+<p>10）花生油：10克<br>一步是准备配料，一旦开启炉灶，红烧肉最好一气呵成，中间任何不必要的停顿都会影响菜的口味，所以必须提前把所有材料准备停当。</p>
+<p>第二步需要对五花肉进行预处理，传统上至少有三种处理方式：油炸、焯水和煸炒。除此之外，还可以借鉴西餐里面处理肉类的办法，直接把五花肉放在大火预热90秒的平底锅里面煎。</p>
+<p>把五花肉的四个侧面（不要去煎顶面的猪皮和底面的瘦肉层）都煎成金黄色，经过这样处理，一方面可以除去肥肉中的一部分油脂，猪肉表面金黄色的薄层会在慢炖的过程中融化在汤汁里面，增加许多风味，如果你不信，现在就可以把鼻子凑在煎好的五花肉上闻一闻，是不是已经香气扑鼻了呢？</p>
+<p>煎的过程中可以使用不粘锅，翻动五花肉的时候尽量使用硅胶夹子，动作要轻柔，这样可以保护肉的形态。煎好的五花肉放在盘子里面盖上铝箔保温备用。</p>
+<p>第三步是炒糖色。红烧肉的“红”其实就是焦糖的颜色。糖加热到170摄氏度的时候就会转化成焦糖，红烧菜肴最后收汁的时候，汤汁里面的糖在高温的作用下就会变成焦糖，给菜肴覆盖一层诱人的红棕色，并增添许多风味。理论上说，炒糖色并非绝对必须，可以在最后收汁的时候完成这个过程。但是红烧肉必须用加水（或者酒），收汁的时候把这些水完全烧干需要不少时间，等待过程当中，瘦肉部分可能就会变干变硬。提前炒好糖色就可以避免这些麻烦。</p>
+<p>炒糖色最好就用炖肉的锅子，这样等会就可以直接把肉和糖混合在一起。炖肉锅子的选择非常重要，直接关系到红烧肉的品质。如果你做的红烧肉瘦肉部分有变干变硬的倾向，十有八九就是锅子没有选对。选择锅子的时候首先要考虑的是锅盖的密封性，锅盖上绝对不能有通气孔，锅盖和锅的配合必须严丝合缝。本来我们也没有注意到这个问题，LG用锅子烧米饭的时候发现，但凡那些锅盖上有通气孔的锅子，煮出来的米饭表层都是硬的，而那些锅盖密封性能很好的锅子，煮出来的米饭表层和内层都是软的。由此联想到红烧肉的问题，LG后来通过对照试验就验证了这个猜测。其次锅底导热的均匀性也非常重要，局部过热很容易让富含胶质的红烧肉粘在锅底。人们常常觉得砂锅导热比较均匀，其实并不准确，砂锅因为导热系数低，锅底的受热其实很不均匀。个人推荐使用不锈钢复底锅，其导热均匀性比厚底铸铁锅还要好。</p>
+<p>在锅子里面倒入10克花生油，然后倒入30克白糖。花生油在这里就是起到一个导热媒介的作用，就像电脑CPU和风扇之间的导热硅脂一样，可以加快糖融化的过程。</p>
+<p>很快就会变成金黄色，这个时候你就需要把炉灶火力降到最低，或者干脆把锅子从炉灶上移开，因为焦糖变色的过程非常迅速，就是短短几秒钟的事情。拍摄过程中，LG就是因为等我聚焦，结果锅子在炉灶上停留的时间稍长了一点，炒好的糖色迅速变成深红色，进而变成黑色，LG只好倒掉重新再来。</p>
+<p>然后把前面煎好的五花肉放进锅子里面，翻动一下，让糖色均匀地裹在肉的表面。注意不要把所有的肉一起倒进锅子里面，因为里面析出的汁水跟滚烫的糖混合后会飞溅出来，比较安全的办法就是用夹子把肉一块块放进锅子里面，翻动的时候动作要轻柔，一来是保护五花肉的形态，二来是避免滚烫的汁水飞溅出来。</p>
+<p>第四步就是慢火炖肉。在锅子里面放入切好的葱段、姜片、八角、桂皮和20克老抽酱油，翻动一下，让配料和五花肉混合均匀。</p>
+<p>然后加入20克料酒和1支干红辣椒，翻炒均匀。</p>
+<p>最后倒入沸水，倒水的时候要贴着锅边，不要直接把水浇在肉上面，否则前面辛辛苦苦刚给五花肉裹上的糖色就被热水冲掉了。</p>
+<p>水的高度以能够淹没肉的高度的3/4为准，然后加入半茶匙盐（3－4克），翻动一下，让盐溶解在汤汁里面。对于红烧肉来说，就像苏东坡说的那样，应该少放水，但是这样一来就有一些肉直接暴露在水面上，如果锅盖密封性能比较好，这些暴露在外的肉就能保持较多的水分，如果锅盖密封性能不好，肉里的汁水就会渐渐蒸发，进而变干变硬。</p>
+<p>火烧开后，立刻把火力降到最低（把锅子转移到最小的灶眼上面，用最小的火力），慢火炖上90分钟左右。</p>
+<p>第五步是收汁。把锅子里面的汁水倒出来，倒的过程中用滤篮滤去八角桂皮等香料，五花肉仍然留在锅子里面，盖紧锅盖放在一边备用。</p>
+<p>等到汤汁收到类似糖浆性状的时候，就关掉炉灶，把五花肉从锅子里面取出来，放在平底锅里面，稍稍翻动一下，给五花肉表面包裹一层汤汁。</p>
+<p>然后，一秒钟也不要耽搁，马上开吃，看看这红烧肉的品相，它如何美味就不必多说了吧。红烧肉做好之后也会继续散发水分，瘦肉的口感会在很短的时间内变干变硬，肉皮变冷之后会变得坚韧，完全失去软糯轻盈的口感，所以吃的时候一定要抓紧时间哦！</p>
+<p>再重复一下完美红烧肉需要注意几个细节：</p>
+<p>1）用平底锅把五花肉表面煎成金黄色可以增加风味。</p>
+<p>2）锅子的选择，一定要用锅盖密封性能好的锅子，锅底导热的均匀性也要好。</p>
+<p>3）提前炒好糖色，缩短收汁时间。</p>
+<p>4）收汁之前撇去里面的肥油。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/11/04/about-css-positioning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2052,15 +2484,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/11/04/about-css-positioning/" class="post-title-link" itemprop="url">「旧笔记搬运」关于 Css 定位</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -2068,7 +2500,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-02 12:51:23" itemprop="dateModified" datetime="2019-11-02T12:51:23+08:00">2019-11-02</time>
@@ -2157,107 +2589,10 @@ addTodo（）{
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/11/04/red-braised-pork/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="twohappy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="梦里飞奔">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/04/red-braised-pork/" class="post-title-link" itemprop="url">「旧笔记搬运」关于红烧肉</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-11-04 12:47:36" itemprop="dateCreated datePublished" datetime="2017-11-04T12:47:36+08:00">2017-11-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-02 12:57:26" itemprop="dateModified" datetime="2019-11-02T12:57:26+08:00">2019-11-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          <p>1）五花肉：500克。以前看到有人说，红烧肉必须一做就做一大锅，没有两三斤肉烧不出好吃的红烧肉。其实并非如此。对于小家庭来说，500克算是一个比较合适的量，一次做得太多，虽然吃的时候过瘾，过后肯定后悔。倒不如每次都保留一个良好的印象，每过一段时间就做一顿解解馋，这更加符合健康之道。</p>
-<p>五花肉的层次越多越好，我比较偏好猪肋骨外侧的“上五花”，跟猪腹部的五花肉相比，这个部位脂肪层次多，但是每层脂肪又比较薄。这些五花肉需要提前切成3－4厘米见方的小块，肉块过小，瘦肉容易变硬变干，肉块过大，烹调过程中内部油脂不容易渗出，难免有些油腻。</p>
-<p>2）老抽酱油：20克</p>
-<p>2）料酒：20克</p>
-<p>3）干红辣椒：1支</p>
-<p>4）桂皮：一段（大概1厘米长就可以了，不要使用桂皮粉，烹调过程中会变黑，影响菜的品相）</p>
-<p>5）生姜：2－3厘米见方，切成片</p>
-<p>6）小葱：25克，切成5－6厘米的长段</p>
-<p>7）糖：30克</p>
-<p>8）盐：半茶匙（约3－4克）</p>
-<p>9）八角：4－5朵</p>
-<p>10）花生油：10克<br>一步是准备配料，一旦开启炉灶，红烧肉最好一气呵成，中间任何不必要的停顿都会影响菜的口味，所以必须提前把所有材料准备停当。</p>
-<p>第二步需要对五花肉进行预处理，传统上至少有三种处理方式：油炸、焯水和煸炒。除此之外，还可以借鉴西餐里面处理肉类的办法，直接把五花肉放在大火预热90秒的平底锅里面煎。</p>
-<p>把五花肉的四个侧面（不要去煎顶面的猪皮和底面的瘦肉层）都煎成金黄色，经过这样处理，一方面可以除去肥肉中的一部分油脂，猪肉表面金黄色的薄层会在慢炖的过程中融化在汤汁里面，增加许多风味，如果你不信，现在就可以把鼻子凑在煎好的五花肉上闻一闻，是不是已经香气扑鼻了呢？</p>
-<p>煎的过程中可以使用不粘锅，翻动五花肉的时候尽量使用硅胶夹子，动作要轻柔，这样可以保护肉的形态。煎好的五花肉放在盘子里面盖上铝箔保温备用。</p>
-<p>第三步是炒糖色。红烧肉的“红”其实就是焦糖的颜色。糖加热到170摄氏度的时候就会转化成焦糖，红烧菜肴最后收汁的时候，汤汁里面的糖在高温的作用下就会变成焦糖，给菜肴覆盖一层诱人的红棕色，并增添许多风味。理论上说，炒糖色并非绝对必须，可以在最后收汁的时候完成这个过程。但是红烧肉必须用加水（或者酒），收汁的时候把这些水完全烧干需要不少时间，等待过程当中，瘦肉部分可能就会变干变硬。提前炒好糖色就可以避免这些麻烦。</p>
-<p>炒糖色最好就用炖肉的锅子，这样等会就可以直接把肉和糖混合在一起。炖肉锅子的选择非常重要，直接关系到红烧肉的品质。如果你做的红烧肉瘦肉部分有变干变硬的倾向，十有八九就是锅子没有选对。选择锅子的时候首先要考虑的是锅盖的密封性，锅盖上绝对不能有通气孔，锅盖和锅的配合必须严丝合缝。本来我们也没有注意到这个问题，LG用锅子烧米饭的时候发现，但凡那些锅盖上有通气孔的锅子，煮出来的米饭表层都是硬的，而那些锅盖密封性能很好的锅子，煮出来的米饭表层和内层都是软的。由此联想到红烧肉的问题，LG后来通过对照试验就验证了这个猜测。其次锅底导热的均匀性也非常重要，局部过热很容易让富含胶质的红烧肉粘在锅底。人们常常觉得砂锅导热比较均匀，其实并不准确，砂锅因为导热系数低，锅底的受热其实很不均匀。个人推荐使用不锈钢复底锅，其导热均匀性比厚底铸铁锅还要好。</p>
-<p>在锅子里面倒入10克花生油，然后倒入30克白糖。花生油在这里就是起到一个导热媒介的作用，就像电脑CPU和风扇之间的导热硅脂一样，可以加快糖融化的过程。</p>
-<p>很快就会变成金黄色，这个时候你就需要把炉灶火力降到最低，或者干脆把锅子从炉灶上移开，因为焦糖变色的过程非常迅速，就是短短几秒钟的事情。拍摄过程中，LG就是因为等我聚焦，结果锅子在炉灶上停留的时间稍长了一点，炒好的糖色迅速变成深红色，进而变成黑色，LG只好倒掉重新再来。</p>
-<p>然后把前面煎好的五花肉放进锅子里面，翻动一下，让糖色均匀地裹在肉的表面。注意不要把所有的肉一起倒进锅子里面，因为里面析出的汁水跟滚烫的糖混合后会飞溅出来，比较安全的办法就是用夹子把肉一块块放进锅子里面，翻动的时候动作要轻柔，一来是保护五花肉的形态，二来是避免滚烫的汁水飞溅出来。</p>
-<p>第四步就是慢火炖肉。在锅子里面放入切好的葱段、姜片、八角、桂皮和20克老抽酱油，翻动一下，让配料和五花肉混合均匀。</p>
-<p>然后加入20克料酒和1支干红辣椒，翻炒均匀。</p>
-<p>最后倒入沸水，倒水的时候要贴着锅边，不要直接把水浇在肉上面，否则前面辛辛苦苦刚给五花肉裹上的糖色就被热水冲掉了。</p>
-<p>水的高度以能够淹没肉的高度的3/4为准，然后加入半茶匙盐（3－4克），翻动一下，让盐溶解在汤汁里面。对于红烧肉来说，就像苏东坡说的那样，应该少放水，但是这样一来就有一些肉直接暴露在水面上，如果锅盖密封性能比较好，这些暴露在外的肉就能保持较多的水分，如果锅盖密封性能不好，肉里的汁水就会渐渐蒸发，进而变干变硬。</p>
-<p>火烧开后，立刻把火力降到最低（把锅子转移到最小的灶眼上面，用最小的火力），慢火炖上90分钟左右。</p>
-<p>第五步是收汁。把锅子里面的汁水倒出来，倒的过程中用滤篮滤去八角桂皮等香料，五花肉仍然留在锅子里面，盖紧锅盖放在一边备用。</p>
-<p>等到汤汁收到类似糖浆性状的时候，就关掉炉灶，把五花肉从锅子里面取出来，放在平底锅里面，稍稍翻动一下，给五花肉表面包裹一层汤汁。</p>
-<p>然后，一秒钟也不要耽搁，马上开吃，看看这红烧肉的品相，它如何美味就不必多说了吧。红烧肉做好之后也会继续散发水分，瘦肉的口感会在很短的时间内变干变硬，肉皮变冷之后会变得坚韧，完全失去软糯轻盈的口感，所以吃的时候一定要抓紧时间哦！</p>
-<p>再重复一下完美红烧肉需要注意几个细节：</p>
-<p>1）用平底锅把五花肉表面煎成金黄色可以增加风味。</p>
-<p>2）锅子的选择，一定要用锅盖密封性能好的锅子，锅底导热的均匀性也要好。</p>
-<p>3）提前炒好糖色，缩短收汁时间。</p>
-<p>4）收汁之前撇去里面的肥油。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
   
   
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/07/27/login-process-of-jwt-guard-in-laravel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2270,15 +2605,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/07/27/login-process-of-jwt-guard-in-laravel/" class="post-title-link" itemprop="url">JWTGuard的登录过程</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -2286,7 +2621,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-02 13:11:14" itemprop="dateModified" datetime="2019-11-02T13:11:14+08:00">2019-11-02</time>
@@ -2342,10 +2677,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/07/11/about-brackets/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2358,15 +2693,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/07/11/about-brackets/" class="post-title-link" itemprop="url">about-brackets</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -2374,7 +2709,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-02 13:16:19" itemprop="dateModified" datetime="2019-11-02T13:16:19+08:00">2019-11-02</time>
@@ -2417,10 +2752,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/07/06/for-in-and-string-indexes-of-array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2433,15 +2768,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/07/06/for-in-and-string-indexes-of-array/" class="post-title-link" itemprop="url">数组的“字符串”索引 & for…in 和 for…of的区别</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -2449,7 +2784,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-16 13:51:54" itemprop="dateModified" datetime="2019-11-16T13:51:54+08:00">2019-11-16</time>
@@ -2491,10 +2826,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/06/13/scoped-slot-in-vue-2-1-0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2507,15 +2842,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/06/13/scoped-slot-in-vue-2-1-0/" class="post-title-link" itemprop="url">理解一哈作用域插槽(Scoped slot)</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -2523,7 +2858,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-09-28 01:27:29" itemprop="dateModified" datetime="2019-09-28T01:27:29+08:00">2019-09-28</time>
@@ -2566,10 +2901,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/04/18/node-api-events/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2582,15 +2917,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/04/18/node-api-events/" class="post-title-link" itemprop="url">API学习：Stream</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -2598,7 +2933,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-02 13:04:29" itemprop="dateModified" datetime="2019-11-02T13:04:29+08:00">2019-11-02</time>
@@ -2708,10 +3043,10 @@ addTodo（）{
   
   
 
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2017/04/18/node-api-stream/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2724,15 +3059,15 @@ addTodo（）{
       <meta itemprop="name" content="梦里飞奔">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2017/04/18/node-api-stream/" class="post-title-link" itemprop="url">API学习：Stream</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
@@ -2740,7 +3075,7 @@ addTodo（）{
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
                 <time title="Modified: 2019-11-02 13:03:35" itemprop="dateModified" datetime="2019-11-02T13:03:35+08:00">2019-11-02</time>
@@ -2840,7 +3175,6 @@ addTodo（）{
   
   
 
-  </div>
 
   
 
@@ -2907,7 +3241,7 @@ addTodo（）{
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2934,19 +3268,18 @@ addTodo（）{
       <div class="footer-inner">
         
 
+        
+
 <div class="copyright">
   
   &copy; 2016 – 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">twohappy</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
-  </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
