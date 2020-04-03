@@ -145,7 +145,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/04/02/review-angular-lifecycle/">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/04/03/review-angular-02-ng-module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -159,7 +159,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/02/review-angular-lifecycle/" class="post-title-link" itemprop="url">angular 生命周期一张表看明白</a>
+            <a href="/2020/04/03/review-angular-02-ng-module/" class="post-title-link" itemprop="url">「angular回锅」 NgModule</a>
         </h2>
 
         <div class="post-meta">
@@ -170,8 +170,106 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-04-02 11:07:16 / Modified: 18:54:54" itemprop="dateCreated datePublished" datetime="2020-04-02T11:07:16+08:00">2020-04-02</time>
+              <time title="Created: 2020-04-03 10:43:33 / Modified: 11:05:44" itemprop="dateCreated datePublished" datetime="2020-04-03T10:43:33+08:00">2020-04-03</time>
             </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>Angular 内建的<strong>模块化</strong>机制</li>
+<li><code>@NgModule</code> 装饰器内的元数据声明来实现</li>
+<li>imports<ul>
+<li>导入其它 module</li>
+<li>本 module 就可以使用被导入的 module 所 export 的内容</li>
+</ul>
+</li>
+<li>declarations<ul>
+<li>declarable 基本上跟模板显示有关的代码都算 declarable </li>
+<li>只能在一处声明</li>
+</ul>
+</li>
+<li>exports<ul>
+<li>可被其他模块使用的 declarable</li>
+</ul>
+</li>
+<li>providers<ul>
+<li>Angular 6 之后 Service 可以通过 provideIn 来指定注入范围</li>
+</ul>
+</li>
+<li>bootstrap<ul>
+<li>自动启动</li>
+</ul>
+</li>
+<li>entryComponents<ul>
+<li>放动态加载的组件，防止被树摇掉</li>
+<li>bootstrap 中的组件也会被自动加入到 entryComponents 中</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>通过 imports exports，编译器能够确定当前 module 的编译范围。</p>
+<p>所以即使项目中有两个相同 selector 的组件，只要导入正确，就能确定使用哪个。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/04/02/review-angular-01-lifecycle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/02/review-angular-01-lifecycle/" class="post-title-link" itemprop="url">「angular回锅」 生命周期一张表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-02 11:07:16" itemprop="dateCreated datePublished" datetime="2020-04-02T11:07:16+08:00">2020-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-03 10:51:11" itemprop="dateModified" datetime="2020-04-03T10:51:11+08:00">2020-04-03</time>
+              </span>
 
           
 
@@ -3241,12 +3339,12 @@ addTodo（）{
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
