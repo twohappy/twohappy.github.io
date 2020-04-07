@@ -154,6 +154,220 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/04/07/review-angular-03-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/07/review-angular-03-tips/" class="post-title-link" itemprop="url">「angular回锅」杂</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-07 22:36:40 / Modified: 22:50:10" itemprop="dateCreated datePublished" datetime="2020-04-07T22:36:40+08:00">2020-04-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><p>双向数据绑定</p>
+<ul>
+<li>[property]</li>
+<li>(eventEmitter)</li>
+<li>[()]<ul>
+<li>有 @Input() xxx 和 @Output xxxChange</li>
+<li>即可使用 [(xxx)] 语法糖来绑定这两个方向</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Directive</p>
+<ul>
+<li><input disabled type="checkbox"> 后面应该专门整理</li>
+<li>在子元素使用了某一个指令的组件中<ul>
+<li>可以通过 @ViewChild(ColorfulDirective) c: ColorfulDirective;</li>
+<li>或者 @ViewChild(“color”) color: ColorfulDirective;</li>
+<li>color 是在 Directive 的 Decorator 中的 exportAs 字段   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appColorful</span>]=<span class="string">"'green'"</span> #<span class="attr">color</span>=<span class="string">"colorful"</span>&gt;</span>via-export-as works!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>自定义 FormControl<ul>
+<li>implements ControlValueAccessor 的四个方法<ul>
+<li>registerOnChange(fn: any): void {}</li>
+<li>registerOnTouched(fn: any): void {}</li>
+<li>setDisabledState(isDisabled: boolean): void {}</li>
+<li>writeValue(obj: any): void {}</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>*ngTemplateOutlet <ul>
+<li>类似 vue 的 slot,slot 是当年唯一一个研究过的 vue 内容..</li>
+<li>[ngTemplateOutlet]=”” </li>
+<li>[ngTemplateOutletContext]=””</li>
+<li>可以通过模板变量或者 TemplateRef 引用来使用</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/04/05/ivy-and-view-engine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="twohappy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梦里飞奔">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/05/ivy-and-view-engine/" class="post-title-link" itemprop="url">Ivy 乱记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-05 21:53:58" itemprop="dateCreated datePublished" datetime="2020-04-05T21:53:58+08:00">2020-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-07 18:00:20" itemprop="dateModified" datetime="2020-04-07T18:00:20+08:00">2020-04-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Ivy 是 Angular 框架的新一代编译器。</p>
+<p>Angular 组件模板中的 HTML 实际上都被编译成了 JavaScript 指令，用来创建和更新实际的 DOM。所以 Angular 的很大一部分就是它的编译器，把 HTML 模板编译成 JS 代码。</p>
+<p>使用它基本上不需要手动做什么，升级（到 8）的项目有 Angular 提供的 update schematics 自动改代码，到 9 基本无感切换。</p>
+<h1 id="扫一眼-Compiler"><a href="#扫一眼-Compiler" class="headerlink" title="扫一眼 Compiler"></a>扫一眼 Compiler</h1><p>这里使用 <a href="https://twitter.com/synalx" target="_blank" rel="noopener">Alex Rickabaugh</a> 在 18 年 AngularConnect 演讲的例子，这就是我们的模板：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">child-cmp</span> *<span class="attr">ngIf</span>=<span class="string">"show"</span>&gt;</span><span class="tag">&lt;/<span class="name">child-cmp</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Angular-2-0-Template-Compiler"><a href="#Angular-2-0-Template-Compiler" class="headerlink" title="Angular 2.0 Template Compiler"></a>Angular 2.0 Template Compiler</h2><p>给每个 @Component 和 @NgModule 生成了 NgFactory，里面是一堆命令式的指令：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> parentRenderNode:<span class="built_in">any</span> = <span class="keyword">this</span>.renderer.createViewRoot(<span class="keyword">this</span>.parentElement);</span><br><span class="line"><span class="keyword">this</span>._text_0 = <span class="keyword">this</span>.renderer.createText(parentRenderNode,<span class="string">'\n  '</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">this</span>._el_1 = ng.createRenderElement(<span class="keyword">this</span>.renderer,parentRenderNode,<span class="string">'div'</span>,ng.EMPTY_INLINE_ARRAY,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">this</span>._text_2 = <span class="keyword">this</span>.renderer.createText(<span class="keyword">this</span>._el_1,<span class="string">'\n  '</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">this</span>._el_3 = ng.createRenderElement(<span class="keyword">this</span>.renderer,<span class="keyword">this</span>._el_1,<span class="string">'span'</span>,ng.EMPTY_INLINE_ARRAY,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">this</span>._text_4 = <span class="keyword">this</span>.renderer.createText(<span class="keyword">this</span>._el_3,<span class="string">''</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">this</span>._text_5 = <span class="keyword">this</span>.renderer.createText(<span class="keyword">this</span>._el_1,<span class="string">'\n  '</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">this</span>._anchor_6 = <span class="keyword">this</span>.renderer.createTemplateAnchor(<span class="keyword">this</span>._el_1,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">this</span>._vc_6 = <span class="keyword">new</span> ng.ViewContainer(<span class="number">6</span>,<span class="number">1</span>,<span class="keyword">this</span>,<span class="keyword">this</span>._anchor_6);</span><br><span class="line"><span class="keyword">this</span>._TemplateRef_6_5 = <span class="keyword">new</span> ng.TemplateRef_(<span class="keyword">this</span>,<span class="number">6</span>,<span class="keyword">this</span>._anchor_6);</span><br><span class="line"><span class="keyword">this</span>._NgIf_6_6 = <span class="keyword">new</span> ng.Wrapper_NgIf(<span class="keyword">this</span>._vc_6.vcRef,<span class="keyword">this</span>._TemplateRef_6_5);</span><br><span class="line"><span class="keyword">this</span>._text_7 = <span class="keyword">this</span>.renderer.createText(<span class="keyword">this</span>._el_1,<span class="string">'\n'</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">this</span>._text_8 = <span class="keyword">this</span>.renderer.createText(parentRenderNode,<span class="string">'\n'</span>,<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+<p>大概能看出来：<br>左边用属性存放了各种生成的节点，之后可以增删改查。<br>右边命令式的用 renderer 来生成了各种节点和引用。</p>
+<p>这个据说是当时跑分最快的生成方式，但是组件多了之后，google team 收到反馈说这种方式生成的代码数量太大，所以导致了 View Engine 更换：</p>
+<h2 id="Angular-4-0-View-Engine"><a href="#Angular-4-0-View-Engine" class="headerlink" title="Angular 4.0 View Engine"></a>Angular 4.0 View Engine</h2><ul>
+<li>生成的代码从渲染指令替换成了一个数据结构</li>
+<li>这个数据结构在运行时被转译</li>
+<li>尺寸变小<br>然后大概长这样：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">View_RootCmp_0</span>(<span class="params">_l</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> ng.ɵvid(<span class="number">0</span>, [</span><br><span class="line">    (_l()(), ng.ɵeld(<span class="number">0</span>, <span class="number">0</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="number">4</span>, <span class="string">"div"</span>, [], <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>)),</span><br><span class="line">    (_l()(), ng.ɵeld(<span class="number">1</span>, <span class="number">0</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="number">1</span>, <span class="string">"span"</span>, [], <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>)),</span><br><span class="line">    (_l()(), ng.ɵted(<span class="number">2</span>, <span class="literal">null</span>, [<span class="string">""</span>, <span class="string">""</span>])),</span><br><span class="line">    (_l()(), ng.ɵand(<span class="number">16777216</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="number">1</span>, <span class="literal">null</span>, View_RootCmp_1)),</span><br><span class="line">    ng.ɵdid(<span class="number">4</span>, <span class="number">16384</span>, <span class="literal">null</span>, <span class="number">0</span>, ng.NgIf, [ng.ViewContainerRef, ng.TemplateRef], &#123;<span class="attr">ngIf</span>: [<span class="number">0</span>, <span class="string">"ngIf"</span>]&#125;, <span class="literal">null</span>)</span><br><span class="line">  ], ...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是传说中的 ng_factory，一个定义 view 的函数，由两部分组成：</p>
+<ul>
+<li>DOM 生成的静态定义</li>
+<li>组件状态改变时候调用的函数<br>也就是视图创建和变更检查。</li>
+</ul>
+<p>里面的 ɵ（读 bar，不是 θ）后面的 vid，did，eld 大概是 elementDefinition，ViewDefinition，directiveDefinition 的意思。</p>
+<p>这些私有的函数是放在 Angular 运行时的代码，在运行的时候，这些 ng_factory 会被送给运行时，然后生成和更新相应的 DOM。Angular 使用一个 Map 数据结构提供了对他们的映射，这个 Map 也其实就是 Angular runtime 不能被摇树的原因。</p>
+<h2 id="Angular-8-0-Ivy"><a href="#Angular-8-0-Ivy" class="headerlink" title="Angular 8.0+ Ivy"></a>Angular 8.0+ Ivy</h2><p>通过把注解编译成类的静态字段，这些之前需要额外生成 ng_factory 文件的代码，现在都放在类的文件里面了。</p>
+<blockquote>
+<p>@Component        →        ngComponentDef<br>@Directive        →        ngDirectiveDef<br>@Injectable    →        ngInjectableDef  </p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  selector: <span class="string">'root-cmp'</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;span&gt;&#123;&#123;title&#125;&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;child-cmp *ngIf="show"&gt;&lt;/child-cmp&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> RootCmp &#123; … &#125;</span><br></pre></td></tr></table></figure>
+
+<p>装饰器变成了一个静态成员</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> RootCmp &#123; … &#125;</span><br><span class="line">RootCmp.ngComponentDef = ng.ɵdefineComponent(&#123;</span><br><span class="line">  <span class="keyword">type</span>: RootCmp,</span><br><span class="line">  selectors: [[<span class="string">"test-cmp"</span>]],</span><br><span class="line">  consts: <span class="number">4</span>,</span><br><span class="line">  vars: <span class="number">2</span>,</span><br><span class="line">  factory: <span class="function"><span class="keyword">function</span> <span class="title">RootCmp_Factory</span>(<span class="params">t</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> (t || RootCmp)();</span><br><span class="line">  &#125;,</span><br><span class="line">  directives: [ChildCmp, ng.NgIf],</span><br><span class="line">  template: <span class="function"><span class="keyword">function</span> <span class="title">RootCmp_Template</span>(<span class="params">rf, ctx</span>) </span>&#123; … &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>template 长这样：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">RootCmp_Template</span>(<span class="params">rf, ctx</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (rf &amp; <span class="number">1</span>) &#123;</span><br><span class="line">    ng.ɵelementStart(<span class="number">0</span>, <span class="string">"div"</span>);</span><br><span class="line">    ng.ɵelementStart(<span class="number">1</span>, <span class="string">"span"</span>);</span><br><span class="line">    ng.ɵtext(<span class="number">2</span>);</span><br><span class="line">    ng.ɵelementEnd();</span><br><span class="line">    ng.ɵtemplate(<span class="number">3</span>, RootCmp_child_cmp_Template_3,</span><br><span class="line">      <span class="number">1</span>, <span class="number">0</span>, <span class="literal">null</span>, [<span class="number">1</span>, <span class="string">"ngIf"</span>]);</span><br><span class="line">    ng.ɵelementEnd();</span><br><span class="line">  &#125; <span class="keyword">if</span> (rf &amp; <span class="number">2</span>) &#123;</span><br><span class="line">    ng.ɵtextBinding(<span class="number">2</span>, ng.ɵinterpolation1(<span class="string">""</span>,</span><br><span class="line">      ctx.title, <span class="string">""</span>));</span><br><span class="line">    ng.ɵelementProperty(<span class="number">3</span>, <span class="string">"ngIf"</span>,</span><br><span class="line">      ng.ɵbind(ctx.show));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它由一堆指令构成，这个后面再研究。<br>又分为创建指令和更新指令。<br>统称 Ivy 指令集，且就是一堆函数。所以这些东西就可以被摇树。<br>template() 的具体执行方式可以看源码和 Kara Erickson 的演讲。<br>里面也涉及到了生命周期函数调用时机。</p>
+<p>当然 compiler 变了 runtime 肯定也相应的改变了，但是最后的最后<br>你会发现还是用了 renderer2 的相关 api </p>
+<p>作为一个复习，这部分就先到这里，要不然又花太多时间了。</p>
+<p>2020.04.07</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p><a href="https://blog.ninja-squad.com/2019/05/07/what-is-angular-ivy/" target="_blank" rel="noopener">What is Angular Ivy?</a><br><a href="https://www.youtube.com/watch?v=isb5Ef6yI48" target="_blank" rel="noopener">The Theory of Angular Ivy | Alex Rickabaugh | AngularConnect 2018
+</a><br><a href="https://docs.google.com/presentation/d/1D0bOl1SST_p9oCgPd71-Z7_bg-FXf_IQeNViXfgqF18" target="_blank" rel="noopener">AngularConnect 2018: Theory of Ivy (Public)</a><br><a href="https://www.youtube.com/watch?v=S0o-4yc2n-8" target="_blank" rel="noopener">How Angular Works | Kara Erickson</a></p>
+<p><a href="https://dev.to/eugeniolentini/angular-ivy-a-detailed-introduction-oj1#angular-ivy-compilation" target="_blank" rel="noopener">angular-ivy-a-detailed-introduction</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://twohappy.github.io/2020/04/03/review-angular-02-ng-module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3348,7 +3562,7 @@ addTodo（）{
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
